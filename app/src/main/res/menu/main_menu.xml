@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cafe"
+        android:title="Cafe"
+        android:icon="@drawable/ic_cafe_24"
+        />
+    <item
+        android:id="@+id/restaurant"
+        android:title="Restaurant"
+        android:icon="@drawable/ic_restaurant_24"
+
+        />
+    <item
+        android:id="@+id/play"
+        android:title="Play"
+        android:icon="@drawable/ic_play_24"
+        />
+</menu>
