@@ -13,7 +13,7 @@
         />
     <item
         android:id="@+id/play"
-        android:title="Play"
+        android:title="Activity"
         android:icon="@drawable/ic_play_24"
         />
 </menu>
