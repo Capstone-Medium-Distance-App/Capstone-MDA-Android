@@ -10,10 +10,10 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <CalendarView
+    <com.skyhope.eventcalenderlibrary.CalenderEvent
         android:id="@+id/calendarView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
@@ -22,7 +22,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        app:layout_constraintTop_toBottomOf="@+id/textView28"
+
+
+        app:selector_color="@color/purple_500"
+        app:current_month_day_color="@color/black"
+        app:off_month_day_color="@color/graytxt"
+        app:week_name_color="@color/bluebtn"
+        app:month_color="@color/black"
+        app:next_icon="@color/purple_500"
+        app:previous_icon="@color/bluebtn"
+        app:calender_background="@color/teal_200"
+        app:selected_day_text_color="@color/bluebtn"
+        />
 
     <TextView
         android:id="@+id/textView28"
