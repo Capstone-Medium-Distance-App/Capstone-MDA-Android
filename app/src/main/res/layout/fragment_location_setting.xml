@@ -24,7 +24,27 @@
 
 
         <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/textView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="9sp"
+            android:textColor="#273849"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:text="Appointment Name" />
+
+        <EditText
+            android:id="@+id/textView29"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Capstone" />
+
+        <TextView
             android:id="@+id/textView"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="9sp"

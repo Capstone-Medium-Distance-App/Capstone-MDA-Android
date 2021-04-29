@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="약속 장소에 대한 평가를 해주세요"
+            android:text="해당 분위기에 만족하셨습니까?"
             android:textSize="18sp" />
 
         <RatingBar
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="약속 장소에 대한 평가를 해주세요"
+            android:text="서비스 및 친절도에 만족하셨습니까?"
             android:textSize="18sp" />
 
         <RatingBar
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="약속 장소에 대한 평가를 해주세요"
+            android:text="시설 및 편의성에 만족하셨습니까?"
             android:textSize="18sp" />
 
         <RatingBar
