@@ -28,7 +28,7 @@ public class LocationStartFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_start, container, false);
 
-        Button button = rootView.findViewById(R.id.startButton);
+        Button button = rootView.findViewById(R.id.btn_locationstart);
 
 
         button.setOnClickListener(new View.OnClickListener() {

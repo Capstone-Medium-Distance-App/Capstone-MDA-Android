@@ -29,12 +29,12 @@ public class LocationDetailFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_detail, container, false);
 
-        Button button = rootView.findViewById(R.id.buttonLocationDetail);
+        Button button = rootView.findViewById(R.id.btn_locationdetail_vote);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ((LocationActivity)getActivity()).replaceFragment(new LocationFinalSelectFragment());
+                ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
             }
         });
 

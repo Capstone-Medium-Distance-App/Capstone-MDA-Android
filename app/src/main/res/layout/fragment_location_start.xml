@@ -11,7 +11,7 @@
         android:id="@+id/toolbar" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/startButton"
+        android:id="@+id/btn_locationstart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -33,7 +33,7 @@
         android:layout_width="297dp"
         android:layout_height="370dp"
         android:src="@drawable/map1"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintBottom_toTopOf="@+id/btn_locationstart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"

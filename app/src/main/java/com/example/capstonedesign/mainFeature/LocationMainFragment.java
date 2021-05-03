@@ -57,14 +57,20 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //        mapView.getMapAsync(this);
 
 
-        Button button = rootView.findViewById(R.id.Selectbutton);
+        Button button = rootView.findViewById(R.id.btn_locationmain_test);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((LocationActivity)getActivity()).replaceFragment(new LocationDetailFragment());
             }
         });
-
+        Button button2 = rootView.findViewById(R.id.btn_locationmain_test2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LocationActivity)getActivity()).replaceFragment(new LocationFinalSelectFragment());
+            }
+        });
 
 
 //        //Toolbar -> BackArrow + title + icons .version

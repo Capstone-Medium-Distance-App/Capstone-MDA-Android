@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.capstonedesign.MainActivity;
 import com.example.capstonedesign.R;
@@ -28,12 +29,13 @@ public class LocationFinishFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_finish, container, false);
 
-        Button button = rootView.findViewById(R.id.btnFinish);
+        Button button = rootView.findViewById(R.id.btn_locationfinish_inform);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                Toast.makeText(getActivity(),"Appointment is completed",Toast.LENGTH_SHORT).show();
             }
         });
 

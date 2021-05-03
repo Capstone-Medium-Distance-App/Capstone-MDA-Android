@@ -27,7 +27,7 @@ public class LocationFinalSelectFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_final_select, container, false);
 
-        Button button = rootView.findViewById(R.id.btnFinalSelect);
+        Button button = rootView.findViewById(R.id.btn_locationfinal_complete);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

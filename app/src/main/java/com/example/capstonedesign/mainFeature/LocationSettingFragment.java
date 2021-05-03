@@ -1,5 +1,6 @@
 package com.example.capstonedesign.mainFeature;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -39,7 +40,21 @@ public class LocationSettingFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting, container, false);
 
-        TextView tv = rootView.findViewById(R.id.textView);
+        TextView tv = rootView.findViewById(R.id.edit_locationsetting_name);
+
+        Button button = rootView.findViewById(R.id.btn_locationsetting_complete);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
+            }
+        });
+
+
+
+
 
         Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("https://jsonplaceholder.typicode.com/")

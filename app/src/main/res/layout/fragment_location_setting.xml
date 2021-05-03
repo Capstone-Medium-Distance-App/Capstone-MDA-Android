@@ -24,18 +24,17 @@
 
 
         <TextView
-            android:layout_marginTop="15dp"
-            android:id="@+id/textView30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:lineSpacingExtra="9sp"
+            android:text="Appointment Name"
             android:textColor="#273849"
             android:textSize="18sp"
-            android:textStyle="normal"
-            android:text="Appointment Name" />
+            android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/textView29"
+            android:id="@+id/edit_locationsetting_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -43,10 +42,9 @@
             android:text="Capstone" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:lineSpacingExtra="9sp"
             android:text="Age"
             android:textColor="#273849"
@@ -62,7 +60,6 @@
             android:text="26" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -80,7 +77,6 @@
             android:text="Man" />
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -98,7 +94,6 @@
             android:text="3" />
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -117,7 +112,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_locationsetting_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
