@@ -48,7 +48,5 @@ public class LocationStartFragment extends Fragment {
 
         return rootView;
 
-
-
     }
 }
