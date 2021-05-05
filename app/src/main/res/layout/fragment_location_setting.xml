@@ -7,8 +7,11 @@
     tools:context=".mainFeature.LocationSettingFragment">
 
     <include
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        android:id="@+id/toolbar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -28,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="9sp"
-            android:text="Appointment Name"
+            android:text="Schedule Name"
             android:textColor="#273849"
             android:textSize="18sp"
             android:textStyle="normal" />
@@ -51,13 +54,39 @@
             android:textSize="18sp"
             android:textStyle="normal" />
 
-        <EditText
-            android:id="@+id/edit_locationsetting_age"
+        <RadioGroup
+            android:id="@+id/rbtn_locationsetting_age"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="26" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="10's" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="20's" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="30's" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40's" />
+        </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
@@ -68,13 +97,32 @@
             android:textSize="18sp"
             android:textStyle="normal" />
 
-        <EditText
-            android:id="@+id/edit_locationsetting_gender"
+        <RadioGroup
+            android:id="@+id/rbtn_locationsetting_gender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Man" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/radioButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mixed" />
+        </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
@@ -97,7 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Mood"
+            android:text="Category"
             android:textColor="#273849"
             android:textSize="18sp"
             android:textStyle="normal" />

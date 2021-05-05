@@ -27,21 +27,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationSettingFragment extends Fragment {
     String TAG = "Tag";
-
-
-    public LocationSettingFragment() {
-        // Required empty public constructor
-    }
-
-
+    public LocationSettingFragment() { }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting, container, false);
-
         TextView tv = rootView.findViewById(R.id.edit_locationsetting_name);
-
         Button button = rootView.findViewById(R.id.btn_locationsetting_complete);
 
 
