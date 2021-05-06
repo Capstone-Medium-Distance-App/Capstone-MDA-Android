@@ -35,11 +35,11 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="#뷰깡패 #조용한 #깔끔한"
-            android:layout_marginBottom="70dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="80dp"
+            android:text="#Date #Brunch #Studying"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -49,16 +49,17 @@
 
             <CheckBox
                 android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="CheckBox" />
+                android:text="Pic_of_day"
+                android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:text="Good_vibes"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,15 +68,16 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="CheckBox" />
+                android:text="Date"
+                android:textSize="18sp" />
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:text="Brunch"
+                android:textSize="18sp" />
 
         </LinearLayout>
         <LinearLayout
@@ -84,15 +86,16 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="CheckBox" />
+                android:text="Studying"
+                android:textSize="18sp" />
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:text="Dessert"
+                android:textSize="18sp" />
 
         </LinearLayout>
         <LinearLayout
@@ -101,34 +104,33 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="CheckBox" />
+                android:text="Meeting_room"
+                android:textSize="18sp" />
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:text="Franchise"
+                android:textSize="18sp" />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="CheckBox" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-        </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="50dp"
+        android:text="Complete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
