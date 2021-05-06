@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.capstonedesign.DTO.DTO;
-import com.example.capstonedesign.DTO.RetrofitService;
+import com.example.capstonedesign.Service.RetrofitService;
 import com.example.capstonedesign.R;
 
 import retrofit2.Call;
