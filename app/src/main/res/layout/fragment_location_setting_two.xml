@@ -34,7 +34,7 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txt_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -48,14 +48,14 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/cb_1"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Pic_of_day"
                 android:textSize="18sp" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/cb_2"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Good_vibes"
@@ -68,12 +68,14 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/cb_3"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/cb_4"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Brunch"
@@ -86,12 +88,14 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/cb_5"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Studying"
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/cb_6"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Dessert"
@@ -104,12 +108,14 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/cb_7"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Meeting_room"
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/cb_8"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:text="Franchise"
@@ -120,7 +126,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btn_locationsettingtwo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

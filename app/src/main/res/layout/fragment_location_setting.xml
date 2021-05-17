@@ -26,40 +26,25 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <Button
-            android:layout_marginTop="0dp"
-            android:id="@+id/button4"
+            android:id="@+id/btn_setting_cafe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:text="Cafe" />
 
         <Button
             android:layout_marginTop="50dp"
-            android:id="@+id/button6"
+            android:id="@+id/btn_setting_restaurant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="restaurant" />
 
         <Button
             android:layout_marginTop="50dp"
-            android:id="@+id/button7"
+            android:id="@+id/btn_sestting_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Activity" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_locationsetting_complete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Complete"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

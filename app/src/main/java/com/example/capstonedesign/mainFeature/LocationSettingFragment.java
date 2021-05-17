@@ -1,5 +1,6 @@
 package com.example.capstonedesign.mainFeature;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.capstonedesign.DTO.DTO;
+import com.example.capstonedesign.MainActivity;
 import com.example.capstonedesign.Service.RetrofitService;
 import com.example.capstonedesign.R;
 
@@ -26,6 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationSettingFragment extends Fragment {
     String TAG = "Tag";
+    Fragment locationSettingOneFragment = new LocationSettingOneFragment();
+
     public LocationSettingFragment() { }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,17 +37,22 @@ public class LocationSettingFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting, container, false);
         TextView tv = rootView.findViewById(R.id.edit_locationsettingone_name);
-        Button button = rootView.findViewById(R.id.btn_locationsetting_complete);
+        Button button = rootView.findViewById(R.id.btn_setting_cafe);
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
+
+                String btn_txt =button.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("btn_txt",btn_txt);
+                locationSettingOneFragment.setArguments(bundle);
+                ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
             }
+
+
         });
-
-
 
 
 
