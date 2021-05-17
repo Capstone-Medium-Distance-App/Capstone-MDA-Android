@@ -28,14 +28,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView28"
 
 
-        app:selector_color="@color/purple_500"
+        app:selector_color="#FFA500"
         app:current_month_day_color="@color/black"
         app:off_month_day_color="@color/graytxt"
         app:week_name_color="@color/bluebtn"
         app:month_color="@color/black"
-        app:next_icon="@color/purple_500"
+        app:next_icon="@color/black"
         app:previous_icon="@color/bluebtn"
-        app:calender_background="@color/teal_200"
         app:selected_day_text_color="@color/bluebtn"
         />
 

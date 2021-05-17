@@ -31,13 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rating Review"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="해당 분위기에 만족하셨습니까?"
+            android:text="Are you satisfied with the condition?"
             android:textSize="18sp" />
 
         <RatingBar
@@ -54,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="서비스 및 친절도에 만족하셨습니까?"
+            android:text="Are you satisfied with the service and kindness?"
             android:textSize="18sp" />
 
         <RatingBar
@@ -71,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="시설 및 편의성에 만족하셨습니까?"
+            android:text="Are you satisfied with the facilities and convenience? "
             android:textSize="18sp" />
 
         <RatingBar
