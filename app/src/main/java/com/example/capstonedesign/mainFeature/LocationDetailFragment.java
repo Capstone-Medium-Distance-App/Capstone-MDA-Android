@@ -12,10 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.capstonedesign.R;
+import com.example.capstonedesign.Service.MainFlowService;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LocationDetailFragment extends Fragment {
-
+    private Retrofit retrofit;
 
     public LocationDetailFragment() {
         // Required empty public constructor
@@ -34,11 +38,34 @@ public class LocationDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl("http://localhost:8080/client/{num}/enter")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//            MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+//
+//            Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
+//
+//            SendCall.enqueue(new Callback<userEnter>() {
+//                @Override
+//                public void onResponse(Call<userEnter> call, Response<userEnter> response) {
+//                    final userEnter sentData = response.body();
+//                    System.out.println("userEnter DATA SEND SUCCESS!!!");
+//                    System.out.println("=========================================================");
+//                    System.out.println(sentData.toString());
+//                    System.out.println("=========================================================");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<userEnter> call, Throwable t) {
+//                    t.printStackTrace();
+//                    System.out.println("userEnter DATA SEND FAIL!!!");
+//                }
+//            });
+
                 ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
             }
         });
-
-
 
         //Toolbar -> BackArrow+Title .version
         Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
@@ -47,6 +74,8 @@ public class LocationDetailFragment extends Fragment {
         actionBar.setTitle("Details");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
+
+        //detail
 
         return rootView;
     }

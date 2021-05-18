@@ -6,25 +6,28 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.capstonedesign.DTO.LocInitSet;
 import com.example.capstonedesign.R;
-import com.example.capstonedesign.Service.RetrofitService;
+import com.example.capstonedesign.Service.MainFlowService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 public class LocationSettingTwoFragment extends Fragment implements  CompoundButton.OnCheckedChangeListener  {
    public LocationSettingTwoFragment() { }
@@ -68,20 +71,67 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
 
                 String txt_categ = txt_category.getText().toString();
 
-                String edit_name = getArguments().getString("edit_name");
-                String edit_num = getArguments().getString("edit_num");
-                String btn_txt = getArguments().getString("btn_txt");
-                String txt_age = getArguments().getString("txt_age");
-                String txt_gender = getArguments().getString("txt_gender");
+                String schName = getArguments().getString("edit_name");
+                String schPeople = getArguments().getString("edit_num");
+                String schType = getArguments().getString("btn_txt");
+                String schAge = getArguments().getString("txt_age");
+                String schGender = getArguments().getString("txt_gender");
 
-                bundle.putString(btn_txt,"btn_txt");
-                bundle.putString(edit_name,"edit_name");
-                bundle.putString(edit_num,"edit_num");
-                bundle.putString(txt_age,"txt_age");
-                bundle.putString(txt_gender,"txt_gender");
-                bundle.putString(txt_categ,"txt_categ");
+                bundle.putString(schType,"btn_txt");
+//                bundle.putString(edit_name,"edit_name");
+//                bundle.putString(edit_num,"edit_num");
+//                bundle.putString(txt_age,"txt_age");
+//                bundle.putString(txt_gender,"txt_gender");
+//                bundle.putString(txt_categ,"txt_categ");
+//
+//                Toast.makeText(getActivity(),btn_txt+"   "+ txt_gender+"   "+ txt_categ,Toast.LENGTH_SHORT).show();
+                Gson gson  = new GsonBuilder()
+                        .setLenient()
+                        .create();
 
-                Toast.makeText(getActivity(),btn_txt+"   "+ txt_gender+"   "+ txt_categ,Toast.LENGTH_SHORT).show();
+                Retrofit retrofit = new Retrofit.Builder()
+                        //.baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
+                        .baseUrl("http://192.168.35.225:8080/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+                MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+
+                String schPlaceCate = txt_categ;
+//                LocInitSet loc = new LocInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+//                Call<LocInitSet> SendCall = mainFlowService.locInitSetCall(loc);
+
+                Call<LocInitSet> SendCall = mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+
+                SendCall.enqueue(new Callback<LocInitSet>() {
+                    @Override
+                    public void onResponse(Call<LocInitSet> call, Response<LocInitSet> response) {
+                        final LocInitSet locInitSet = response.body();
+                        Log.d("TAG",response.code()+"");
+                        Log.d("TAG",response.errorBody()+"");
+                        System.out.println(response);
+                    }
+
+                    @Override
+                    public void onFailure(Call<LocInitSet> call, Throwable t) {
+                        t.printStackTrace();
+                        System.out.println(t.getMessage());
+                    }
+                });
+//                SendCall.enqueue(new Callback<LocInitSet>() {
+//                    @Override
+//                    public void onResponse(Response<LocInitSet> call, Retrofit retrofit1) {
+//                        System.out.println("LocInitSet DATA SEND SUCCESS!!!");
+//                        System.out.println("=========================================================");
+//                        final LocInitSet locInitSet = call.body();
+//                        System.out.println("=========================================================");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<LocInitSet> call, Throwable t) {
+//                        t.printStackTrace();
+//                        System.out.println("LocInitSet DATA SEND FAIL!!!");
+//                    }
+//                });
 
                 locationMainFragment.setArguments(bundle);
                 ((LocationActivity)getActivity()).replaceFragment(locationMainFragment);
@@ -104,49 +154,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
 
-//        //Retrofit
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://localhost:8080/locationInitSet")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-//
-//        //필요한
-//        Button btn = (Button)rootView.findViewById(R.id.btn_locationsettingtwo);
-//        TextView cate = (TextView)rootView.findViewById(R.id.txt_category);
-//
-//        //Button 클릭시 6개의 데이터 넘김
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //인텐트로 받거나 값들을 받아와서 변수에 넣어줌
-//                String schName = "SCHEDULE_NAME";
-//                String schAge = "SECHEDULE_AGE";
-//                String schGender = "SECHEDULE_GENDER";
-//                String schPeople = "SECHEDULE_PEOPLE";
-//                String schType = "SECHEDULE_TYPE";
-//                String schCate = cate.getText().toString();
-//
-//                Call<LocInitSet> SendCall = retrofitService.locationInitSet(schName, schAge, schGender, schPeople, schType, schCate);
-//
-//                SendCall.enqueue(new Callback<LocInitSet>() {
-//                    @Override
-//                    public void onResponse(Call<LocInitSet> call, Response<LocInitSet> response) {
-//                        final LocInitSet sentData = response.body();
-//                        System.out.println("LocInitSet DATA SEND SUCCESS!!!");
-//                        System.out.println("=========================================================");
-//                        System.out.println(sentData.toString());
-//                        System.out.println("=========================================================");
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<LocInitSet> call, Throwable t) {
-//                        t.printStackTrace();
-//                        System.out.println("LocInitSet DATA SEND FAIL!!!");
-//                    }
-//                });
-//            }
-//        });
+
 
 
         return rootView;

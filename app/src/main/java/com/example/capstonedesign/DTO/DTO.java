@@ -2,6 +2,7 @@ package com.example.capstonedesign.DTO;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class DTO {
     @SerializedName("title")
     private String title;

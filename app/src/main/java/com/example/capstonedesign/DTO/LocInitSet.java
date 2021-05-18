@@ -2,6 +2,15 @@ package com.example.capstonedesign.DTO;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LocInitSet {
     @SerializedName("schName")
     private String schName;
@@ -18,18 +27,7 @@ public class LocInitSet {
     @SerializedName("schType")
     private String schType;
 
-    @SerializedName("schCate")
-    private String schCate;
+    @SerializedName("schPlaceCate")
+    private String schPlaceCate;
 
-    @Override
-    public String toString() {
-        return "LocInitSet{" +
-                "schName='" + schName + '\'' +
-                ", schAge='" + schAge + '\'' +
-                ", schGender='" + schGender + '\'' +
-                ", schPeople='" + schPeople + '\'' +
-                ", schType='" + schType + '\'' +
-                ", schCate='" + schCate + '\'' +
-                '}';
-    }
 }
