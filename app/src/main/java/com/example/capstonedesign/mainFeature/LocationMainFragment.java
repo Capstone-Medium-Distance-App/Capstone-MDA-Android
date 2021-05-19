@@ -39,20 +39,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LocationMainFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private Retrofit retrofit;
-
     private MapView mapView;
-    public LocationMainFragment() {
-        // Required empty public constructor
-    }
+
+    public LocationMainFragment() { }
     public static LocationMainFragment newInstance(){
         LocationMainFragment fragment = new LocationMainFragment();
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_main, container, false);
 

@@ -35,11 +35,9 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
     private TextView txt_category;
     Fragment locationMainFragment = new LocationMainFragment();
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting_two, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting_two, container, false);
         Button button = rootView.findViewById(R.id.btn_locationsettingtwo);
         txt_category = rootView.findViewById(R.id.txt_category);
 
@@ -62,13 +60,11 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         cb7.setOnCheckedChangeListener(this);
         cb8.setOnCheckedChangeListener(this);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
-
                 String txt_categ = txt_category.getText().toString();
 
                 String schName = getArguments().getString("edit_name");
@@ -132,15 +128,10 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
 //                        System.out.println("LocInitSet DATA SEND FAIL!!!");
 //                    }
 //                });
-
                 locationMainFragment.setArguments(bundle);
                 ((LocationActivity)getActivity()).replaceFragment(locationMainFragment);
             }
-
-
         });
-
-
 
 
 
@@ -153,8 +144,6 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         actionBar.setTitle("Condition Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
-
-
 
 
         return rootView;
@@ -170,9 +159,6 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         if(cb6.isChecked()) result += " #"+cb6.getText().toString();
         if(cb7.isChecked()) result += " #"+cb7.getText().toString();
         if(cb8.isChecked()) result += " #"+cb8.getText().toString();
-
         txt_category.setText(result);
-
     }
-
 }

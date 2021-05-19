@@ -19,18 +19,15 @@ import com.example.capstonedesign.R;
 
 public class LocationSettingThrFragment extends Fragment {
 
-     public LocationSettingThrFragment() {
-    }
+     public LocationSettingThrFragment() { }
     Fragment locationSettingTwoFragment = new LocationSettingTwoFragment();
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting_thr, container, false);
+        Button btn_next = rootView.findViewById(R.id.btn_locationsettingthr);
 
-        Button button = rootView.findViewById(R.id.btn_locationsettingthr);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+        btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RadioGroup radioGroupAge = rootView.findViewById(R.id.rbtn_locationsetting_age);
@@ -41,7 +38,6 @@ public class LocationSettingThrFragment extends Fragment {
                 String btn_txt = getArguments().getString("btn_txt");
                 String edit_name = getArguments().getString("edit_name");
                 String edit_num = getArguments().getString("edit_num");
-
 
                 String txt_age = radioButtonAge.getText().toString();
                 String txt_gender = radioButtonGender.getText().toString();
@@ -54,23 +50,11 @@ public class LocationSettingThrFragment extends Fragment {
                 bundle.putString("edit_name",edit_name);
                 bundle.putString("edit_num",edit_num);
 
-                Toast.makeText(container.getContext(),btn_txt+"   "+edit_num ,Toast.LENGTH_SHORT).show();
-
 
                 locationSettingTwoFragment.setArguments(bundle);
                 ((LocationActivity)getActivity()).replaceFragment(locationSettingTwoFragment);
             }
-
-
         });
-
-
-
-
-
-
-
-
 
 
 
@@ -85,7 +69,6 @@ public class LocationSettingThrFragment extends Fragment {
         actionBar.setTitle("Condition Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
-
 
         return rootView;
     }

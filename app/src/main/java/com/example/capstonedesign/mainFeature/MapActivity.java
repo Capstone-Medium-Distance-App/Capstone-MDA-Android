@@ -51,6 +51,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // 내 위치 설정하는 코드 따로 작성해야 됨
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
             googleMap.setMyLocationEnabled(true);
+            //내위치 설정표시 없어짐
+            googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         }else{
             checkLocationPermissionWithRationale();
         }

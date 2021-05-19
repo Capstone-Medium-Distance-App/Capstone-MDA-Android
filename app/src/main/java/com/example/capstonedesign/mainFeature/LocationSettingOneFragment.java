@@ -19,21 +19,13 @@ import com.example.capstonedesign.R;
 public class LocationSettingOneFragment extends Fragment {
 
     Fragment locationSettingThrFragment = new LocationSettingThrFragment();
-    public LocationSettingOneFragment() {
-    }
-
+    public LocationSettingOneFragment() { }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting_one, container, false);
-
-
-
-        Button button = rootView.findViewById(R.id.btn_locationsettingone);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+        Button btn_next = rootView.findViewById(R.id.btn_locationsettingone);
+        btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -46,27 +38,14 @@ public class LocationSettingOneFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 String btn_txt = getArguments().getString("btn_txt");
 
-                Toast.makeText(container.getContext(),btn_txt ,Toast.LENGTH_SHORT).show();
-
-
                 bundle.putString("btn_txt",btn_txt);
                 bundle.putString("edit_name",edit_name);
                 bundle.putString("edit_num",edit_num);
 
-
                 locationSettingThrFragment.setArguments(bundle);
                 ((LocationActivity)getActivity()).replaceFragment(locationSettingThrFragment);
             }
-
-
         });
-
-
-
-
-
-
-
 
 
 
@@ -78,8 +57,6 @@ public class LocationSettingOneFragment extends Fragment {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
 
-
         return rootView;
-
     }
 }

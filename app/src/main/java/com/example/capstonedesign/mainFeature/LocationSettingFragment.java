@@ -24,32 +24,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class LocationSettingFragment extends Fragment {
+public class LocationSettingFragment extends Fragment implements View.OnClickListener{
     String TAG = "Tag";
     Fragment locationSettingOneFragment = new LocationSettingOneFragment();
-
+    private Button btn_cafe,btn_rest,btn_act;
     public LocationSettingFragment() { }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting, container, false);
         TextView tv = rootView.findViewById(R.id.edit_locationsettingone_name);
-        Button button = rootView.findViewById(R.id.btn_setting_cafe);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String btn_txt =button.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("btn_txt",btn_txt);
-                locationSettingOneFragment.setArguments(bundle);
-                ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
-            }
-        });
-
+        btn_cafe = rootView.findViewById(R.id.btn_setting_cafe);
+        btn_rest = rootView.findViewById(R.id.btn_setting_restaurant);
+        btn_act = rootView.findViewById(R.id.btn_setting_activity);
+        btn_cafe.setOnClickListener(this);
+        btn_rest.setOnClickListener(this);
+        btn_act.setOnClickListener(this);
 
 
 //        Retrofit retrofit = new Retrofit.Builder()
@@ -96,4 +87,37 @@ public class LocationSettingFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_setting_cafe:
+                {
+                    String btn_txt =btn_cafe.getText().toString();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("btn_txt",btn_txt);
+                    locationSettingOneFragment.setArguments(bundle);
+                    ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
+                    break;
+                }
+            case R.id.btn_setting_restaurant:
+                {
+                    String btn_txt =btn_rest.getText().toString();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("btn_txt",btn_txt);
+                    locationSettingOneFragment.setArguments(bundle);
+                    ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
+                    break;
+            }
+            case R.id.btn_setting_activity:
+                {
+                    String btn_txt =btn_act.getText().toString();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("btn_txt",btn_txt);
+                    locationSettingOneFragment.setArguments(bundle);
+                    ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
+                    break;
+            }
+
+        }
+    }
 }
