@@ -86,25 +86,26 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                         .create();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        //.baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                        .baseUrl("http://192.168.35.225:8080/")
+                        .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
+                        //.baseUrl("http://192.168.35.225:8080/")
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
 
                 String schPlaceCate = txt_categ;
-//                LocInitSet loc = new LocInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
-//                Call<LocInitSet> SendCall = mainFlowService.locInitSetCall(loc);
 
                 Call<LocInitSet> SendCall = mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
 
                 SendCall.enqueue(new Callback<LocInitSet>() {
                     @Override
                     public void onResponse(Call<LocInitSet> call, Response<LocInitSet> response) {
-                        final LocInitSet locInitSet = response.body();
+                        System.out.println("LocInitSet DATA SEND SUCCESS!!!");
+                        System.out.println("=========================================================");
                         Log.d("TAG",response.code()+"");
                         Log.d("TAG",response.errorBody()+"");
                         System.out.println(response);
+                        System.out.println("=========================================================");
+
                     }
 
                     @Override
@@ -113,30 +114,10 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                         System.out.println(t.getMessage());
                     }
                 });
-//                SendCall.enqueue(new Callback<LocInitSet>() {
-//                    @Override
-//                    public void onResponse(Response<LocInitSet> call, Retrofit retrofit1) {
-//                        System.out.println("LocInitSet DATA SEND SUCCESS!!!");
-//                        System.out.println("=========================================================");
-//                        final LocInitSet locInitSet = call.body();
-//                        System.out.println("=========================================================");
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<LocInitSet> call, Throwable t) {
-//                        t.printStackTrace();
-//                        System.out.println("LocInitSet DATA SEND FAIL!!!");
-//                    }
-//                });
                 locationMainFragment.setArguments(bundle);
                 ((LocationActivity)getActivity()).replaceFragment(locationMainFragment);
             }
         });
-
-
-
-
-
 
         Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         ((LocationActivity)getActivity()).setSupportActionBar(toolbar);
@@ -144,7 +125,6 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         actionBar.setTitle("Condition Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
-
 
         return rootView;
     }

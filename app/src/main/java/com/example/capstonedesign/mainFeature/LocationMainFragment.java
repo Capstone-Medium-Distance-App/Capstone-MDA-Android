@@ -29,6 +29,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +64,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //        mapView.onResume();
 //        mapView.getMapAsync(this);
 
-        //c1, c2, c3의 좌표와 중간값의 좌표를 구한다
+        //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
 //        retrofit = new Retrofit.Builder()
 //                .baseUrl("http://localhost:8080/clientsLocation")
 //                .addConverterFactory(GsonConverterFactory.create())
@@ -132,13 +134,12 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(getActivity(),"MAP READY!",Toast.LENGTH_SHORT).show();
         this.googleMap = googleMap;
         // 37.659627, 126.773459 정발산역
         LatLng latLng = new LatLng(37.659627, 126.773459);
 
         //현재위치를 가져와서
-        String userid="1";
+        String userid="123456789";
         String userLat="11.111111";String userLong="99.999999";
 
         //camera가 바라보는 방향 정하기( 처음 위치 설정)
@@ -147,31 +148,36 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
 
-        //Retrofit
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl("http://localhost:8080/client/{num}/enter")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-//
-//        Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
-//
-//        SendCall.enqueue(new Callback<userEnter>() {
-//            @Override
-//            public void onResponse(Call<userEnter> call, Response<userEnter> response) {
-//                final userEnter sentData = response.body();
-//                System.out.println("userEnter DATA SEND SUCCESS!!!");
-//                System.out.println("=========================================================");
-//                System.out.println(sentData.toString());
-//                System.out.println("=========================================================");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<userEnter> call, Throwable t) {
-//                t.printStackTrace();
-//                System.out.println("userEnter DATA SEND FAIL!!!");
-//            }
-//        });
+        //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
+        Gson gson  = new GsonBuilder()
+                .setLenient()
+                .create();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
+                //.baseUrl("http://192.168.35.225:8080/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+
+        Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
+
+        SendCall.enqueue(new Callback<userEnter>() {
+            @Override
+            public void onResponse(Call<userEnter> call, Response<userEnter> response) {
+                System.out.println("userEnter DATA SEND SUCCESS!!!");
+                System.out.println("=========================================================");
+                Log.d("TAG",response.code()+"");
+                Log.d("TAG",response.errorBody()+"");
+                System.out.println(response);
+                System.out.println("=========================================================");
+            }
+
+            @Override
+            public void onFailure(Call<userEnter> call, Throwable t) {
+                t.printStackTrace();
+                System.out.println("userEnter DATA SEND FAIL!!!");
+            }
+        });
     }
 
     @Override
