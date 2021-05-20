@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.example.capstonedesign.DTO.PlaceDto;
 import com.example.capstonedesign.DTO.userEnter;
+import com.example.capstonedesign.DTO.userVote;
 import com.example.capstonedesign.R;
+import com.example.capstonedesign.Service.DataFlowService;
 import com.example.capstonedesign.Service.MainFlowService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationDetailFragment extends Fragment {
     private Retrofit retrofit;
+    private PlaceDto curPlace;
 
     public LocationDetailFragment() {
         // Required empty public constructor
@@ -38,8 +41,6 @@ public class LocationDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_detail, container, false);
 
         //서버로부터 place객체를 받아서 그 객체의 이름값을 텍스트에 설정해주는 과정 -kyu
@@ -53,6 +54,7 @@ public class LocationDetailFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+        DataFlowService dataFlowService = retrofit.create(DataFlowService.class);
 
         Call<PlaceDto> SendCall = mainFlowService.placeDetail();
 
@@ -64,17 +66,17 @@ public class LocationDetailFragment extends Fragment {
                 Log.d("TAG",response.code()+"");
                 Log.d("TAG",response.errorBody()+"");
                 System.out.println(response);
-                PlaceDto test = response.body();
-                System.out.println(test.getPlaceArea());
-                System.out.println(test.getPlaceCategory());
-                System.out.println(test.getPlaceDescription());
-                System.out.println(test.getPlaceImgUrl());
-                System.out.println(test.getPlaceName());
-                System.out.println(test.getPlaceType());
-                System.out.println(test.getPlaceId());
+                curPlace = response.body();
+                System.out.println(curPlace.getPlaceArea());
+                System.out.println(curPlace.getPlaceCategory());
+                System.out.println(curPlace.getPlaceDescription());
+                System.out.println(curPlace.getPlaceImgUrl());
+                System.out.println(curPlace.getPlaceName());
+                System.out.println(curPlace.getPlaceType());
+                System.out.println(curPlace.getPlaceId());
                 System.out.println("=========================================================");
 
-                tx.setText(test.getPlaceName());
+                tx.setText(curPlace.getPlaceName());
             }
 
             @Override
@@ -90,30 +92,33 @@ public class LocationDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-//            retrofit = new Retrofit.Builder()
-//                    .baseUrl("http://localhost:8080/client/{num}/enter")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//            MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-//
-//            Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
-//
-//            SendCall.enqueue(new Callback<userEnter>() {
-//                @Override
-//                public void onResponse(Call<userEnter> call, Response<userEnter> response) {
-//                    final userEnter sentData = response.body();
-//                    System.out.println("userEnter DATA SEND SUCCESS!!!");
-//                    System.out.println("=========================================================");
-//                    System.out.println(sentData.toString());
-//                    System.out.println("=========================================================");
-//                }
-//
-//                @Override
-//                public void onFailure(Call<userEnter> call, Throwable t) {
-//                    t.printStackTrace();
-//                    System.out.println("userEnter DATA SEND FAIL!!!");
-//                }
-//            });
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
+                    //.baseUrl("http://localhost:8080/client/{num}/enter")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+
+            //번들로 가져와야할듯? -> locationMain에서 id값을 정한 다음에 생각
+            int userid = 0;
+            Call<userVote> SendCall = dataFlowService.userVote(userid, curPlace.getPlaceId());
+
+            SendCall.enqueue(new Callback<userVote>() {
+                @Override
+                public void onResponse(Call<userVote> call, Response<userVote> response) {
+                    final userVote sentData = response.body();
+                    System.out.println("uesrVote DATA SEND SUCCESS!!!");
+                    System.out.println("=========================================================");
+                    System.out.println(sentData.toString());
+                    System.out.println("=========================================================");
+                }
+
+                @Override
+                public void onFailure(Call<userVote> call, Throwable t) {
+                    t.printStackTrace();
+                    System.out.println("userEnter DATA SEND FAIL!!!");
+                }
+            });
 
                 ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
             }

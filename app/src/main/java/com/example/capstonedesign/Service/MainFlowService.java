@@ -1,15 +1,12 @@
 package com.example.capstonedesign.Service;
 
-import com.example.capstonedesign.DTO.ClientVote;
+import com.example.capstonedesign.DTO.userVote;
 import com.example.capstonedesign.DTO.DTO;
 import com.example.capstonedesign.DTO.LocInitSet;
 import com.example.capstonedesign.DTO.PlaceDto;
-import com.example.capstonedesign.DTO.cafeMapStart;
-import com.example.capstonedesign.DTO.cli_Loc;
 import com.example.capstonedesign.DTO.userEnter;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -49,10 +46,5 @@ public interface MainFlowService {
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
     @GET("/placeDetail")
     Call<PlaceDto> placeDetail();
-
-
-    @FormUrlEncoded
-    @POST("Client/{num}/vote")
-    Call<ClientVote> ClientVote(@Field("voteUserName")String voteUserName, @Field("votePlaceName")String votePlaceName);
 
 }

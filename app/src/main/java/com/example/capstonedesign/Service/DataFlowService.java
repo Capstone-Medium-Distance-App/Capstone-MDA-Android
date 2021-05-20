@@ -2,11 +2,15 @@ package com.example.capstonedesign.Service;
 
 import com.example.capstonedesign.DTO.cafeMapStart;
 import com.example.capstonedesign.DTO.cli_Loc;
+import com.example.capstonedesign.DTO.schDT;
+import com.example.capstonedesign.DTO.userVote;
 
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface DataFlowService {
     //서버로부터 모든 사용자의 위치와 중간 위치를 받는 과정
@@ -37,6 +41,19 @@ public interface DataFlowService {
             @Field("cafe1PlaceType")String cafe1PlaceType,
             @Field("cafe2PlaceType")String cafe2PlaceType,
             @Field("cafe3PlaceType")String cafe3PlaceType
+    );
+
+    @FormUrlEncoded
+    @POST("/userVote")
+    Call<userVote> userVote(
+            @Field("voteUserId")int voteUserId,
+            @Field("votePlaceName")int votePlaceName
+    );
+
+    @GET("/schDT")
+    Call<schDT> schDT(
+            @Field("schDate")String schDate,
+            @Field("schTime")String schTime
     );
 
 }
