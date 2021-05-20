@@ -1,8 +1,13 @@
 package com.example.capstonedesign.mainFeature;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -23,12 +28,16 @@ import com.example.capstonedesign.DTO.userEnter;
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Service.DataFlowService;
 import com.example.capstonedesign.Service.MainFlowService;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,7 +51,8 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap googleMap;
     private Retrofit retrofit;
     private MapView mapView;
-
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Double lat=0.0,log=0.0;
     public LocationMainFragment() { }
     public static LocationMainFragment newInstance(){
         LocationMainFragment fragment = new LocationMainFragment();
@@ -50,13 +60,41 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_main, container, false);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+            if(getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if(location !=null){
+                            lat = location.getLatitude();
+                            log = location.getLongitude();
+                            Toast.makeText(getActivity(),lat+"   "+log,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }else{
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
+            }
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
+
 
 //        mapView.getMapAsync(this);
 //        mapView = (MapView)rootView.findViewById(R.id.mapView);
@@ -132,11 +170,14 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         return rootView;
     }
 
+    private void requestPermissions(String[] strings) {
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         // 37.659627, 126.773459 정발산역
-        LatLng latLng = new LatLng(37.659627, 126.773459);
+        LatLng latLng = new LatLng(lat, log);
 
         //현재위치를 가져와서
         String userid="123456789";
@@ -147,6 +188,13 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         //camera 확대 정도
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
+//        CameraPosition cameraPosition = new CameraPosition.Builder()
+//                .target(new LatLng(lat, log))      // Sets the center of the map to Mountain View
+//                .zoom(17)                   // Sets the zoom
+//                .bearing(90)                // Sets the orientation of the camera to east
+//                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+//                .build();                   // Creates a CameraPosition from the builder
+//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
         Gson gson  = new GsonBuilder()
