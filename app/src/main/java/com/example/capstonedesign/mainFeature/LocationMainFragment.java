@@ -3,6 +3,7 @@ package com.example.capstonedesign.mainFeature;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -52,8 +53,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private Retrofit retrofit;
     private MapView mapView;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private Double lat=0.0,log=0.0;
+    private  double lat=0.0,log=0.0;
+    private LatLng latLng;
     public LocationMainFragment() { }
+
     public static LocationMainFragment newInstance(){
         LocationMainFragment fragment = new LocationMainFragment();
         return fragment;
@@ -74,6 +77,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_main, container, false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.mapView);
+
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
             if(getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
                 fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -83,6 +90,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                             lat = location.getLatitude();
                             log = location.getLongitude();
                             Toast.makeText(getActivity(),lat+"   "+log,Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
@@ -91,9 +99,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-                .findFragmentById(R.id.mapView);
+
         mapFragment.getMapAsync(this);
+
 
 
 //        mapView.getMapAsync(this);
@@ -177,16 +185,16 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         // 37.659627, 126.773459 정발산역
-        LatLng latLng = new LatLng(lat, log);
+            latLng = new LatLng(lat, log);
+            //현재위치를 가져와서
+            String userid = "123456789";
+            String userLat = "11.111111";
+            String userLong = "99.999999";
 
-        //현재위치를 가져와서
-        String userid="123456789";
-        String userLat="11.111111";String userLong="99.999999";
-
-        //camera가 바라보는 방향 정하기( 처음 위치 설정)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        //camera 확대 정도
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            //camera가 바라보는 방향 정하기( 처음 위치 설정)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            //camera 확대 정도
+            googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
 //        CameraPosition cameraPosition = new CameraPosition.Builder()
 //                .target(new LatLng(lat, log))      // Sets the center of the map to Mountain View
@@ -196,37 +204,38 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //                .build();                   // Creates a CameraPosition from the builder
 //        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
-        Gson gson  = new GsonBuilder()
-                .setLenient()
-                .create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                //.baseUrl("http://192.168.35.225:8080/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
+            //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
+                    //.baseUrl("http://192.168.35.225:8080/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
 
-        Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
+            Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
 
-        SendCall.enqueue(new Callback<userEnter>() {
-            @Override
-            public void onResponse(Call<userEnter> call, Response<userEnter> response) {
-                System.out.println("userEnter DATA SEND SUCCESS!!!");
-                System.out.println("=========================================================");
-                Log.d("TAG",response.code()+"");
-                Log.d("TAG",response.errorBody()+"");
-                System.out.println(response);
-                System.out.println("=========================================================");
-            }
+            SendCall.enqueue(new Callback<userEnter>() {
+                @Override
+                public void onResponse(Call<userEnter> call, Response<userEnter> response) {
+                    System.out.println("userEnter DATA SEND SUCCESS!!!");
+                    System.out.println("=========================================================");
+                    Log.d("TAG", response.code() + "");
+                    Log.d("TAG", response.errorBody() + "");
+                    System.out.println(response);
+                    System.out.println("=========================================================");
+                }
 
-            @Override
-            public void onFailure(Call<userEnter> call, Throwable t) {
-                t.printStackTrace();
-                System.out.println("userEnter DATA SEND FAIL!!!");
-            }
-        });
-    }
+                @Override
+                public void onFailure(Call<userEnter> call, Throwable t) {
+                    t.printStackTrace();
+                    System.out.println("userEnter DATA SEND FAIL!!!");
+                }
+            });
+        }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
