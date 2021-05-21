@@ -87,7 +87,6 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                         Log.d("TAG",response.errorBody()+"");
                         System.out.println(response);
                         System.out.println("=========================================================");
-
                     }
 
                     @Override

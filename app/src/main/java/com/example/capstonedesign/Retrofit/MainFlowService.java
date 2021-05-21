@@ -1,5 +1,6 @@
 package com.example.capstonedesign.Retrofit;
 
+import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
 import com.example.capstonedesign.Retrofit.DTO.locFin;
 import com.example.capstonedesign.Retrofit.DTO.DTO;
 import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
@@ -50,5 +51,10 @@ public interface MainFlowService {
     //서버에서 최종 약속에 대한 정보를 받는 메소드
     @GET("locationFin")
     Call<locFin> locFin();
+
+    //약속했던 기록들을 한꺼번에 받는 메소드
+    @GET("getSchedules")
+    Call<ScheduleList> getScheduleList();
+
 
 }
