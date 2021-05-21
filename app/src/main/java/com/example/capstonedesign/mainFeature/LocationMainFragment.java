@@ -66,7 +66,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap googleMap;
     private Retrofit retrofit;
     private MapView mapView;
-    private FusedLocationProviderClient fusedLocationProviderClient;
     private double lat = 0.0, log = 0.0;
     private LatLng latLng;
     LocationManager locationManager;
@@ -75,7 +74,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public LocationMainFragment() {
     }
 
-    int LOCATION_REQUEST_CODE = 10001;
 
     public static LocationMainFragment newInstance() {
         LocationMainFragment fragment = new LocationMainFragment();
@@ -86,30 +84,12 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
 
-//        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
-//            if(getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-//                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        if(location !=null){
-//                            lat = location.getLatitude();
-//                            log = location.getLongitude();
-//                            Toast.makeText(getActivity(),lat+"   "+log,Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//                });
-//
-//            }else{
-//                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
-//            }
-//        }
 
 
         mapFragment.getMapAsync(this);
@@ -193,7 +173,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         this.googleMap = googleMap;
         // 37.659627, 126.773459 정발산역
 
-
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
@@ -206,12 +185,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         };
         askLocationPermission();
-        // latLng = new LatLng(lat, log);
 
-//        //camera가 바라보는 방향 정하기( 처음 위치 설정)
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//        //camera 확대 정도
-//        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         //현재위치를 가져와서
         String userid = "123456789";
         String userLat = "11.111111";
@@ -278,7 +252,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
             }
 
             @Override
@@ -306,6 +279,5 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
