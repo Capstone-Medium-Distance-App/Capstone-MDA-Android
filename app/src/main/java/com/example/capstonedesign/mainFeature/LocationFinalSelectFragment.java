@@ -11,21 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.capstonedesign.DTO.schDT;
-import com.example.capstonedesign.DTO.userVote;
+import com.example.capstonedesign.Retrofit.DTO.schDT;
 import com.example.capstonedesign.R;
-import com.example.capstonedesign.Service.DataFlowService;
-import com.example.capstonedesign.Service.MainFlowService;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LocationFinalSelectFragment extends Fragment {
-    private Retrofit retrofit;
+    private RetrofitClient rc;
 
     public LocationFinalSelectFragment() {
         // Required empty public constructor
@@ -35,8 +31,8 @@ public class LocationFinalSelectFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_final_select, container, false);
+        rc = new RetrofitClient();
 
         Button button = rootView.findViewById(R.id.btn_locationfinal_complete);
         button.setOnClickListener(new View.OnClickListener() {
@@ -46,19 +42,11 @@ public class LocationFinalSelectFragment extends Fragment {
                 //startActivity(intent);
                 ((LocationActivity)getActivity()).replaceFragment(new LocationFinishFragment());
 
-                retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                        //.baseUrl("http://localhost:8080/client/{num}/enter")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                DataFlowService dataFlowService = retrofit.create(DataFlowService.class);
-
                 //값은 xml에서 받아와야함
                 String schDate = "schDate";
                 String schTime = "schTime";
-                Call<schDT> SendCall = dataFlowService.schDT(schDate, schTime);
-
-                SendCall.enqueue(new Callback<schDT>() {
+                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
+                call.enqueue(new Callback<schDT>() {
                     @Override
                     public void onResponse(Call<schDT> call, Response<schDT> response) {
                         final schDT sentData = response.body();
@@ -67,7 +55,6 @@ public class LocationFinalSelectFragment extends Fragment {
                         System.out.println(sentData.toString());
                         System.out.println("=========================================================");
                     }
-
                     @Override
                     public void onFailure(Call<schDT> call, Throwable t) {
                         t.printStackTrace();

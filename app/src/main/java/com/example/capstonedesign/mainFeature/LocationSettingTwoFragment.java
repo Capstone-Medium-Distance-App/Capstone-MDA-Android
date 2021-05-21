@@ -15,19 +15,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.example.capstonedesign.DTO.LocInitSet;
+import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
 import com.example.capstonedesign.R;
-import com.example.capstonedesign.Service.MainFlowService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
 
 public class LocationSettingTwoFragment extends Fragment implements  CompoundButton.OnCheckedChangeListener  {
    public LocationSettingTwoFragment() { }
@@ -81,22 +75,10 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
 //                bundle.putString(txt_categ,"txt_categ");
 //
 //                Toast.makeText(getActivity(),btn_txt+"   "+ txt_gender+"   "+ txt_categ,Toast.LENGTH_SHORT).show();
-                Gson gson  = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                        //.baseUrl("http://192.168.35.225:8080/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-                MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-
+                RetrofitClient rc = new RetrofitClient();
                 String schPlaceCate = txt_categ;
-
-                Call<LocInitSet> SendCall = mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
-
-                SendCall.enqueue(new Callback<LocInitSet>() {
+                Call<LocInitSet> call = rc.mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+                call.enqueue(new Callback<LocInitSet>() {
                     @Override
                     public void onResponse(Call<LocInitSet> call, Response<LocInitSet> response) {
                         System.out.println("LocInitSet DATA SEND SUCCESS!!!");

@@ -1,8 +1,8 @@
-package com.example.capstonedesign.DTO;
+package com.example.capstonedesign.Retrofit.DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class restMapStart {
+public class actMapStart {
     @SerializedName("latitude1")
     private String latitude1;
 
@@ -36,30 +36,30 @@ public class restMapStart {
     @SerializedName("midLong")
     private String midLong;
 
-    @SerializedName("rest1PlaceName")
-    private String rest1PlaceName;
+    @SerializedName("act1PlaceName")
+    private String act1PlaceName;
 
-    @SerializedName("rest2PlaceName")
-    private String rest2PlaceName;
+    @SerializedName("act2PlaceName")
+    private String act2PlaceName;
 
-    @SerializedName("rest3PlaceName")
-    private String rest3PlaceName;
+    @SerializedName("act3PlaceName")
+    private String act3PlaceName;
 
-    @SerializedName("rest1PlaceArea")
-    private String rest1PlaceArea;
+    @SerializedName("act1PlaceArea")
+    private String act1PlaceArea;
 
-    @SerializedName("rest2PlaceArea")
-    private String rest2PlaceArea;
+    @SerializedName("act2PlaceArea")
+    private String act2PlaceArea;
 
-    @SerializedName("rest3PlaceArea")
-    private String rest3PlaceArea;
+    @SerializedName("act3PlaceArea")
+    private String act3PlaceArea;
 
-    @SerializedName("rest1PlaceType")
-    private String rest1PlaceType;
+    @SerializedName("act1PlaceType")
+    private String act1PlaceType;
 
-    @SerializedName("rest2PlaceType")
-    private String rest2PlaceType;
+    @SerializedName("act2PlaceType")
+    private String act2PlaceType;
 
-    @SerializedName("rest3PlaceType")
-    private String rest3PlaceType;
+    @SerializedName("act3PlaceType")
+    private String act3PlaceType;
 }

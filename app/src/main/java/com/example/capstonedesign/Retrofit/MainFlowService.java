@@ -1,10 +1,10 @@
-package com.example.capstonedesign.Service;
+package com.example.capstonedesign.Retrofit;
 
-import com.example.capstonedesign.DTO.userVote;
-import com.example.capstonedesign.DTO.DTO;
-import com.example.capstonedesign.DTO.LocInitSet;
-import com.example.capstonedesign.DTO.PlaceDto;
-import com.example.capstonedesign.DTO.userEnter;
+import com.example.capstonedesign.Retrofit.DTO.locFin;
+import com.example.capstonedesign.Retrofit.DTO.DTO;
+import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
+import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
+import com.example.capstonedesign.Retrofit.DTO.userEnter;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -46,5 +46,9 @@ public interface MainFlowService {
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
     @GET("/placeDetail")
     Call<PlaceDto> placeDetail();
+
+    //서버에서 최종 약속에 대한 정보를 받는 메소드
+    @GET("locationFin")
+    Call<locFin> locFin();
 
 }

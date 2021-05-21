@@ -1,4 +1,4 @@
-package com.example.capstonedesign.DTO;
+package com.example.capstonedesign.Retrofit.DTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

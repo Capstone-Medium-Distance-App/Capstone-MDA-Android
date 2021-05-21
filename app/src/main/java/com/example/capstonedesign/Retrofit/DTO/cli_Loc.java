@@ -1,8 +1,8 @@
-package com.example.capstonedesign.DTO;
+package com.example.capstonedesign.Retrofit.DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class actMapStart {
+public class cli_Loc {
     @SerializedName("latitude1")
     private String latitude1;
 
@@ -36,30 +36,4 @@ public class actMapStart {
     @SerializedName("midLong")
     private String midLong;
 
-    @SerializedName("act1PlaceName")
-    private String act1PlaceName;
-
-    @SerializedName("act2PlaceName")
-    private String act2PlaceName;
-
-    @SerializedName("act3PlaceName")
-    private String act3PlaceName;
-
-    @SerializedName("act1PlaceArea")
-    private String act1PlaceArea;
-
-    @SerializedName("act2PlaceArea")
-    private String act2PlaceArea;
-
-    @SerializedName("act3PlaceArea")
-    private String act3PlaceArea;
-
-    @SerializedName("act1PlaceType")
-    private String act1PlaceType;
-
-    @SerializedName("act2PlaceType")
-    private String act2PlaceType;
-
-    @SerializedName("act3PlaceType")
-    private String act3PlaceType;
 }

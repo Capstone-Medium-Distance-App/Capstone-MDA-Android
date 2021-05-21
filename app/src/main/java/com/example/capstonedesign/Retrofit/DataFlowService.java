@@ -1,11 +1,10 @@
-package com.example.capstonedesign.Service;
+package com.example.capstonedesign.Retrofit;
 
-import com.example.capstonedesign.DTO.cafeMapStart;
-import com.example.capstonedesign.DTO.cli_Loc;
-import com.example.capstonedesign.DTO.schDT;
-import com.example.capstonedesign.DTO.userVote;
+import com.example.capstonedesign.Retrofit.DTO.cafeMapStart;
+import com.example.capstonedesign.Retrofit.DTO.cli_Loc;
+import com.example.capstonedesign.Retrofit.DTO.schDT;
+import com.example.capstonedesign.Retrofit.DTO.userVote;
 
-import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

@@ -13,25 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.capstonedesign.DTO.PlaceDto;
-import com.example.capstonedesign.DTO.userEnter;
-import com.example.capstonedesign.DTO.userVote;
+import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
+import com.example.capstonedesign.Retrofit.DTO.userVote;
 import com.example.capstonedesign.R;
-import com.example.capstonedesign.Service.DataFlowService;
-import com.example.capstonedesign.Service.MainFlowService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LocationDetailFragment extends Fragment {
-    private Retrofit retrofit;
     private PlaceDto curPlace;
+    private RetrofitClient rc;
+    private int curPlaceId=0;
 
     public LocationDetailFragment() {
         // Required empty public constructor
@@ -45,20 +40,10 @@ public class LocationDetailFragment extends Fragment {
 
         //서버로부터 place객체를 받아서 그 객체의 이름값을 텍스트에 설정해주는 과정 -kyu
         TextView tx = rootView.findViewById(R.id.txt_locationdetail_name);
-        Gson gson  = new GsonBuilder()
-                .setLenient()
-                .create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                //.baseUrl("http://192.168.35.225:8080/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-        DataFlowService dataFlowService = retrofit.create(DataFlowService.class);
+        rc = new RetrofitClient();
+        Call<PlaceDto> call = rc.mainFlowService.placeDetail();
 
-        Call<PlaceDto> SendCall = mainFlowService.placeDetail();
-
-        SendCall.enqueue(new Callback<PlaceDto>() {
+        call.enqueue(new Callback<PlaceDto>() {
             @Override
             public void onResponse(Call<PlaceDto> call, Response<PlaceDto> response) {
                 System.out.println("placeDetails DATA RECEIVE SUCCESS!!!");
@@ -67,6 +52,7 @@ public class LocationDetailFragment extends Fragment {
                 Log.d("TAG",response.errorBody()+"");
                 System.out.println(response);
                 curPlace = response.body();
+                curPlaceId = curPlace.getPlaceId();
                 System.out.println(curPlace.getPlaceArea());
                 System.out.println(curPlace.getPlaceCategory());
                 System.out.println(curPlace.getPlaceDescription());
@@ -91,19 +77,10 @@ public class LocationDetailFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                    //.baseUrl("http://localhost:8080/client/{num}/enter")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-
             //번들로 가져와야할듯? -> locationMain에서 id값을 정한 다음에 생각
             int userid = 0;
-            Call<userVote> SendCall = dataFlowService.userVote(userid, curPlace.getPlaceId());
-
-            SendCall.enqueue(new Callback<userVote>() {
+            Call<userVote> call = rc.dataFlowService.userVote(userid, curPlaceId);
+            call.enqueue(new Callback<userVote>() {
                 @Override
                 public void onResponse(Call<userVote> call, Response<userVote> response) {
                     final userVote sentData = response.body();
