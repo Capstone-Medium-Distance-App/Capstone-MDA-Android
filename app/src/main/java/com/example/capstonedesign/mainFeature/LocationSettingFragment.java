@@ -34,39 +34,6 @@ public class LocationSettingFragment extends Fragment implements View.OnClickLis
         btn_act.setOnClickListener(this);
 
 
-//        Retrofit retrofit = new Retrofit.Builder()
-//                //내부 ip주소(내가 임의로 돌리는 웹서버) -> ip에서보는 외부 주소
-//                .baseUrl("http://192.168.35.225:8080/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        MainFlowService test = retrofit.create(MainFlowService.class);
-//        //세부 엔드포인트를 넣어줌 -> 192.168.35.71:8080/test/1
-//        Call<DTO> call = test.getPosts("1");
-//        call.enqueue(new Callback<DTO>(){
-//            String TAG = "TAG";
-//            @Override
-//            public void onResponse(Call<DTO> call, Response<DTO> response) {
-//                if(response.isSuccessful()){
-//                    //웹서버에서 던지는 json값을 result에 저장 -> 이건 서버쪽이랑 맞춰봐야함
-//                    DTO result = response.body();
-//                    tv.setText(result.getTitle()+" / "+result.getContent());
-//                    //Log.d(TAG, "onResponse: 성공, 결과\n"+result.toString());
-//                    Log.d(TAG, "onResponse: 성공, 결과\n");
-//                    //Getter를 따로 만들어서 하나하나를 꺼내보는 것 까지 확인인
-//                    Log.d(TAG, result.getTitle());
-//                    Log.d(TAG, result.getContent());
-//                }else{
-//                    Log.d(TAG, "onRespones: 실패");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DTO> call, Throwable t) {
-//                Log.d(TAG, "onFailure: "+t.getMessage());
-//            }
-//        });
-
         //Toolbar -> BackArrow+Title .version
         Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         ((LocationActivity)getActivity()).setSupportActionBar(toolbar);

@@ -27,6 +27,7 @@ public class ScheduleFragment extends Fragment {
     private RetrofitClient rc;
     private Gson mGson;
     private ArrayList<ScheduleDto> arr = new ArrayList<>();
+    private Fragment sch_detail_fra = new Schedule_DetailFragment();
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -51,10 +52,17 @@ public class ScheduleFragment extends Fragment {
                 System.out.println(response);
                 ScheduleList receivedData = response.body();
                 arr = receivedData.getList();
+
+                //가져온거 잘왔는지 확인
                 System.out.println(receivedData.getUserId());
                 for (int i = 0; i < arr.size(); i++) {
                     System.out.println(arr.get(i).getScheduleName());
                 }
+                System.out.println("=========================================================");
+                System.out.println("====================다음프래그먼트로 전송=====================");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list", arr);
+                sch_detail_fra.setArguments(bundle);
                 System.out.println("=========================================================");
             }
 

@@ -5,6 +5,7 @@ import com.example.capstonedesign.Retrofit.DTO.locFin;
 import com.example.capstonedesign.Retrofit.DTO.DTO;
 import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
+import com.example.capstonedesign.Retrofit.DTO.rating;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
 
 import retrofit2.Call;
@@ -56,5 +57,13 @@ public interface MainFlowService {
     @GET("getSchedules")
     Call<ScheduleList> getScheduleList();
 
-
+    //평점을 보내는 메소드
+    @FormUrlEncoded
+    @POST("rating")
+    Call<rating> userRate(
+            @Field("userId") int userId,
+            @Field("conditionEval") int conditionEval,
+            @Field("kindnessEval") int kindnessEval,
+            @Field("facilityEval") int facilityEval
+    );
 }

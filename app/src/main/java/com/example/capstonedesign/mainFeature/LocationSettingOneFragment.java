@@ -17,7 +17,6 @@ import com.example.capstonedesign.R;
 
 
 public class LocationSettingOneFragment extends Fragment {
-
     Fragment locationSettingThrFragment = new LocationSettingThrFragment();
     public LocationSettingOneFragment() { }
     @Override

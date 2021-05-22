@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 
-public class LocationActivity extends AppCompatActivity {
+public class LocationActivity extends AppCompatActivity implements TaskLoadedCallback{
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private LocationDetailFragment fragmentLocationDetail = new LocationDetailFragment();
@@ -32,13 +32,18 @@ public class LocationActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout2, fragmentSettingFinish).commitAllowingStateLoss();
 
-     //   FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-     //   fragmentTransaction.add(R.id.ContentLayout, StudyFragment.newInstance()).commit();
+        //   FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //   fragmentTransaction.add(R.id.ContentLayout, StudyFragment.newInstance()).commit();
 
     }
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout2, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
+    }
+
+    @Override
+    public void onTaskDone(Object... values) {
+
     }
 }

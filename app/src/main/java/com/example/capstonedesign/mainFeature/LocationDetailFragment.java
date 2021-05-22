@@ -79,10 +79,10 @@ public class LocationDetailFragment extends Fragment {
             public void onClick(View v) {
             //번들로 가져와야할듯? -> locationMain에서 id값을 정한 다음에 생각
             int userid = 0;
-            Call<userVote> call = rc.dataFlowService.userVote(userid, curPlaceId);
-            call.enqueue(new Callback<userVote>() {
+            Call<userVote> call2 = rc.dataFlowService.userVote(userid, curPlaceId);
+                call2.enqueue(new Callback<userVote>() {
                 @Override
-                public void onResponse(Call<userVote> call, Response<userVote> response) {
+                public void onResponse(Call<userVote> call2, Response<userVote> response) {
                     final userVote sentData = response.body();
                     System.out.println("uesrVote DATA SEND SUCCESS!!!");
                     System.out.println("=========================================================");
@@ -91,7 +91,7 @@ public class LocationDetailFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<userVote> call, Throwable t) {
+                public void onFailure(Call<userVote> call2, Throwable t) {
                     t.printStackTrace();
                     System.out.println("userEnter DATA SEND FAIL!!!");
                 }
