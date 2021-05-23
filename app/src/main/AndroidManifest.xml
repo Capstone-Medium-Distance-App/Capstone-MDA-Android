@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.capstonedesign">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-<!--    실체로 gps가 아니라 모바일기지국과의 거리를 상대적으로 위치정보를 얻어옴 >> gps오차는 떨어지지만 다른 제약을 받지않음-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<!--    gps를 이용해 정확한 위치정보 얻어오기 >> 전력소모가 큼 (지하거나 건물이 많을때 신호를 정확히 수신하기 어려움)-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 실체로 gps가 아니라 모바일기지국과의 거리를 상대적으로 위치정보를 얻어옴 >> gps오차는 떨어지지만 다른 제약을 받지않음 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- gps를 이용해 정확한 위치정보 얻어오기 >> 전력소모가 큼 (지하거나 건물이 많을때 신호를 정확히 수신하기 어려움) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -15,17 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
-
-        <activity android:name=".mainFeature.MapActivity"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ScheduleReviewActivity"></activity>
+        <activity android:name=".ScheduleDetailActivity" />
+        <activity android:name=".mainFeature.MapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA0_aPpBHaWX5GCb3A03wltG05mpE8zfVU" />
 
         <activity android:name=".mainFeature.LocationActivity" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

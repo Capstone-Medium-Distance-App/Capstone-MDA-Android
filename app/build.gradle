@@ -41,6 +41,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.3'
     //IconGenerator
     implementation 'com.google.maps.android:android-maps-utils:0.4+'
+    //recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+    //cardview
+    implementation "androidx.cardview:cardview:1.0.0"
 
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
