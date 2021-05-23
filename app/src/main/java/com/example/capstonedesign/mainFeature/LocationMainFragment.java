@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,30 +44,34 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.maps.android.ui.IconGenerator;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LocationMainFragment extends Fragment implements OnMapReadyCallback,TaskLoadedCallback {
+public class LocationMainFragment extends Fragment implements OnMapReadyCallback,TaskLoadedCallback,LocationListener {
+
 
     private GoogleMap googleMap;
     private Retrofit retrofit;
     private MapView mapView;
     private double lat = 0.0, log = 0.0;
-    private LatLng latLng,latLng2;
+    private LatLng latLng1,latLng2,latLng3,mainlatLng;
     LocationManager locationManager;
     LocationListener locationListener;
-    MarkerOptions place1, place2;
+    MarkerOptions place1, place2, place3, mainplace;
     Polyline currentPolyline;
+    TextView txt_ex2;
+
     public LocationMainFragment() {
     }
 
@@ -80,13 +85,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
-
-
-
+         txt_ex2 = new TextView(getContext());
+        txt_ex2.setText("승원이네야");
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
-
-
 
         mapFragment.getMapAsync(this);
 
@@ -173,20 +175,34 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                latLng2 = new LatLng(37.659627, 126.773459);
+                latLng1 = new LatLng(location.getLatitude(), location.getLongitude());
+                latLng2 = new LatLng(37.648984, 126.774089);
+                latLng3 = new LatLng(37.671873, 126.785645);
+                mainlatLng = new LatLng(37.659627, 126.773459);
+
 
                 googleMap.clear();
-                place1 =new MarkerOptions().position(latLng).title("승원이네").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_circle_24));
+//                IconGenerator generator = new IconGenerator(getContext());
+//                generator.setBackground(getResources().getDrawable(R.drawable.ic_main_person_24));
+//                generator.setContentView(txt_ex2);
+//                Bitmap icon = generator.makeIcon();
+
+
+                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
+
                 googleMap.addMarker(place1);
-                place2 =new MarkerOptions().position(latLng2).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24));
                 googleMap.addMarker(place2);
+                googleMap.addMarker(place3);
+                googleMap.addMarker(mainplace).showInfoWindow();
 
-                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
-                new FetchURL(getActivity()).execute(url,"driving");
+//                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
+//                new FetchURL(getActivity()).execute(url,"driving");
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                googleMap.moveCamera(CameraUpdateFactory.zoomTo(11));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
+                googleMap.moveCamera(CameraUpdateFactory.zoomTo(14));
             }
         };
         askLocationPermission();
@@ -273,27 +289,40 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         Dexter.withContext(requireActivity()).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
                     return;
                 }
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                latLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                latLng2 = new LatLng(37.659627, 126.773459);
+                latLng1 = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                latLng2 = new LatLng(37.648984, 126.774089);
+                latLng3 = new LatLng(37.671873, 126.785645);
+                mainlatLng = new LatLng(37.659627, 126.773459);
+
+
                 googleMap.clear();
+//                IconGenerator generator = new IconGenerator(getContext());
+//                generator.setBackground(getResources().getDrawable(R.drawable.ic_main_person_24));
+//                generator.setContentView(txt_ex2);
+//                Bitmap icon = generator.makeIcon();
 
-                place1 =new MarkerOptions().position(latLng).title("승원이네").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_circle_24));
+
+                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
+
                 googleMap.addMarker(place1);
-                place2 =new MarkerOptions().position(latLng2).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24));
                 googleMap.addMarker(place2);
+                googleMap.addMarker(place3);
+                googleMap.addMarker(mainplace).showInfoWindow();
 
-                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
-                new FetchURL(getActivity()).execute(url,"driving");
+//                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
+//                new FetchURL(getActivity()).execute(url,"driving");
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                googleMap.moveCamera(CameraUpdateFactory.zoomTo(11));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
+                googleMap.moveCamera(CameraUpdateFactory.zoomTo(14));
             }
 
             @Override
@@ -326,4 +355,8 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
+    }
 }

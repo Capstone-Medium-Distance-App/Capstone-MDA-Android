@@ -8,18 +8,21 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.capstonedesign.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 
-public class LocationActivity extends AppCompatActivity implements TaskLoadedCallback{
-
+public class LocationActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private LocationDetailFragment fragmentLocationDetail = new LocationDetailFragment();
     private LocationMainFragment fragmentMainLocation = new LocationMainFragment();
     private LocationFinalSelectFragment fragmentFinalSelect = new LocationFinalSelectFragment();
     private LocationFinishFragment fragmentLocationFinish = new LocationFinishFragment();
     private LocationSettingFragment fragmentSettingFinish = new LocationSettingFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,5 @@ public class LocationActivity extends AppCompatActivity implements TaskLoadedCal
         fragmentTransaction.replace(R.id.frameLayout2, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
     }
 
-    @Override
-    public void onTaskDone(Object... values) {
 
-    }
 }
