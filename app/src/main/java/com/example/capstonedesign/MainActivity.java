@@ -2,6 +2,7 @@ package com.example.capstonedesign;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, fragmentLocationStart).commitAllowingStateLoss();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+    }
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
     }
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override

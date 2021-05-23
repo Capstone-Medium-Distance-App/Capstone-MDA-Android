@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.ScheduleDto;
 import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
+import com.example.capstonedesign.mainFeature.LocationActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -39,7 +41,6 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_schedule, container, false);
 
-
         rc = new RetrofitClient();
         Call<ScheduleList> call = rc.mainFlowService.getScheduleList();
         call.enqueue(new Callback<ScheduleList>() {
@@ -59,17 +60,30 @@ public class ScheduleFragment extends Fragment {
                     System.out.println(arr.get(i).getScheduleName());
                 }
                 System.out.println("=========================================================");
-                System.out.println("====================다음프래그먼트로 전송=====================");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("list", arr);
-                sch_detail_fra.setArguments(bundle);
-                System.out.println("=========================================================");
+
             }
 
             @Override
             public void onFailure(Call<ScheduleList> call, Throwable t) {
                 t.printStackTrace();
                 System.out.println("scheduleList DATA RECEIVE FAIL!!!");
+            }
+        });
+
+        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.sch1);
+        ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!arr.isEmpty()){
+                    System.out.println("====================다음프래그먼트로 전송=====================");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("list", arr);
+                    bundle.putInt("selectedSchId", 0);
+                    sch_detail_fra.setArguments(bundle);
+                    System.out.println("=========================================================");
+                    ((MainActivity)getActivity()).replaceFragment(sch_detail_fra);
+                }
+
             }
         });
 

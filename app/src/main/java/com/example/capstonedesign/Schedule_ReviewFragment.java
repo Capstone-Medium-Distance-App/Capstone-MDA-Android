@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 import com.example.capstonedesign.Retrofit.DTO.rating;
 import com.example.capstonedesign.Retrofit.DTO.schDT;
@@ -69,6 +70,19 @@ public class Schedule_ReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_schedule__review, container, false);
+
+        RatingBar rb1 = rootView.findViewById(R.id.txt1_ratingBar);
+        RatingBar rb2 = rootView.findViewById(R.id.txt2_ratingBar);
+        RatingBar rb3 = rootView.findViewById(R.id.txt3_ratingBar);
+        conditionEval = rb1.getNumStars();
+        kindnessEval = rb2.getNumStars();
+        facilityEval = rb3.getNumStars();
+
+        //스케쥴 아이디값도 받아보쟈
+        int schId = getArguments().getInt("schId");
+
         int userid=0;
         Call<rating> call = rc.mainFlowService.userRate(userid, conditionEval, kindnessEval, facilityEval);
         call.enqueue(new Callback<rating>() {
@@ -87,8 +101,8 @@ public class Schedule_ReviewFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule__review, container, false);
+
+        return rootView;
 
 
     }
