@@ -27,7 +27,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.capstonedesign.CalendarFragment;
+import com.example.capstonedesign.MainActivity;
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
 import com.example.capstonedesign.Retrofit.MainFlowService;
@@ -42,6 +46,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.maps.android.ui.IconGenerator;
@@ -60,7 +65,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationMainFragment extends Fragment implements OnMapReadyCallback,TaskLoadedCallback,LocationListener {
 
-
+    private LocationMainViewFragment fragmentView = new LocationMainViewFragment();
+    private LocationMainVoteFragment fragmentVote = new LocationMainVoteFragment();
     private GoogleMap googleMap;
     private Retrofit retrofit;
     private MapView mapView;
@@ -81,11 +87,41 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         return fragment;
     }
 
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+            switch(menuItem.getItemId())
+            {
+                case R.id.cafe:
+                    Toast.makeText(getActivity(),"CCCCCCCCC",Toast.LENGTH_SHORT).show();
+                    transaction.replace(R.id.main_location_FrameLayout, fragmentView);
+                    transaction.commit();
+                    break;
+                case R.id.vote:
+                    transaction.replace(R.id.main_location_FrameLayout, fragmentVote);
+                    transaction.commit();
+                    break;
+            }
+            return true;
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
-         txt_ex2 = new TextView(getContext());
+
+        BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottomNavi_main_location);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_location_FrameLayout, fragmentView);
+        transaction.commit();
+        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
+
+        txt_ex2 = new TextView(getContext());
         txt_ex2.setText("승원이네야");
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
