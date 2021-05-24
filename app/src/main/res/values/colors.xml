@@ -11,5 +11,6 @@
     <color name="graytxt">#9E9E9E</color>
     <color name="blacktxt">#333333</color>
     <color name="mainColor">#273849</color>
+    <color name="orangeC">#FFC107</color>
 
 </resources>
