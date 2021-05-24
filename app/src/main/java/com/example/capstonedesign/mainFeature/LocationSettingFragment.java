@@ -18,6 +18,10 @@ import com.example.capstonedesign.R;
 public class LocationSettingFragment extends Fragment implements View.OnClickListener{
     String TAG = "Tag";
     Fragment locationSettingOneFragment = new LocationSettingOneFragment();
+
+    //locationFinalSelect test -> DELETE SOMEDAY!
+    Fragment lc = new LocationFinalSelectFragment();
+    //
     private Button btn_cafe,btn_rest,btn_act;
     public LocationSettingFragment() { }
 
@@ -54,7 +58,12 @@ public class LocationSettingFragment extends Fragment implements View.OnClickLis
                     Bundle bundle = new Bundle();
                     bundle.putString("btn_txt",btn_txt);
                     locationSettingOneFragment.setArguments(bundle);
+                    //original
                     ((LocationActivity)getActivity()).replaceFragment(locationSettingOneFragment);
+
+                    //locationFinalSelect test -> DELETE SOMEDAY!
+                    //((LocationActivity)getActivity()).replaceFragment(lc);
+
                     break;
                 }
             case R.id.btn_setting_restaurant:
