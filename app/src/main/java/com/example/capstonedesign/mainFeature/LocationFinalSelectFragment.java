@@ -141,7 +141,7 @@ public class LocationFinalSelectFragment extends Fragment {
         ((LocationActivity)getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((LocationActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Final Selections");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);g
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
 
         // Inflate the layout for this fragment

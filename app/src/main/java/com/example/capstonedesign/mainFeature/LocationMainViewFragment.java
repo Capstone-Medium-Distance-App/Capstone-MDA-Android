@@ -48,17 +48,17 @@ public class LocationMainViewFragment extends Fragment {
         m.setViewPlace("Test1 place");
         m.setViewTag("#Test1 #tag");
         m.setView(R.drawable.cafe1);
-
         models.add(m);
+
         m.setViewTitle("Test2 title");
         m.setViewPlace("Test2 place");
         m.setViewTag("#Test2 #tag");
         m.setView(R.color.orangeC);
-
         models.add(m);
-        m.setViewTitle("Test2 title");
-        m.setViewPlace("Test2 place");
-        m.setViewTag("#Test2 #tag");
+
+        m.setViewTitle("Test3 title");
+        m.setViewPlace("Test3 place");
+        m.setViewTag("#Test3 #tag");
         m.setView(R.color.orangeC);
         models.add(m);
 
