@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class LocationActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private LocationDetailFragment fragmentLocationDetail = new LocationDetailFragment();
+//    private LocationDetailFragment fragmentLocationDetail = new LocationDetailFragment();
     private LocationMainFragment fragmentMainLocation = new LocationMainFragment();
     private LocationFinalSelectFragment fragmentFinalSelect = new LocationFinalSelectFragment();
     private LocationFinishFragment fragmentLocationFinish = new LocationFinishFragment();

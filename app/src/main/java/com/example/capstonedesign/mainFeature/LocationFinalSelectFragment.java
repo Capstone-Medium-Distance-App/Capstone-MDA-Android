@@ -17,7 +17,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.akexorcist.snaptimepicker.SnapTimePickerDialog;
+
 import com.example.capstonedesign.Retrofit.DTO.schDT;
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
@@ -51,8 +51,9 @@ public class LocationFinalSelectFragment extends Fragment {
         Button timer = rootView.findViewById(R.id.TimeButton);
         //
         TextView textView = rootView.findViewById(R.id.textView);
-        TextView textView_Time = rootView.findViewById(R.id.textView6);
-        TextView textView_Date = rootView.findViewById(R.id.textView5);
+        TextView textView_Time = rootView.findViewById(R.id.txt_time_ing);
+        TextView textView_Date = rootView.findViewById(R.id.txt_date_ing);
+
         
         //달력 -> 테스트하기 위해서 LocationSettingFragment에서 일부러 바꾼코드
         //LocationSettingFragment 만들고, 
@@ -72,7 +73,7 @@ public class LocationFinalSelectFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
             {
-                textView_Date.setText(year + "년" + monthOfYear + "월" + dayOfMonth + "일");
+                textView_Date.setText(year + "." + monthOfYear + "." + dayOfMonth + "");
                 //schDate라는 변수에 선택된 값을 받아서, 저장해뒀다가 나중에 전송
                 schDate = year + " " + monthOfYear + " " + dayOfMonth;
             }
@@ -117,22 +118,23 @@ public class LocationFinalSelectFragment extends Fragment {
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
 
-                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
-                call.enqueue(new Callback<schDT>() {
-                    @Override
-                    public void onResponse(Call<schDT> call, Response<schDT> response) {
-                        final schDT sentData = response.body();
-                        System.out.println("schDT DATA SEND SUCCESS!!!");
-                        System.out.println("=========================================================");
-                        System.out.println(sentData.toString());
-                        System.out.println("=========================================================");
-                    }
-                    @Override
-                    public void onFailure(Call<schDT> call, Throwable t) {
-                        t.printStackTrace();
-                        System.out.println("schDT DATA SEND FAIL!!!");
-                    }
-                });
+ // 여기--------------------------------------------------------
+//                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
+//                call.enqueue(new Callback<schDT>() {
+//                    @Override
+//                    public void onResponse(Call<schDT> call, Response<schDT> response) {
+//                        final schDT sentData = response.body();
+//                        System.out.println("schDT DATA SEND SUCCESS!!!");
+//                        System.out.println("=========================================================");
+//                        System.out.println(sentData.toString());
+//                        System.out.println("=========================================================");
+//                    }
+//                    @Override
+//                    public void onFailure(Call<schDT> call, Throwable t) {
+//                        t.printStackTrace();
+//                        System.out.println("schDT DATA SEND FAIL!!!");
+//                    }
+//                });----------------------------------------------
             }
         });
 
@@ -141,7 +143,7 @@ public class LocationFinalSelectFragment extends Fragment {
         ((LocationActivity)getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((LocationActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Final Selections");
-        actionBar.setDisplayHomeAsUpEnabled(true);g
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_tool_back);
 
         // Inflate the layout for this fragment

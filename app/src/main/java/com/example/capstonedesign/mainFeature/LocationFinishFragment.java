@@ -45,34 +45,34 @@ public class LocationFinishFragment extends Fragment {
         TextView place = rootView.findViewById(R.id.txt_locationfinish_place);
 
 
-        //약속정보를 받아와서 출력해줌
-        rc = new RetrofitClient();
-        Call<locFin> call = rc.mainFlowService.locFin();
-        call.enqueue(new Callback<locFin>() {
-            @Override
-            public void onResponse(Call<locFin> call, Response<locFin> response) {
-                System.out.println("placeDetails DATA RECEIVE SUCCESS!!!");
-                System.out.println("=========================================================");
-                System.out.println(response.toString());
-                locFin recData = response.body();
-                System.out.println(recData.getSchName());
-                System.out.println(recData.getSchPlaceName());
-                System.out.println(recData.getSchPlaceArea());
-                System.out.println(recData.getSchWIthUserName());
-                System.out.println("=========================================================");
-
-                //다 받아왔으면 출력에 설정해주면 된다!
-                appoint.setText(recData.getSchName());
-                where.setText(recData.getSchPlaceArea());
-                who.setText(recData.getSchWIthUserName());
-                place.setText(recData.getSchPlaceName());
-            }
-
-            @Override
-            public void onFailure(Call<locFin> call, Throwable t) {
-
-            }
-        });
+        //약속정보를 받아와서 출력해줌----------------------------여기
+//        rc = new RetrofitClient();
+//        Call<locFin> call = rc.mainFlowService.locFin();
+//        call.enqueue(new Callback<locFin>() {
+//            @Override
+//            public void onResponse(Call<locFin> call, Response<locFin> response) {
+//                System.out.println("placeDetails DATA RECEIVE SUCCESS!!!");
+//                System.out.println("=========================================================");
+//                System.out.println(response.toString());
+//                locFin recData = response.body();
+////                System.out.println(recData.getSchName());
+//                System.out.println(recData.getSchPlaceName());
+//                System.out.println(recData.getSchPlaceArea());
+//                System.out.println(recData.getSchWIthUserName());
+//                System.out.println("=========================================================");
+//
+//                //다 받아왔으면 출력에 설정해주면 된다!
+//                appoint.setText(recData.getSchName());
+//                where.setText(recData.getSchPlaceArea());
+//                who.setText(recData.getSchWIthUserName());
+//                place.setText(recData.getSchPlaceName());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<locFin> call, Throwable t) {
+//
+//            }
+//        });
 
         Button button = rootView.findViewById(R.id.btn_locationfinish_inform);
         button.setOnClickListener(new View.OnClickListener() {
