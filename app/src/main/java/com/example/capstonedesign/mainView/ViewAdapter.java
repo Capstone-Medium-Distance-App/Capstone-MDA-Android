@@ -46,6 +46,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onItemClickListener(View v, int position) {
                 String gTitle =models.get(position).getViewTitle();
+
                 Intent intent = new Intent(c, LocationDetailActivity.class);
                 intent.putExtra("title",gTitle);
                 c.startActivity(intent);

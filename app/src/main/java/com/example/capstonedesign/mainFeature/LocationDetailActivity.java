@@ -33,6 +33,11 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String mTitle = intent.getStringExtra("title");
+
+
+
+
+
         tx.setText(mTitle);
 
         rc = new RetrofitClient();

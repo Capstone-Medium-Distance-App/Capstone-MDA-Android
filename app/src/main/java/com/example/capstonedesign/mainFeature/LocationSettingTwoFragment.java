@@ -68,13 +68,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                 String schGender = getArguments().getString("txt_gender");
 
                 bundle.putString(schType,"btn_txt");
-//                bundle.putString(edit_name,"edit_name");
-//                bundle.putString(edit_num,"edit_num");
-//                bundle.putString(txt_age,"txt_age");
-//                bundle.putString(txt_gender,"txt_gender");
-//                bundle.putString(txt_categ,"txt_categ");
-//
-//                Toast.makeText(getActivity(),btn_txt+"   "+ txt_gender+"   "+ txt_categ,Toast.LENGTH_SHORT).show();
+
                 RetrofitClient rc = new RetrofitClient();
                 String schPlaceCate = txt_categ;
                 Call<LocInitSet> call = rc.mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);

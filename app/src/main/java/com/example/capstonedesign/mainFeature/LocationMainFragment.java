@@ -78,9 +78,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     Polyline currentPolyline;
     TextView txt_ex2;
 
-    public LocationMainFragment() {
-    }
-
+    public LocationMainFragment() { }
 
     public static LocationMainFragment newInstance() {
         LocationMainFragment fragment = new LocationMainFragment();
@@ -91,11 +89,11 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-
             switch(menuItem.getItemId())
             {
                 case R.id.cafe:
-                    Toast.makeText(getActivity(),"CCCCCCCCC",Toast.LENGTH_SHORT).show();
+//                    menuItem.setIcon(R.drawable.ic_cafe_24);
+//                    menuItem.setTitle("cafe");
                     transaction.replace(R.id.main_location_FrameLayout, fragmentView);
                     transaction.commit();
                     break;
@@ -118,11 +116,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.main_location_FrameLayout, fragmentView);
         transaction.commit();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-
-        txt_ex2 = new TextView(getContext());
-        txt_ex2.setText("승원이네야");
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
 
@@ -196,11 +192,14 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                latLng1 = new LatLng(location.getLatitude(), location.getLongitude());
+                lat = location.getLatitude();
+                log = location.getLongitude();
+
+                latLng1 = new LatLng(lat, log);
                 latLng2 = new LatLng(37.648984, 126.774089);
                 latLng3 = new LatLng(37.671873, 126.785645);
                 mainlatLng = new LatLng(37.659627, 126.773459);
-
+                //marker listener 사용하면 드래그한 위치의 좌표값을 가져올수있음
 
                 googleMap.clear();
 //                IconGenerator generator = new IconGenerator(getContext());
@@ -230,8 +229,8 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
         //현재위치를 가져와서
         String userid = "123456789";
-        String userLat = "11.111111";
-        String userLong = "99.999999";
+        Double userLat = lat;
+        Double userLong = log;
 
 
 //        CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -253,7 +252,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 .build();
         MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
 
-        Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat, userLong);
+
+        // String -> Double로 바꿔야됨~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Call<userEnter> SendCall = mainFlowService.userEnter(userid, userLat.toString(), userLong.toString());
 
         SendCall.enqueue(new Callback<userEnter>() {
             @Override
@@ -315,8 +316,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 }
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                lat = lastLocation.getLatitude();
+                log = lastLocation.getLongitude();
 
-                latLng1 = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                latLng1 = new LatLng(lat, log);
                 latLng2 = new LatLng(37.648984, 126.774089);
                 latLng3 = new LatLng(37.671873, 126.785645);
                 mainlatLng = new LatLng(37.659627, 126.773459);
