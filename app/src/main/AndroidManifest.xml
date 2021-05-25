@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mainFeature.LocationDetailActivity"></activity>
+        <activity android:name=".mainFeature.LocationFinalSelectActivity"></activity>
+        <activity android:name=".mainFeature.LocationDetailActivity" />
         <activity android:name=".ScheduleReviewActivity" />
         <activity android:name=".ScheduleDetailActivity" />
         <activity android:name=".mainFeature.MapActivity" />
