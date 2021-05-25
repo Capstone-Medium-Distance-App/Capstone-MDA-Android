@@ -24,6 +24,7 @@ import com.example.capstonedesign.schedule.MyAdapter;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,37 +48,38 @@ public class ScheduleFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView_sch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        rc = new RetrofitClient();
+        Call<ScheduleList> call = rc.mainFlowService.getScheduleList();
+        call.enqueue(new Callback<ScheduleList>() {
+            @Override
+            public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+                System.out.println("scheduleList DATA RECEIVE SUCCESS!!!");
+                System.out.println("=========================================================");
+                Log.d("TAG",response.code()+"");
+                Log.d("TAG",response.errorBody()+"");
+                System.out.println(response);
+                ScheduleList receivedData = response.body();
+                arr = receivedData.getList();
+
+                //가져온거 잘왔는지 확인
+                System.out.println(receivedData.getUserId());
+                for (int i = 0; i < arr.size(); i++) {
+                    System.out.println(arr.get(i).getScheduleName());
+                }
+                System.out.println("=========================================================");
+
+            }
+
+            @Override
+            public void onFailure(Call<ScheduleList> call, Throwable t) {
+                t.printStackTrace();
+                System.out.println("scheduleList DATA RECEIVE FAIL!!!");
+            }
+        });
         myAdapter = new MyAdapter(getActivity(), getMyList());
         recyclerView.setAdapter(myAdapter);
 
-//        rc = new RetrofitClient();
-//        Call<ScheduleList> call = rc.mainFlowService.getScheduleList();
-//        call.enqueue(new Callback<ScheduleList>() {
-//            @Override
-//            public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
-//                System.out.println("scheduleList DATA RECEIVE SUCCESS!!!");
-//                System.out.println("=========================================================");
-//                Log.d("TAG",response.code()+"");
-//                Log.d("TAG",response.errorBody()+"");
-//                System.out.println(response);
-//                ScheduleList receivedData = response.body();
-//                arr = receivedData.getList();
-//
-//                //가져온거 잘왔는지 확인
-//                System.out.println(receivedData.getUserId());
-//                for (int i = 0; i < arr.size(); i++) {
-//                    System.out.println(arr.get(i).getScheduleName());
-//                }
-//                System.out.println("=========================================================");
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ScheduleList> call, Throwable t) {
-//                t.printStackTrace();
-//                System.out.println("scheduleList DATA RECEIVE FAIL!!!");
-//            }
-//        });
+
 
 //        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.sch1);
 //        ll.setOnClickListener(new View.OnClickListener() {
@@ -110,28 +112,47 @@ public class ScheduleFragment extends Fragment {
 
     private ArrayList<Model> getMyList(){
         ArrayList<Model> models = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        Model m = new Model();
-        m.setTitle("Test title 1");
-        m.setPeople("test people 1");
-        m.setPlace("Test Geonggi 1");
-        m.setImg(R.drawable.ic_planned_sch_24);
-        models.add(m);
+        for (int i = 0; i < arr.size(); i++) {
+             Model m = new Model();
+             m.setTitle(arr.get(i).getScheduleName());
+             m.setPeople(arr.get(i).getSchedulePeopleNum());
+             m.setPlace(arr.get(i).getSchedulePlaceArea());
+             String tmp[] = new String[3];
+             tmp = arr.get(i).getScheduleDate().split("");
+             if(month > Integer.parseInt(tmp[1]) && day > Integer.parseInt(tmp[2]))
+                 m.setImg(R.drawable.ic_planned_sch_24);
+             else
+                 m.setImg(R.drawable.ic_passed_sch_24);
+             models.add(m);
 
-        m = new Model();
-        m.setTitle("Test title 2");
-        m.setPeople("test people 2");
-        m.setPlace("Test Geonggi 2");
-        m.setImg(R.drawable.ic_passed_sch_24);
-        models.add(m);
+        }
 
+//        Model m = new Model();
+//        m.setTitle(arr.get(0).getScheduleName());
+//        m.setPeople("test people 1");
+//        m.setPlace("Test Geonggi 1");
+//        m.setImg(R.drawable.ic_planned_sch_24);
+//        models.add(m);
+//
+//        m = new Model();
+//        m.setTitle("Test title 2");
+//        m.setPeople("test people 2");
+//        m.setPlace("Test Geonggi 2");
+//        m.setImg(R.drawable.ic_passed_sch_24);
+//        models.add(m);
+//
+//
+//        m = new Model();
+//        m.setTitle("Test title 2");
+//        m.setPeople("test people 2");
+//        m.setPlace("Test Geonggi 2");
+//        m.setImg(R.drawable.ic_passed_sch_24);
+//        models.add(m);
 
-        m = new Model();
-        m.setTitle("Test title 2");
-        m.setPeople("test people 2");
-        m.setPlace("Test Geonggi 2");
-        m.setImg(R.drawable.ic_passed_sch_24);
-        models.add(m);
         return models;
     }
 }

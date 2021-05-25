@@ -1,5 +1,6 @@
 package com.example.capstonedesign;
 
+import static com.example.capstonedesign.user.UserInfo.userId;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -83,8 +84,7 @@ public class Schedule_ReviewFragment extends Fragment {
         //스케쥴 아이디값도 받아보쟈
         int schId = getArguments().getInt("schId");
 
-        int userid=0;
-        Call<rating> call = rc.mainFlowService.userRate(userid, conditionEval, kindnessEval, facilityEval);
+        Call<rating> call = rc.mainFlowService.userRate(userId, conditionEval, kindnessEval, facilityEval);
         call.enqueue(new Callback<rating>() {
             @Override
             public void onResponse(Call<rating> call, Response<rating> response) {

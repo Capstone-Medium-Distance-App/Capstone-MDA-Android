@@ -1,5 +1,7 @@
 package com.example.capstonedesign.mainFeature;
 
+import static com.example.capstonedesign.user.UserInfo.userId;
+import static com.example.capstonedesign.user.UserInfo.userName;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -21,6 +23,7 @@ public class LocationSettingFragment extends Fragment implements View.OnClickLis
 
     //locationFinalSelect test -> DELETE SOMEDAY!
     Fragment lc = new LocationFinalSelectFragment();
+
     //
     private Button btn_cafe,btn_rest,btn_act;
     public LocationSettingFragment() { }

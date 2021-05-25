@@ -118,23 +118,23 @@ public class LocationFinalSelectFragment extends Fragment {
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
 
- // 여기--------------------------------------------------------
-//                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
-//                call.enqueue(new Callback<schDT>() {
-//                    @Override
-//                    public void onResponse(Call<schDT> call, Response<schDT> response) {
-//                        final schDT sentData = response.body();
-//                        System.out.println("schDT DATA SEND SUCCESS!!!");
-//                        System.out.println("=========================================================");
-//                        System.out.println(sentData.toString());
-//                        System.out.println("=========================================================");
-//                    }
-//                    @Override
-//                    public void onFailure(Call<schDT> call, Throwable t) {
-//                        t.printStackTrace();
-//                        System.out.println("schDT DATA SEND FAIL!!!");
-//                    }
-//                });----------------------------------------------
+
+                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
+                call.enqueue(new Callback<schDT>() {
+                    @Override
+                    public void onResponse(Call<schDT> call, Response<schDT> response) {
+                        final schDT sentData = response.body();
+                        System.out.println("schDT DATA SEND SUCCESS!!!");
+                        System.out.println("=========================================================");
+                        System.out.println(sentData.toString());
+                        System.out.println("=========================================================");
+                    }
+                    @Override
+                    public void onFailure(Call<schDT> call, Throwable t) {
+                        t.printStackTrace();
+                        System.out.println("schDT DATA SEND FAIL!!!");
+                    }
+                });
             }
         });
 
