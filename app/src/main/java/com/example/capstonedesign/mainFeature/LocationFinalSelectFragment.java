@@ -118,8 +118,10 @@ public class LocationFinalSelectFragment extends Fragment {
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
 
+                //값은 번들이나 인텐트로 받아서 넣어줘야함
+                int placeid = 0;
 
-                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime);
+                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime, placeid);
                 call.enqueue(new Callback<schDT>() {
                     @Override
                     public void onResponse(Call<schDT> call, Response<schDT> response) {

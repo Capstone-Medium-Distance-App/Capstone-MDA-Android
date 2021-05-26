@@ -303,10 +303,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                                 System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
                                 System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
                                 System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
-                                System.out.println("placeid 1,2,3 : "+result.getPlaceId1()+" / "+result.getPlaceId2()+" / "+result.getPlaceId3());
-                                System.out.println("placeName 1,2,3 : "+result.getPlaceName1()+" / "+result.getPlaceName2()+" / "+result.getPlaceName3());
-                                System.out.println("placeArea 1,2,3 : "+result.getPlaceArea1()+" / "+result.getPlaceArea2()+" / "+result.getPlaceArea3());
-                                System.out.println("placeType 1,2,3 : "+result.getPlaceType1()+" / "+result.getPlaceType2()+" / "+result.getPlaceType3());
 
                                 latLng1 = new LatLng(Double.valueOf(result.getLatitude1()), Double.valueOf(result.getLongitude1()));
                                 latLng2 = new LatLng(Double.valueOf(result.getLatitude2()), Double.valueOf(result.getLongitude2()));

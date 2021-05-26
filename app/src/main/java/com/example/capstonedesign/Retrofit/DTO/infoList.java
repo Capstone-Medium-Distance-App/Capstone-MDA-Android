@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 public class infoList {
     @SerializedName("placeId1")
-    private String placeId1;
+    private int placeId1;
 
     @SerializedName("placeId2")
-    private String placeId2;
+    private int placeId2;
 
     @SerializedName("placeId3")
-    private String placeId3;
+    private int placeId3;
 
     @SerializedName("placeName1")
     private String placeName1;

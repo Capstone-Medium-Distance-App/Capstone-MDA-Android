@@ -1,5 +1,6 @@
 package com.example.capstonedesign;
 
+import static com.example.capstonedesign.user.UserInfo.userId;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -49,7 +50,7 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         rc = new RetrofitClient();
-        Call<ScheduleList> call = rc.mainFlowService.getScheduleList();
+        Call<ScheduleList> call = rc.mainFlowService.getScheduleList(userId);
         call.enqueue(new Callback<ScheduleList>() {
             @Override
             public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {

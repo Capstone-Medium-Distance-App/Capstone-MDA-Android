@@ -54,8 +54,8 @@ public interface MainFlowService {
     Call<locFin> locFin();
 
     //약속했던 기록들을 한꺼번에 받는 메소드
-    @GET("getSchedules")
-    Call<ScheduleList> getScheduleList();
+    @GET("getSchedules/{userId}")
+    Call<ScheduleList> getScheduleList(@Path("userId") int userId);
 
     //평점을 보내는 메소드
     @FormUrlEncoded

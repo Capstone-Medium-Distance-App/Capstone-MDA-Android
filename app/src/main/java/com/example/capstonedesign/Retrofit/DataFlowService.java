@@ -1,6 +1,5 @@
 package com.example.capstonedesign.Retrofit;
 
-import com.example.capstonedesign.Retrofit.DTO.cafeMapStart;
 import com.example.capstonedesign.Retrofit.DTO.infoList;
 import com.example.capstonedesign.Retrofit.DTO.midAndPlace;
 import com.example.capstonedesign.Retrofit.DTO.schDT;
@@ -30,7 +29,8 @@ public interface DataFlowService {
     @GET("/schDT")
     Call<schDT> schDT(
             @Field("schDate")String schDate,
-            @Field("schTime")String schTime
+            @Field("schTime")String schTime,
+            @Field("placeId")int placeId
     );
 
 
