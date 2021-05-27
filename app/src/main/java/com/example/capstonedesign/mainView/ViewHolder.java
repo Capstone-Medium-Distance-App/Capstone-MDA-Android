@@ -13,7 +13,7 @@ import com.example.capstonedesign.schedule.ItemClickListener;
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     ImageView img;
-    TextView vTitle,vPlace,vTag;
+    TextView vTitle,vPlace,vTag,vPlaceId;
     ItemClickListener itemClickListener;
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,6 +21,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         this.vTitle = itemView.findViewById(R.id.txt_title_view);
         this.vPlace = itemView.findViewById(R.id.txt_place_view);
         this.vTag = itemView.findViewById(R.id.txt_tag_view);
+        this.vPlaceId = itemView.findViewById(R.id.txt_placeId_view);
 
         itemView.setOnClickListener(this);
 

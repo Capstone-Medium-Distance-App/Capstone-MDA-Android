@@ -8,4 +8,5 @@ import lombok.Setter;
 @Getter
 public class Vmodel {
     private String vPlace,vName;
+    private int vPlaceId;
 }

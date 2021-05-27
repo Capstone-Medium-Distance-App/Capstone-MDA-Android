@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class ViewModel {
     private String viewTitle,viewPlace,viewTag;
-    private int view;
+    private int view,placeId;
 }

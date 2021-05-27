@@ -83,15 +83,15 @@ public class ScheduleFragment extends Fragment {
 
 
 //        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.sch1);
-//        ll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(!arr.isEmpty()){
-//                    System.out.println("====================다음프래그먼트로 전송=====================");
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("list", arr);
-//                    bundle.putInt("selectedSchId", 0);
-//                    sch_detail_fra.setArguments(bundle);
+////        ll.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                if(!arr.isEmpty()){
+////                    System.out.println("====================다음프래그먼트로 전송=====================");
+////                    Bundle bundle = new Bundle();
+////                    bundle.putSerializable("list", arr);
+////                    bundle.putInt("selectedSchId", 0);
+////                    sch_detail_fra.setArguments(bundle);
 //                    System.out.println("=========================================================");
 //                    ((MainActivity)getActivity()).replaceFragment(sch_detail_fra);
 //                }

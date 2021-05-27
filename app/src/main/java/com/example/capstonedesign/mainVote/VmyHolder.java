@@ -12,12 +12,12 @@ import com.example.capstonedesign.schedule.ItemClickListener;
 public class VmyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     ItemClickListener itemClickListener;
-    TextView mPlace,mName;
+    TextView mPlace,mName,mPlaceId;
     public VmyHolder(@NonNull View itemView) {
         super(itemView);
         this.mName = itemView.findViewById(R.id.txtname_row_vote);
         this.mPlace = itemView.findViewById(R.id.txtpalce_row_vote);
-
+        this.mPlaceId = itemView.findViewById(R.id.txt_placeId_vote);
         itemView.setOnClickListener(this);
     }
 

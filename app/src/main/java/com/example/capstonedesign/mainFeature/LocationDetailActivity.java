@@ -33,8 +33,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String mTitle = intent.getStringExtra("title");
-
-
+        int placeId = Integer.parseInt(intent.getStringExtra("ID"));
 
 
 

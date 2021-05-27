@@ -74,6 +74,8 @@ public class LocationMainViewFragment extends Fragment {
 //        m.setViewPlace(info.getPlaceArea1());
 //        m.setViewTag(info.getPlaceType1());
 //        m.setView(R.color.orangeC);
+//        m.setPlaceId(Integer.parseInt(info.getPlaceId1());
+
 //        models.add(m);
 //
 //        m =new ViewModel();
@@ -93,6 +95,7 @@ public class LocationMainViewFragment extends Fragment {
         m.setViewTitle("");
         m.setViewPlace("");
         m.setViewTag("");
+//        m.setPlaceId(Integer.parseInt("1"));
         m.setView(R.color.orangeC);
         models.add(m);
 

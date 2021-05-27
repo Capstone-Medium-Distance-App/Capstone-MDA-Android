@@ -21,7 +21,7 @@ public class LocationActivity extends AppCompatActivity {
     private LocationMainFragment fragmentMainLocation = new LocationMainFragment();
     private LocationFinalSelectFragment fragmentFinalSelect = new LocationFinalSelectFragment();
     private LocationFinishFragment fragmentLocationFinish = new LocationFinishFragment();
-    private LocationSettingFragment fragmentSettingFinish = new LocationSettingFragment();
+    private LocationSettingFragment fragmentSetting = new LocationSettingFragment();
 
 
     @Override
@@ -33,7 +33,7 @@ public class LocationActivity extends AppCompatActivity {
 
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout2, fragmentSettingFinish).commitAllowingStateLoss();
+        transaction.replace(R.id.frameLayout2, fragmentSetting).commitAllowingStateLoss();
 
         //   FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //   fragmentTransaction.add(R.id.ContentLayout, StudyFragment.newInstance()).commit();

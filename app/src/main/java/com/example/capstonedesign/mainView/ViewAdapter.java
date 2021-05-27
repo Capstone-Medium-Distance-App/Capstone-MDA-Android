@@ -13,6 +13,7 @@ import com.example.capstonedesign.R;
 import com.example.capstonedesign.mainFeature.LocationDetailActivity;
 import com.example.capstonedesign.schedule.ItemClickListener;
 import com.example.capstonedesign.schedule.Model;
+import com.example.capstonedesign.user.UserInfo;
 
 import java.util.ArrayList;
 
@@ -41,13 +42,17 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.vPlace.setText(models.get(position).getViewPlace());
         holder.vTag.setText(models.get(position).getViewTag());
         holder.img.setImageResource(models.get(position).getView());
+        holder.vPlaceId.setText(models.get(position).getPlaceId());
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClickListener(View v, int position) {
                 String gTitle =models.get(position).getViewTitle();
+                int gId = models.get(position).getPlaceId();
 
                 Intent intent = new Intent(c, LocationDetailActivity.class);
+
+                intent.putExtra("ID", Integer.toString(gId));
                 intent.putExtra("title",gTitle);
                 c.startActivity(intent);
             }

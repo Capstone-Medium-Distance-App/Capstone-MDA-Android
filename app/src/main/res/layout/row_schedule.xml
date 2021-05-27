@@ -60,5 +60,11 @@
                 android:padding="10dp"
                 android:text="Seoul seuongbuggu "
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1" />
         </LinearLayout>
 </androidx.cardview.widget.CardView>

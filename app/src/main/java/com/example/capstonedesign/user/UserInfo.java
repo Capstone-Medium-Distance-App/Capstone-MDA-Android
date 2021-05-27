@@ -8,4 +8,5 @@ import lombok.Setter;
 public class UserInfo {
     public static int userId = 0;
     public static String userName = "trudy";
+    public static int pPlaceId = 0;
 }
