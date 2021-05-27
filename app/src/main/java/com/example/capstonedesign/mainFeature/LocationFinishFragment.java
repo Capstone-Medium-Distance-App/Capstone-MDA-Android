@@ -46,8 +46,9 @@ public class LocationFinishFragment extends Fragment {
 
 
         //약속정보를 받아와서 출력해줌----------------------------여기
+        int schId = 1;
         rc = new RetrofitClient();
-        Call<locFin> call = rc.mainFlowService.locFin();
+        Call<locFin> call = rc.mainFlowService.locFin(schId);
         call.enqueue(new Callback<locFin>() {
             @Override
             public void onResponse(Call<locFin> call, Response<locFin> response) {

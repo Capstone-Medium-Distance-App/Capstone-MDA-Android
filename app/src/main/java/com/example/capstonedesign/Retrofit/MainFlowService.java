@@ -38,11 +38,12 @@ public interface MainFlowService {
     //서버로 사용자 자신의 위치를 보내는 메소드
     //데이터가 넘어갔는지 확인할려면 '메인주소/client_enter'으로 접속해보면 확인 가능
     @FormUrlEncoded
-    @POST("client_enter")
+    @POST("userEnter")
     Call<userEnter> userEnter(
-            @Field("userId")String userId,
-            @Field("userLatitude")String userLatitude,
-            @Field("userLongitude")String userLongitude
+            @Field("userId")int userId,
+            @Field("userLatitude")double userLatitude,
+            @Field("userLongitude")double userLongitude
+
     );
 
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
@@ -50,8 +51,8 @@ public interface MainFlowService {
     Call<PlaceDto> placeDetail();
 
     //서버에서 최종 약속에 대한 정보를 받는 메소드
-    @GET("locationFin")
-    Call<locFin> locFin();
+    @GET("locationFin/{schId}")
+    Call<locFin> locFin(@Path("scheduleId")int schId);
 
     //약속했던 기록들을 한꺼번에 받는 메소드
     @GET("getSchedules/{userId}")
