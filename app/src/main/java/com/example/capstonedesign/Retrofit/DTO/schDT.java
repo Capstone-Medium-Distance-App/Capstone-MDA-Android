@@ -13,4 +13,7 @@ public class schDT {
 
     @SerializedName("schTime")
     String schTime;
+
+    @SerializedName("placeId")
+    int placeId;
 }

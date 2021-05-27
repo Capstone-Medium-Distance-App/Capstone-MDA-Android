@@ -128,7 +128,9 @@ public class LocationFinalSelectFragment extends Fragment {
                         final schDT sentData = response.body();
                         System.out.println("schDT DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
-                        System.out.println(sentData.toString());
+                        int pd = sentData.getPlaceId();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt("schId", pd);
                         System.out.println("=========================================================");
                     }
                     @Override

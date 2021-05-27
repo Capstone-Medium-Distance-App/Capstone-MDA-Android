@@ -108,9 +108,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
 
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottomNavi_main_location);
@@ -130,18 +127,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //        mapView.onCreate(savedInstanceState);
 //        mapView.onResume();
 //        mapView.getMapAsync(this);
-
-
-//        String btn_txt = getArguments().getString("btn_txt");
-//        //이걸 한꺼번에 받는 객체를 만들기에는 너무많은거 같음 -> 만약에 나누게되면 url까지 나눠서해야하고, 안나누게되면 하나의 객체안에서 너무많은 속성들이 있음 어떻게하는게 좋아보이나
-//        switch(btn_txt){
-//            case "cafe":{
-//
-//            }
-//
-//        }
-
-
 
 //        //Toolbar -> BackArrow + title + icons .version
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -199,11 +184,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         };
         askLocationPermission();
-        System.out.println("==========================");
-        System.out.println(lat+" , "+log);
-        System.out.println("==========================");
-
-
 
 //        CameraPosition cameraPosition = new CameraPosition.Builder()
 //                .target(new LatLng(lat, log))      // Sets the center of the map to Mountain View
@@ -266,6 +246,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 googleMap.addMarker(place1);
 
                 //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
+                // String -> Double로 바꿔야됨~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 Call<userEnter> SendCall = rc.mainFlowService.userEnter(userId, lat, log);
                 SendCall.enqueue(new Callback<userEnter>() {
                     @Override
@@ -287,44 +268,44 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
 
 
-//                //중간값을 받을때까지의 기다리는 기준을 잡아야함
-//                while(mainlatLng != null){
-//                    //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
-//                    rc = new RetrofitClient();
-//                    Call<midAndPlace> cli_locCall = rc.dataFlowService.cli_Loc();
-//                    cli_locCall.enqueue(new Callback<midAndPlace>(){
-//                        String TAG = "TAG";
-//                        @Override
-//                        public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
-//                            if(response.isSuccessful()){
-//                                midAndPlace result = response.body();
-//                                System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
-//                                System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
-//                                System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
-//                                System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
-//                                System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
-//
-//                                latLng1 = new LatLng(Double.valueOf(result.getLatitude1()), Double.valueOf(result.getLongitude1()));
-//                                latLng2 = new LatLng(Double.valueOf(result.getLatitude2()), Double.valueOf(result.getLongitude2()));
-//                                latLng3 = new LatLng(Double.valueOf(result.getLatitude3()), Double.valueOf(result.getLongitude3()));
-//                                mainlatLng = new LatLng(Double.valueOf(result.getMidLat()), Double.valueOf(result.getMidLong()));
-//                                Log.d(TAG, "onResponse: 성공, 결과\n");
-//                            }else{
-//                                Log.d(TAG, "onRespones: 실패");
-//                            }
-//                        }
-//                        @Override
-//                        public void onFailure(Call<midAndPlace> call, Throwable t) {
-//                            Log.d(TAG, "onFailure: "+t.getMessage());
-//                        }
-//                    });
-//                }
+                //중간값을 받을때까지의 기다리는 기준을 잡아야함
+                while(mainlatLng != null){
+                    //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
+                    rc = new RetrofitClient();
+                    Call<midAndPlace> cli_locCall = rc.dataFlowService.cli_Loc();
+                    cli_locCall.enqueue(new Callback<midAndPlace>(){
+                        String TAG = "TAG";
+                        @Override
+                        public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
+                            if(response.isSuccessful()){
+                                midAndPlace result = response.body();
+                                System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
+                                System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
+                                System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
+                                System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
+                                System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
+
+                                latLng1 = new LatLng(Double.valueOf(result.getLatitude1()), Double.valueOf(result.getLongitude1()));
+                                latLng2 = new LatLng(Double.valueOf(result.getLatitude2()), Double.valueOf(result.getLongitude2()));
+                                latLng3 = new LatLng(Double.valueOf(result.getLatitude3()), Double.valueOf(result.getLongitude3()));
+                                mainlatLng = new LatLng(Double.valueOf(result.getMidLat()), Double.valueOf(result.getMidLong()));
+                                Log.d(TAG, "onResponse: 성공, 결과\n");
+                            }else{
+                                Log.d(TAG, "onRespones: 실패");
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<midAndPlace> call, Throwable t) {
+                            Log.d(TAG, "onFailure: "+t.getMessage());
+                        }
+                    });
+                }
                 
 
 //                latLng1 = new LatLng(lat, log);
-                latLng2 = new LatLng(37.648984, 126.774089);
-                latLng3 = new LatLng(37.671873, 126.785645);
-                mainlatLng = new LatLng(37.659627, 126.773459);
+//                latLng2 = new LatLng(37.648984, 126.774089);
+//                latLng3 = new LatLng(37.671873, 126.785645);
+//                mainlatLng = new LatLng(37.659627, 126.773459);
 
 
                 googleMap.clear();
