@@ -3,6 +3,7 @@ package com.example.capstonedesign.mainFeature;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -31,6 +32,8 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private String schDate = "";
     private String schTime = "";
+    //값은 번들이나 인텐트로 받아서 넣어줘야함
+    int placeid = 0;
     private Calendar c = Calendar.getInstance();
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -111,9 +114,6 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
 
-                //값은 번들이나 인텐트로 받아서 넣어줘야함
-                int placeid = 0;
-
                 Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime, placeid);
                 call.enqueue(new Callback<schDT>() {
                     @Override
@@ -122,6 +122,9 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
                         System.out.println("schDT DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
                         System.out.println(sentData.toString());
+                        //response에서 넘어오는 placeId자리에 schId가 있으니까 getPlaceId로 받고, locationFinishFragment으로 넘기자
+                        placeid = sentData.getPlaceId();
+
                         System.out.println("=========================================================");
                     }
                     @Override
@@ -131,9 +134,8 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
                     }
                 });
 
-
-
                 Intent intent = new Intent(getApplicationContext(), LocationFinishActivity.class);
+                intent.putExtra("schId", placeid);
                 startActivity(intent);
             }
         });

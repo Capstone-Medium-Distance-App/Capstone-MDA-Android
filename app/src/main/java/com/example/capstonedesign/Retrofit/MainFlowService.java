@@ -1,5 +1,6 @@
 package com.example.capstonedesign.Retrofit;
 
+import com.example.capstonedesign.Retrofit.DTO.ScheduleDto;
 import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
 import com.example.capstonedesign.Retrofit.DTO.locFin;
 import com.example.capstonedesign.Retrofit.DTO.DTO;
@@ -7,6 +8,9 @@ import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.rating;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
+import com.example.capstonedesign.Retrofit.DTO.voteStatus;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -58,13 +62,19 @@ public interface MainFlowService {
     @GET("getSchedules/{userId}")
     Call<ScheduleList> getScheduleList(@Path("userId") int userId);
 
+    @GET("voteStatusList")
+    Call<ArrayList<voteStatus>> userVoteList();
+
     //평점을 보내는 메소드
     @FormUrlEncoded
     @POST("rating")
     Call<rating> userRate(
             @Field("userId") int userId,
             @Field("conditionEval") int conditionEval,
-            @Field("kindnessEval") int kindnessEval,
-            @Field("facilityEval") int facilityEval
+            @Field("schId") int schId
     );
+
+    //schId를 보내면 서버에서 해당 스케쥴을 리턴해줌
+    @GET("schDetail")
+    Call<ScheduleDto> schDetail(@Path("schId")int schId);
 }

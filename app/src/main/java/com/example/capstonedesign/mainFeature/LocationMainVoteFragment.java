@@ -6,27 +6,35 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.capstonedesign.R;
+import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
+import com.example.capstonedesign.Retrofit.DTO.voteStatus;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 import com.example.capstonedesign.mainVote.Vmodel;
 import com.example.capstonedesign.mainVote.VmyAdapter;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class LocationMainVoteFragment extends Fragment {
-
-    Fragment locationFinalSelectFragment = new LocationFinalSelectFragment();
     RecyclerView recyclerView;
     VmyAdapter vmyAdapter;
 
     public LocationMainVoteFragment() { }
 
     private Button button1,button2,button3;
+    private RetrofitClient rc = new RetrofitClient();
+    private ArrayList<voteStatus> arr = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +42,25 @@ public class LocationMainVoteFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.recyclerview_vote);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        Call<ArrayList<voteStatus>> call = rc.mainFlowService.userVoteList();
+        call.enqueue(new Callback<ArrayList<voteStatus>>() {
+            @Override
+            public void onResponse(Call<ArrayList<voteStatus>> call, Response<ArrayList<voteStatus>> response) {
+                System.out.println("arrayList<voteStatus> DATA RECEIVE SUCCESS!!!");
+                System.out.println("=========================================================");
+                Log.d("TAG",response.code()+"");
+                Log.d("TAG",response.errorBody()+"");
+                System.out.println(response);
+                arr = response.body();
+                System.out.println("=========================================================");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<voteStatus>> call, Throwable t) {
+
+            }
+        });
 
         vmyAdapter = new VmyAdapter(getActivity(),getMyList());
         recyclerView.setAdapter(vmyAdapter);
@@ -49,20 +76,28 @@ public class LocationMainVoteFragment extends Fragment {
     }
     private ArrayList<Vmodel>getMyList(){
         ArrayList<Vmodel> vmodels = new ArrayList<>();
-        Vmodel m = new Vmodel();
-        m.setVPlace("STARBUCKS");
-        m.setVName("SEUNG");
-        vmodels.add(m);
 
-        m = new Vmodel();
-        m.setVPlace("is CAFE");
-        m.setVName("kyu");
-        vmodels.add(m);
+        for(int i=0; i<arr.size(); i++){
+            Vmodel m = new Vmodel();
+            m.setVPlace(arr.get(i).getPlacePname());
+            m.setVName(arr.get(i).getPVotedUser());
+            vmodels.add(m);
+        }
 
-        m = new Vmodel();
-        m.setVPlace("CSCS CAFE");
-        m.setVName("jae,jung");
-        vmodels.add(m);
+//        Vmodel m = new Vmodel();
+//        m.setVPlace("STARBUCKS");
+//        m.setVName("SEUNG");
+//        vmodels.add(m);
+//
+//        m = new Vmodel();
+//        m.setVPlace("is CAFE");
+//        m.setVName("kyu");
+//        vmodels.add(m);
+//
+//        m = new Vmodel();
+//        m.setVPlace("CSCS CAFE");
+//        m.setVName("jae,jung");
+//        vmodels.add(m);
 
         return vmodels;
     }

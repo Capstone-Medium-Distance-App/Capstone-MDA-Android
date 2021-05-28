@@ -35,7 +35,7 @@ public class ScheduleFragment extends Fragment {
     private RetrofitClient rc;
     private Gson mGson;
     private ArrayList<ScheduleDto> arr = new ArrayList<>();
-    private Fragment sch_detail_fra = new Schedule_DetailFragment();
+
 
     RecyclerView recyclerView;
     MyAdapter myAdapter;
@@ -122,6 +122,7 @@ public class ScheduleFragment extends Fragment {
              m.setTitle(arr.get(i).getScheduleName());
              m.setPeople(arr.get(i).getSchedulePeopleNum());
              m.setPlace(arr.get(i).getSchedulePlaceArea());
+             m.setSchId(arr.get(i).getScheduleId());
              String tmp[] = new String[3];
              tmp = arr.get(i).getScheduleDate().split("");
              if(month > Integer.parseInt(tmp[1]) && day > Integer.parseInt(tmp[2]))

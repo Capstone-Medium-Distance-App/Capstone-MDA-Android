@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Model {
     private String title,place,people;
-    private int img;
+    private int img, schId;
 }

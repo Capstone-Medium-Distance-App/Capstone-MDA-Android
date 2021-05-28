@@ -33,9 +33,13 @@ public class LocationFinishActivity extends AppCompatActivity {
         TextView who = findViewById(R.id.txt_locationfinish_who);
         TextView place = findViewById(R.id.txt_locationfinish_place);
 
+        //바로 이전 화면인 LocationFinalSelectFragment에서 bundle로 보낸 schId를 받아서
+        //retrofit에서 URL에 껴서 보내줘야한다!!
+        Intent intent = getIntent();
+        int schId = 0;
+        schId = intent.getExtras().getInt("schId");
 
         //약속정보를 받아와서 출력해줌----------------------------여기
-        int schId = 1;
         rc = new RetrofitClient();
         Call<locFin> call = rc.mainFlowService.locFin(schId);
         call.enqueue(new Callback<locFin>() {

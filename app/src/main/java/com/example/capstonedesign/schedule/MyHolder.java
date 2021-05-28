@@ -11,7 +11,7 @@ import com.example.capstonedesign.R;
 
 public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     ImageView imageView;
-    TextView mTitle,mPlace,mPeople;
+    TextView mTitle,mPlace,mPeople, mSchId;
     ItemClickListener itemClickListener;
 
 
@@ -22,6 +22,7 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
         this.mTitle = itemView.findViewById(R.id.txt_title_sch);
         this.mPlace = itemView.findViewById(R.id.txt_place_sch);
         this.mPeople = itemView.findViewById(R.id.txt_people_sch);
+        this.mSchId = itemView.findViewById(R.id.textView2);
 
         itemView.setOnClickListener(this);
     }

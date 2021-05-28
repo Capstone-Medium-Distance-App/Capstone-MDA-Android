@@ -43,13 +43,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         holder.mPlace.setText(models.get(position).getPlace());
         holder.mPeople.setText(models.get(position).getPeople());
         holder.imageView.setImageResource(models.get(position).getImg());
+        //schId전용
+        holder.mSchId.setText(models.get(position).getSchId());
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClickListener(View v, int position) {
-                String gTitle = models.get(position).getTitle();
+                int schId = models.get(position).getSchId();
                 Intent intent = new Intent(context, ScheduleDetailActivity.class);
-                intent.putExtra("title", gTitle);
+                intent.putExtra("schId", schId);
+//                intent.putExtra("title", gTitle);
                 context.startActivity(intent);
             }
         });

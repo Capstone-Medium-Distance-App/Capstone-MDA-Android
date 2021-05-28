@@ -11,13 +11,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.capstonedesign.Retrofit.DTO.ScheduleDto;
+import com.example.capstonedesign.Retrofit.DTO.locFin;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ScheduleDetailActivity extends AppCompatActivity {
 
+    private RetrofitClient rc = new RetrofitClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,36 +40,39 @@ public class ScheduleDetailActivity extends AppCompatActivity {
         TextView date = findViewById(R.id.textView25);
         TextView time = findViewById(R.id.textView27);
 
-        //가져온 리스트와 리스트의 몇번째에 있는 숫자가 있는지넘겨받기
-        int schId = getArguments().getInt("selectedSchId");
-        ArrayList<ScheduleDto> schLists = (ArrayList<ScheduleDto>)getArguments().get("list");
+        //schedule.MyAdapter에서 보내주는 클릭된 schId값을 전달 받음
+        Intent intent = getIntent();
+        int schId = intent.getExtras().getInt("schId");
 
-        //가져온거 확인해보기
-        for(int i=0; i<schLists.size(); i++){
-            System.out.println(schLists.get(i).getScheduleName());
-        }
+        Call<ScheduleDto> call = rc.mainFlowService.schDetail(schId);
+        call.enqueue(new Callback<ScheduleDto>() {
+            @Override
+            public void onResponse(Call<ScheduleDto> call, Response<ScheduleDto> response) {
+                System.out.println("REQUESTED SCHEDULE DATA RECEIVE SUCCESS!!!");
+                System.out.println("=========================================================");
+                System.out.println(response.toString());
+                ScheduleDto recData = response.body();
+                //던져준 schId에 대한 값을 받아서 각각의 텍스트입력
+                txt.setText(recData.getScheduleName());
+                where.setText(recData.getSchedulePlaceArea());
+                who.setText(recData.getScheduleWithUserName());
+                place.setText(recData.getSchedulePlaceName());
+                date.setText(recData.getScheduleDate());
+                time.setText(recData.getScheduleTime());
+                System.out.println("=========================================================");
+            }
 
-        //가져온걸로 설정해줌
-        where.setText(schLists.get(schId).getSchedulePlaceArea());
-        who.setText(schLists.get(schId).getScheduleWithUserName());
-        place.setText(schLists.get(schId).getSchedulePlaceName());
-        date.setText(schLists.get(schId).getScheduleDate());
-        time.setText(schLists.get(schId).getScheduleTime());
+            @Override
+            public void onFailure(Call<ScheduleDto> call, Throwable t) {
 
-        Bundle bundle = new Bundle();
-        int tmp = 0;
-        tmp = schLists.get(schId).getScheduleId();
-        bundle.putInt("schId", tmp);
+            }
+        });
 
-        Intent in =getIntent();
-        String mTitle = getIntent().getStringExtra("title");
-
-        txt.setText(mTitle);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ScheduleReviewActivity.class);
-//                intent.putExtra("title", gTitle);
+                intent.putExtra("schId", schId);
                 startActivity(intent);
             }
         });

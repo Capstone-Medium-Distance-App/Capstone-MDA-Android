@@ -2,7 +2,6 @@ package com.example.capstonedesign.mainVote;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.mainFeature.LocationFinalSelectActivity;
-import com.example.capstonedesign.mainFeature.LocationFinalSelectFragment;
 import com.example.capstonedesign.schedule.ItemClickListener;
 
 import java.util.ArrayList;
