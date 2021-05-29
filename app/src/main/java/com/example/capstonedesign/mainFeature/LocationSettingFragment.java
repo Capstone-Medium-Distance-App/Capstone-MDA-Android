@@ -22,7 +22,7 @@ public class LocationSettingFragment extends Fragment implements View.OnClickLis
     Fragment locationSettingOneFragment = new LocationSettingOneFragment();
 
     //locationFinalSelect test -> DELETE SOMEDAY!
-    Fragment lc = new LocationFinalSelectFragment();
+//    Fragment lc = new LocationFinalSelectFragment();
 
     //
     private Button btn_cafe,btn_rest,btn_act;

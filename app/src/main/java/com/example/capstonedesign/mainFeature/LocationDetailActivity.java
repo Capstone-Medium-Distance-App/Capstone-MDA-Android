@@ -33,14 +33,14 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String mTitle = intent.getStringExtra("title");
-        int placeId = Integer.parseInt(intent.getStringExtra("ID"));
-
+        int placeId = 0;
+        placeId = Integer.parseInt(intent.getStringExtra("ID"));
 
 
         tx.setText(mTitle);
 
         rc = new RetrofitClient();
-        Call<PlaceDto> call = rc.mainFlowService.placeDetail();
+        Call<PlaceDto> call = rc.mainFlowService.placeDetail(placeId);
 
         call.enqueue(new Callback<PlaceDto>() {
             @Override

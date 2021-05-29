@@ -51,8 +51,8 @@ public interface MainFlowService {
     );
 
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
-    @GET("/placeDetail")
-    Call<PlaceDto> placeDetail();
+    @GET("/placeDetail/{placeId}")
+    Call<PlaceDto> placeDetail(@Path("placeId")int placeId);
 
     //서버에서 최종 약속에 대한 정보를 받는 메소드
     @GET("locationFin/{schId}")

@@ -42,7 +42,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.vPlace.setText(models.get(position).getViewPlace());
         holder.vTag.setText(models.get(position).getViewTag());
         holder.img.setImageResource(models.get(position).getView());
-        holder.vPlaceId.setText(models.get(position).getPlaceId());
+        holder.vPlaceId.setText(Integer.toString(models.get(position).getPlaceId()));
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

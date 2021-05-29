@@ -19,8 +19,8 @@ public class LocationActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
 //    private LocationDetailFragment fragmentLocationDetail = new LocationDetailFragment();
     private LocationMainFragment fragmentMainLocation = new LocationMainFragment();
-    private LocationFinalSelectFragment fragmentFinalSelect = new LocationFinalSelectFragment();
-    private LocationFinishFragment fragmentLocationFinish = new LocationFinishFragment();
+//    private LocationFinalSelectFragment fragmentFinalSelect = new LocationFinalSelectFragment();
+//    private LocationFinishFragment fragmentLocationFinish = new LocationFinishFragment();
     private LocationSettingFragment fragmentSetting = new LocationSettingFragment();
 
 
