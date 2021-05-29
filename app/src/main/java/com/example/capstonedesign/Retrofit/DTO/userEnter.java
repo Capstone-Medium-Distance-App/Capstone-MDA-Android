@@ -3,12 +3,12 @@ package com.example.capstonedesign.Retrofit.DTO;
 import com.google.gson.annotations.SerializedName;
 
 public class userEnter {
-    @SerializedName("userID")
+    @SerializedName("userId")
     private String userId;
 
     @SerializedName("userLatitude")
-    private String usetLatitude;
+    private double userLatitude;
 
     @SerializedName("userLongitude")
-    private String userLongitude;
+    private double userLongitude;
 }

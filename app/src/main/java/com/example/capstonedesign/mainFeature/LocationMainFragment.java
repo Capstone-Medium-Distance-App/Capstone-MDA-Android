@@ -61,7 +61,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private LocationMainViewFragment fragmentView = new LocationMainViewFragment();
     private LocationMainVoteFragment fragmentVote = new LocationMainVoteFragment();
     private GoogleMap googleMap;
-    private RetrofitClient rc;
+    private RetrofitClient rc = new RetrofitClient();
     private MapView mapView;
     private double lat = 0.0, log = 0.0;
     private LatLng latLng1,latLng2,latLng3,mainlatLng;
@@ -73,6 +73,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private String placeName1, placeName2, placeName3;
     private String placeArea1, placeArea2, placeArea3;
     private String placeType1, placeType2, placeType3;
+
+    //비동기방식을 위해서 만들어본 변수
+    int check=0;
 
     LocationManager locationManager;
     LocationListener locationListener;
@@ -119,6 +122,61 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
+
+        mapFragment.getMapAsync(this);
+
+        Call<userEnter> SendCall = rc.mainFlowService.userEnter(Integer.toString(userId), lat, log);
+        SendCall.enqueue(new Callback<userEnter>() {
+            @Override
+            public void onResponse(Call<userEnter> call, Response<userEnter> response) {
+                System.out.println("=========================================================");
+                System.out.println("userEnter DATA SEND SUCCESS!!!");
+                Log.d("TAG", response.code() + "");
+                Log.d("TAG", response.errorBody() + "");
+                System.out.println(response.body());
+                System.out.println("=========================================================");
+                //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
+                Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+                cli_locCall.enqueue(new Callback<midAndPlace>(){
+                    String TAG = "TAG";
+                    @Override
+                    public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
+                        if(response.isSuccessful()){
+                            System.out.println("=========================================================");
+                            System.out.println("User123 lat,log /  DATA RECEIVE SUCCESS!!!");
+                            midAndPlace result = response.body();
+                            System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
+                            System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
+                            System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
+                            System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
+                            System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
+                            System.out.println("=========================================================");
+//                            latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
+//                            latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
+//                            latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
+//                            mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
+                            check=1;
+                            //mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
+                        }else{
+                            Log.d(TAG, "onRespones: 실패");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<midAndPlace> call, Throwable t) {
+                        Log.d(TAG, "onFailure: "+t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<userEnter> call, Throwable t) {
+                t.printStackTrace();
+                System.out.println("userEnter DATA SEND FAIL!!!");
+            }
+        });
+
+
+
 
         mapFragment.getMapAsync(this);
 
@@ -235,77 +293,31 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                     return;
                 }
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                //현재 자신의 위도, 경도값
-                lat = lastLocation.getLatitude();
-                log = lastLocation.getLongitude();
+//                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//                //현재 자신의 위도, 경도값
+//                lat = lastLocation.getLatitude();
+//                log = lastLocation.getLongitude();
 
-                //자신의 위치를 찍기
-                latLng1 = new LatLng(lat, log);
-                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                googleMap.addMarker(place1);
-
-                //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
-                // String -> Double로 바꿔야됨~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                Call<userEnter> SendCall = rc.mainFlowService.userEnter(userId, lat, log);
-                SendCall.enqueue(new Callback<userEnter>() {
-                    @Override
-                    public void onResponse(Call<userEnter> call, Response<userEnter> response) {
-                        System.out.println("userEnter DATA SEND SUCCESS!!!");
-                        System.out.println("=========================================================");
-                        Log.d("TAG", response.code() + "");
-                        Log.d("TAG", response.errorBody() + "");
-                        System.out.println(response);
-                        System.out.println("=========================================================");
-                    }
-
-                    @Override
-                    public void onFailure(Call<userEnter> call, Throwable t) {
-                        t.printStackTrace();
-                        System.out.println("userEnter DATA SEND FAIL!!!");
-                    }
-                });
+                //https://www.codota.com/code/java/methods/android.location.LocationManager/getLastKnownLocation 저번에 말한 에러 해결
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                log = location.getLongitude();
+                lat = location.getLatitude();
 
 
+                if(check==0){
+                    //자신의 위치를 찍기
+                    latLng1 = new LatLng(lat, log);
+                    place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                    googleMap.addMarker(place1);
+                    //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
+                    // String -> Double로 바꿔야됨~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                //중간값을 받을때까지의 기다리는 기준을 잡아야함
-                while(mainlatLng != null){
-                    //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
-                    rc = new RetrofitClient();
-                    Call<midAndPlace> cli_locCall = rc.dataFlowService.cli_Loc();
-                    cli_locCall.enqueue(new Callback<midAndPlace>(){
-                        String TAG = "TAG";
-                        @Override
-                        public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
-                            if(response.isSuccessful()){
-                                midAndPlace result = response.body();
-                                System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
-                                System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
-                                System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
-                                System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
-                                System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
-
-                                latLng1 = new LatLng(Double.valueOf(result.getLatitude1()), Double.valueOf(result.getLongitude1()));
-                                latLng2 = new LatLng(Double.valueOf(result.getLatitude2()), Double.valueOf(result.getLongitude2()));
-                                latLng3 = new LatLng(Double.valueOf(result.getLatitude3()), Double.valueOf(result.getLongitude3()));
-                                mainlatLng = new LatLng(Double.valueOf(result.getMidLat()), Double.valueOf(result.getMidLong()));
-                                Log.d(TAG, "onResponse: 성공, 결과\n");
-                            }else{
-                                Log.d(TAG, "onRespones: 실패");
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<midAndPlace> call, Throwable t) {
-                            Log.d(TAG, "onFailure: "+t.getMessage());
-                        }
-                    });
                 }
-                
 
-//                latLng1 = new LatLng(lat, log);
-//                latLng2 = new LatLng(37.648984, 126.774089);
-//                latLng3 = new LatLng(37.671873, 126.785645);
-//                mainlatLng = new LatLng(37.659627, 126.773459);
+                latLng1 = new LatLng(lat, log);
+                latLng2 = new LatLng(37.648984, 126.774089);
+                latLng3 = new LatLng(37.671873, 126.785645);
+                mainlatLng = new LatLng(37.659627, 126.773459);
 
 
                 googleMap.clear();
@@ -315,21 +327,28 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //                Bitmap icon = generator.makeIcon();
 
 
-                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
+                if(check==1){
+                    //userEnter를 보내고나서 check을 1로 변경하고 다시 함수를 호출해서 여기로 오도록
+                    System.out.println(latLng1.latitude+"/"+latLng1.longitude);
+                    System.out.println(latLng2.latitude+"/"+latLng2.longitude);
+                    System.out.println(latLng3.latitude+"/"+latLng3.longitude);
+                    place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                    place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                    place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                    mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
 
-                googleMap.addMarker(place1);
-                googleMap.addMarker(place2);
-                googleMap.addMarker(place3);
-                googleMap.addMarker(mainplace).showInfoWindow();
+                    googleMap.addMarker(place1);
+                    googleMap.addMarker(place2);
+                    googleMap.addMarker(place3);
+                    googleMap.addMarker(mainplace).showInfoWindow();
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
+                    googleMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+                }
 
 //                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
 //                new FetchURL(getActivity()).execute(url,"driving");
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
-                googleMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+
             }
 
             @Override
@@ -338,7 +357,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                    permissionToken.continuePermissionRequest();
+                permissionToken.continuePermissionRequest();
             }
         }).check();
     }

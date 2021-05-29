@@ -13,8 +13,8 @@ import retrofit2.http.POST;
 
 public interface DataFlowService {
     //서버로부터 모든 사용자의 위치와 중간 위치를 받는 과정
-    @GET("getMidAndPlace")
-    Call<midAndPlace> cli_Loc();
+    @GET("/getMidAndPlace")
+    Call<midAndPlace> getMidAndPlace();
 
     @GET("infoList")
     Call<infoList> infoList();
@@ -26,7 +26,8 @@ public interface DataFlowService {
             @Field("votePlaceName")int votePlaceName
     );
 
-    @GET("/schDT")
+    @FormUrlEncoded
+    @POST("/schDT")
     Call<schDT> schDT(
             @Field("schDate")String schDate,
             @Field("schTime")String schTime,

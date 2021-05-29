@@ -44,10 +44,9 @@ public interface MainFlowService {
     @FormUrlEncoded
     @POST("userEnter")
     Call<userEnter> userEnter(
-            @Field("userId")int userId,
+            @Field("userId")String userId,
             @Field("userLatitude")double userLatitude,
             @Field("userLongitude")double userLongitude
-
     );
 
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
