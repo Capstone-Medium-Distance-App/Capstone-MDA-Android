@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Retrofit.DTO.midAndPlace;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
+import com.example.capstonedesign.Retrofit.MainFlowService;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -55,6 +56,8 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationMainFragment extends Fragment implements OnMapReadyCallback,TaskLoadedCallback,LocationListener {
 
@@ -62,6 +65,11 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private LocationMainVoteFragment fragmentVote = new LocationMainVoteFragment();
     private GoogleMap googleMap;
     private RetrofitClient rc = new RetrofitClient();
+    Retrofit r = new Retrofit.Builder()
+            .baseUrl("http://192.168.35.225:8080/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    MainFlowService m = r.create(MainFlowService.class);
     private MapView mapView;
     private double lat = 0.0, log = 0.0;
     private LatLng latLng1,latLng2,latLng3,mainlatLng;
@@ -123,7 +131,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
 
-        mapFragment.getMapAsync(this);
+
 
         Call<userEnter> SendCall = rc.mainFlowService.userEnter(Integer.toString(userId), lat, log);
         SendCall.enqueue(new Callback<userEnter>() {
@@ -135,37 +143,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 Log.d("TAG", response.errorBody() + "");
                 System.out.println(response.body());
                 System.out.println("=========================================================");
-                //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
-                Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
-                cli_locCall.enqueue(new Callback<midAndPlace>(){
-                    String TAG = "TAG";
-                    @Override
-                    public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
-                        if(response.isSuccessful()){
-                            System.out.println("=========================================================");
-                            System.out.println("User123 lat,log /  DATA RECEIVE SUCCESS!!!");
-                            midAndPlace result = response.body();
-                            System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
-                            System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
-                            System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
-                            System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
-                            System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
-                            System.out.println("=========================================================");
-//                            latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
-//                            latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
-//                            latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
-//                            mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
-                            check=1;
-                            //mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
-                        }else{
-                            Log.d(TAG, "onRespones: 실패");
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<midAndPlace> call, Throwable t) {
-                        Log.d(TAG, "onFailure: "+t.getMessage());
-                    }
-                });
             }
 
             @Override
@@ -175,10 +152,68 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
-
-
-
         mapFragment.getMapAsync(this);
+
+
+        Call<Integer> z = rc.dataFlowService.userEnterCnt();
+        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+        z.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                System.out.println("==================userEnterCount DATA RECV============");
+                System.out.println(response);
+                System.out.println(response.body());
+                System.out.println(response.toString());
+                if(response.body() == 3){
+                    System.out.println(response.body());
+                    check = 1;
+                }
+                //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
+                if(response.isSuccessful()){
+                    if(check==1){
+                        System.out.println("*****************check is 1");
+                        cli_locCall.enqueue(new Callback<midAndPlace>(){
+                            String TAG = "TAG";
+                            @Override
+                            public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
+                                if(response.isSuccessful()){
+                                    System.out.println("=========================================================");
+                                    System.out.println("User123 lat,log /  DATA RECEIVE SUCCESS!!!");
+                                    midAndPlace result = response.body();
+                                    System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
+                                    System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
+                                    System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
+                                    System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
+                                    System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
+                                    System.out.println("=========================================================");
+
+                                    latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
+                                    latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
+                                    latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
+                                    mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
+
+                                    mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
+                                }else{
+                                    Log.d(TAG, "onRespones: 실패");
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<midAndPlace> call, Throwable t) {
+                                Log.d(TAG, "onFailure: "+t.getMessage());
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                System.out.println("==============UserEnterCount DATA RECV ERROR!=========");
+            }
+        });
+
+
+        //mapFragment.getMapAsync(this);
 
 //        mapView.getMapAsync(this);
 //        mapView = (MapView)rootView.findViewById(R.id.mapView);
@@ -314,10 +349,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
                 }
 
-                latLng1 = new LatLng(lat, log);
-                latLng2 = new LatLng(37.648984, 126.774089);
-                latLng3 = new LatLng(37.671873, 126.785645);
-                mainlatLng = new LatLng(37.659627, 126.773459);
+//                latLng1 = new LatLng(lat, log);
+//                latLng2 = new LatLng(37.648984, 126.774089);
+//                latLng3 = new LatLng(37.671873, 126.785645);
+//                mainlatLng = new LatLng(37.659627, 126.773459);
 
 
                 googleMap.clear();

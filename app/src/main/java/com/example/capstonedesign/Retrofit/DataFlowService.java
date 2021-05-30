@@ -19,6 +19,9 @@ public interface DataFlowService {
     @GET("infoList")
     Call<infoList> infoList();
 
+    @GET("userEnterCnt")
+    Call<Integer> userEnterCnt();
+
     @FormUrlEncoded
     @POST("/userVote")
     Call<userVote> userVote(
