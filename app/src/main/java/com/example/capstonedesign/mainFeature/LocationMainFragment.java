@@ -65,11 +65,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private LocationMainVoteFragment fragmentVote = new LocationMainVoteFragment();
     private GoogleMap googleMap;
     private RetrofitClient rc = new RetrofitClient();
-    Retrofit r = new Retrofit.Builder()
-            .baseUrl("http://192.168.35.225:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    MainFlowService m = r.create(MainFlowService.class);
     private MapView mapView;
     private double lat = 0.0, log = 0.0;
     private LatLng latLng1,latLng2,latLng3,mainlatLng;
