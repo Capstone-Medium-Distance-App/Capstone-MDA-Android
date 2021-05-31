@@ -19,24 +19,21 @@
 <!--    <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="339dp"
-        android:layout_height="329dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:selector_color="#FFA500"
+        app:current_month_day_color="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView28"
-
-
-        app:selector_color="#FFA500"
-        app:current_month_day_color="@color/black"
-        app:off_month_day_color="@color/graytxt"
-        app:week_name_color="@color/bluebtn"
         app:month_color="@color/black"
         app:next_icon="@color/black"
+        app:off_month_day_color="@color/graytxt"
         app:previous_icon="@color/bluebtn"
         app:selected_day_text_color="@color/bluebtn"
-        />
+        app:week_name_color="@color/bluebtn" />
 
     <TextView
         android:id="@+id/textView28"
@@ -53,13 +50,26 @@
 
     <TextView
         android:id="@+id/details"
-        android:layout_width="341dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
