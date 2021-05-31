@@ -74,7 +74,7 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
             {
                 textView_Date.setText(year + "." + monthOfYear + "." + dayOfMonth + "");
                 //schDate라는 변수에 선택된 값을 받아서, 저장해뒀다가 나중에 전송
-                schDate = year + " " + monthOfYear + " " + dayOfMonth;
+                schDate = year + "," + monthOfYear + "," + dayOfMonth;
             }
         };
 

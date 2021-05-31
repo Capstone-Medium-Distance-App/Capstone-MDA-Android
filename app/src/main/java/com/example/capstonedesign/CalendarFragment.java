@@ -79,10 +79,43 @@ public class CalendarFragment extends Fragment {
                 new SaturdayDecorator(),
                 oneDayDecorator);
 
-        String[] result = {"2021,05,18","2017,04,18","2017,05,18","2017,06,18"};
+//        String[] result = {"2021,05,18","2021,04,18","2021,05,16","2021,05,11"};
 
-        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+        //arr ArrayList에 3개가 들어가있음
+        ScheduleDto s1 = new ScheduleDto();
+        s1.setScheduleName("첫 번째 테스트 스케쥴");
+        s1.setScheduleDate("2021,01,01");
+        s1.setScheduleTime("11:11");
+        arr.add(s1);
+        ScheduleDto s2 = new ScheduleDto();
+        s2.setScheduleName("두 번째 테스트 스케쥴");
+        s2.setScheduleDate("2021,02,02");
+        s2.setScheduleTime("22:22");
+        arr.add(s2);
+        ScheduleDto s3 = new ScheduleDto();
+        s3.setScheduleName("세 번째 테스트 스케쥴");
+        s3.setScheduleDate("2021,03,05");
+        s3.setScheduleTime("00:00");
+        arr.add(s3);
+        ScheduleDto s4 = new ScheduleDto();
+        s4.setScheduleName("네 번째 테스트 스케쥴");
+        s4.setScheduleDate("2021,05,15");
+        s4.setScheduleTime("00:00");
+        arr.add(s4);
 
+        String[] dates = new String[arr.size()+1];
+        for(int i=0; i<arr.size(); i++){
+            dates[i] = arr.get(i).getScheduleDate();
+        }
+        //마지막용 더미 데이터
+        dates[arr.size()] = "0000,00,00";
+
+        //retrofit에서 받은 date들 확인
+        for (int i = 0; i < dates.length; i++) {
+            System.out.println(dates[i]);
+        }
+
+        new ApiSimulator(dates).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         recyclerView = rootView.findViewById(R.id.recyclerview_calendar);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -109,33 +142,6 @@ public class CalendarFragment extends Fragment {
 //                System.out.println("scheduleList DATA RECEIVE FAIL!!!");
 //            }
 //        });
-
-        //arr ArrayList에 3개가 들어가있음
-        ScheduleDto s1 = new ScheduleDto();
-        s1.setScheduleName("첫 번째 테스트 스케쥴");
-        s1.setScheduleDate("2021 01 01");
-        s1.setScheduleTime("11:11");
-        ScheduleDto s2 = new ScheduleDto();
-        s2.setScheduleName("두 번째 테스트 스케쥴");
-        s2.setScheduleDate("2021 02 02");
-        s2.setScheduleTime("22:22");
-        ScheduleDto s3 = new ScheduleDto();
-        s3.setScheduleName("세 번째 테스트 스케쥴");
-        s3.setScheduleDate("2021 03 03");
-        s3.setScheduleTime("00:00");
-        arr.add(s1);
-        arr.add(s2);
-        arr.add(s3);
-        
-        
-
-        //색칠하는 코드는 여기에서 arr을 사용해서
-        for(int i=0; i<arr.size(); i++){
-            String tmp[] = new String[3];
-            tmp = arr.get(i).getScheduleDate().split(" ");
-            //tmp[0] : 연도, tmp[1] : 달, tmp[2] : 일
-
-        }
 
         TextView tx  = (TextView) rootView.findViewById(R.id.details);
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -187,7 +193,7 @@ public class CalendarFragment extends Fragment {
         for(int i=0; i<arr.size(); i++){
 
             String tmp[] = new String[3];
-            tmp = arr.get(i).getScheduleDate().split(" ");
+            tmp = arr.get(i).getScheduleDate().split(",");
             if(
                     (year == Integer.parseInt(tmp[0]))
                     &&(month == Integer.parseInt(tmp[1]))

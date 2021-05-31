@@ -151,7 +151,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
 
         Call<Integer> z = rc.dataFlowService.userEnterCnt();
-        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+
         z.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -167,6 +167,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 if(response.isSuccessful()){
                     if(check==1){
                         System.out.println("*****************check is 1");
+                        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+
+
                         cli_locCall.enqueue(new Callback<midAndPlace>(){
                             String TAG = "TAG";
                             @Override
