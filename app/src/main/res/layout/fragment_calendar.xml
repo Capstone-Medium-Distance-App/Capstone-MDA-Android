@@ -14,39 +14,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-<!--    <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
-
-<!--    <com.skyhope.eventcalenderlibrary.CalenderEvent-->
-    <CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-    <!--    android:selector_color="#FFA500"-->
-<!--        app:current_month_day_color="@color/black"-->
-
-<!--        app:month_color="@color/black"-->
-<!--        app:next_icon="@color/black"-->
-<!--        app:off_month_day_color="@color/graytxt"-->
-<!--        app:previous_icon="@color/bluebtn"-->
-<!--        app:selected_day_text_color="@color/bluebtn"-->
-<!--        app:week_name_color="@color/bluebtn" />-->
+        app:layout_constraintTop_toBottomOf="@+id/textView28"
+        app:mcv_selectionColor="#a9dbf0cb"
+        app:mcv_showOtherDates="defaults" />
 
     <TextView
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:text="Calendar"
-        android:textSize="36sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
