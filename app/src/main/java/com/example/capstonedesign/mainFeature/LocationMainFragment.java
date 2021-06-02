@@ -192,6 +192,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
                                     mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
                                 }else{
+                                    
                                     Log.d(TAG, "onRespones: 실패");
                                 }
                             }
