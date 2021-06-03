@@ -44,17 +44,18 @@ public class LocationMainViewFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        viewAdapter = new ViewAdapter(getActivity(),getMyList());
+
 
         Call<infoList> call = rc.dataFlowService.infoList();
         call.enqueue(new Callback<infoList>() {
             @Override
             public void onResponse(Call<infoList> call, Response<infoList> response) {
-                System.out.println("infoList DATA RECEIVE SUCCESS!!!");
                 System.out.println("=========================================================");
+                System.out.println("infoList DATA RECEIVE SUCCESS!!!");
                 info = response.body();
                 System.out.println(info.toString());
                 System.out.println("=========================================================");
+                viewAdapter = new ViewAdapter(getActivity(),getMyList());
                 recyclerView.setAdapter(viewAdapter);
             }
 
