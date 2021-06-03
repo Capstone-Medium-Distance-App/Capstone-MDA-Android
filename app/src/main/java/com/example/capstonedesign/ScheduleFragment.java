@@ -53,9 +53,6 @@ public class ScheduleFragment extends Fragment {
             public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
                 System.out.println("scheduleList DATA RECEIVE SUCCESS!!!");
                 System.out.println("=========================================================");
-                Log.d("TAG",response.code()+"");
-                Log.d("TAG",response.errorBody()+"");
-                System.out.println(response);
                 ScheduleList receivedData = response.body();
                 arr = receivedData.getList();
 
@@ -65,7 +62,8 @@ public class ScheduleFragment extends Fragment {
                     System.out.println(arr.get(i).getScheduleName());
                 }
                 System.out.println("=========================================================");
-
+                myAdapter = new MyAdapter(getActivity(), getMyList());
+                recyclerView.setAdapter(myAdapter);
             }
 
             @Override
@@ -74,8 +72,7 @@ public class ScheduleFragment extends Fragment {
                 System.out.println("scheduleList DATA RECEIVE FAIL!!!");
             }
         });
-        myAdapter = new MyAdapter(getActivity(), getMyList());
-        recyclerView.setAdapter(myAdapter);
+
 
 
 
@@ -120,18 +117,18 @@ public class ScheduleFragment extends Fragment {
              m.setPeople(arr.get(i).getSchedulePeopleNum());
              m.setPlace(arr.get(i).getSchedulePlaceArea());
              m.setSchId(arr.get(i).getScheduleId());
-             String tmp[] = new String[3];
+             String tmp[] = {"1", "1", "1"};
              tmp = arr.get(i).getScheduleDate().split("");
-             if(month > Integer.parseInt(tmp[1]) && day > Integer.parseInt(tmp[2]))
-                 m.setImg(R.drawable.ic_planned_sch_24);
-             else
+//             if(month > Integer.parseInt(tmp[1]) && day > Integer.parseInt(tmp[2]))
+//                 m.setImg(R.drawable.ic_planned_sch_24);
+//             else
                  m.setImg(R.drawable.ic_passed_sch_24);
              models.add(m);
 
         }
 
 //        Model m = new Model();
-//        m.setTitle(arr.get(0).getScheduleName());
+//        m.setTitle("TEST TITLE 1");
 //        m.setPeople("test people 1");
 //        m.setPlace("Test Geonggi 1");
 //        m.setImg(R.drawable.ic_planned_sch_24);

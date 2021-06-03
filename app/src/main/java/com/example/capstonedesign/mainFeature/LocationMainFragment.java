@@ -31,8 +31,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.capstonedesign.R;
+import com.example.capstonedesign.Retrofit.DTO.midAndPlace;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
 import com.example.capstonedesign.Retrofit.MainFlowService;
+import com.example.capstonedesign.Retrofit.RetrofitClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -68,8 +70,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     private LocationMainVoteFragment fragmentVote = new LocationMainVoteFragment();
     private GoogleMap googleMap;
     private Retrofit retrofit;
+    private RetrofitClient rc = new RetrofitClient();
     private MapView mapView;
-    private double lat = 0.0, log = 0.0;
+    private double lat = 37.66657228807503, log = 126.76327377041474;
+    //37.66657228807503, 126.76327377041474
     private LatLng latLng1,latLng2,latLng3,mainlatLng;
     LocationManager locationManager;
     LocationListener locationListener;
@@ -281,19 +285,8 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         //처음에 접속했을때 자신의 위치를 서버로 보내는 코드 -kyu
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-3-37-60-253.ap-northeast-2.compute.amazonaws.com:8080/")
-                //.baseUrl("http://192.168.35.225:8080/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        MainFlowService mainFlowService = retrofit.create(MainFlowService.class);
-
-
         // String -> Double로 바꿔야됨~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Call<userEnter> SendCall = mainFlowService.userEnter(userid, lat, log);
+        Call<userEnter> SendCall = rc.mainFlowService.userEnter(userid, lat, log);
 
         SendCall.enqueue(new Callback<userEnter>() {
             @Override
@@ -310,6 +303,37 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             public void onFailure(Call<userEnter> call, Throwable t) {
                 t.printStackTrace();
                 System.out.println("userEnter DATA SEND FAIL!!!");
+            }
+        });
+
+        //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
+        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+        cli_locCall.enqueue(new Callback<midAndPlace>(){
+            String TAG = "TAG";
+            @Override
+            public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
+                if(response.isSuccessful()){
+                    System.out.println("=========================================================");
+                    System.out.println("User123 lat,log /  DATA SEND SUCCESS!!!");
+                    midAndPlace result = response.body();
+                    System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
+                    System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
+                    System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
+                    System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
+                    System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
+                    System.out.println("=========================================================");
+//                    latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
+//                    latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
+//                    latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
+//                    mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
+//                    //mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
+                }else{
+                    Log.d(TAG, "onRespones: 실패");
+                }
+            }
+            @Override
+            public void onFailure(Call<midAndPlace> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
             }
         });
     }
@@ -354,9 +378,9 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                     return;
                 }
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                lat = lastLocation.getLatitude();
-                log = lastLocation.getLongitude();
+//                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//                lat = lastLocation.getLatitude();
+//                log = lastLocation.getLongitude();
 
                 latLng1 = new LatLng(lat, log);
                 latLng2 = new LatLng(37.648984, 126.774089);
