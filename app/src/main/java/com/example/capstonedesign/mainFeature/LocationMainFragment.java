@@ -414,6 +414,15 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 Toast.makeText(getActivity(), "This is EDIT", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.share:
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        googleMap.addMarker(place2);
+                        googleMap.addMarker(place3);
+                        googleMap.addMarker(mainplace).showInfoWindow();
+                    }
+                },2000);
                 Toast.makeText(getActivity(), "This is SHARE", Toast.LENGTH_SHORT).show();
                 break;
         }
