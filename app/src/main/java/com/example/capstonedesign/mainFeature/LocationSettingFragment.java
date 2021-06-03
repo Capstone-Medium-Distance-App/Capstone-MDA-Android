@@ -1,7 +1,5 @@
 package com.example.capstonedesign.mainFeature;
 
-import static com.example.capstonedesign.user.UserInfo.userId;
-import static com.example.capstonedesign.user.UserInfo.userName;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;

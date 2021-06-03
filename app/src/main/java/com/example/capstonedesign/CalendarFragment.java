@@ -1,6 +1,5 @@
 package com.example.capstonedesign;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstonedesign.Retrofit.DTO.ScheduleDto;
-import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
 import com.example.capstonedesign.calendar.CAdapter;
 import com.example.capstonedesign.calendar.Cmodel;
@@ -34,19 +32,10 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Executors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.example.capstonedesign.user.UserInfo.userId;
 
 public class CalendarFragment extends Fragment {
     RecyclerView recyclerView;

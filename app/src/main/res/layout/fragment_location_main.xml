@@ -7,7 +7,7 @@
     tools:context=".mainFeature.LocationMainFragment">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_main_location"
         layout="@layout/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/location_main_LinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_main_location" />
 
     <LinearLayout
         android:id="@+id/location_main_LinearLayout"

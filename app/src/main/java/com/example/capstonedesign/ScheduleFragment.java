@@ -13,13 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.ScheduleDto;
 import com.example.capstonedesign.Retrofit.DTO.ScheduleList;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
-import com.example.capstonedesign.mainFeature.LocationActivity;
 import com.example.capstonedesign.schedule.Model;
 import com.example.capstonedesign.schedule.MyAdapter;
 import com.google.gson.Gson;
