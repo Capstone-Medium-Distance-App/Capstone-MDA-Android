@@ -58,7 +58,7 @@ public interface MainFlowService {
     Call<locFin> locFin(@Path("scheduleId")int schId);
 
     //약속했던 기록들을 한꺼번에 받는 메소드
-    @GET("getSchedules/{userId}")
+    @GET("getSchedule/{userId}")
     Call<ScheduleList> getScheduleList(@Path("userId") int userId);
 
     @GET("voteStatusList")
