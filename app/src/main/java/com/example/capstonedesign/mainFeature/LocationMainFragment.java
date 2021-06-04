@@ -98,10 +98,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //                    menuItem.setIcon(R.drawable.ic_cafe_24);
 //                    menuItem.setTitle("cafe");
                     transaction.replace(R.id.main_location_FrameLayout, fragmentView);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("1", "visible");
-
-                    fragmentView.setArguments(bundle);
                     transaction.commit();
                     break;
                 case R.id.vote:
