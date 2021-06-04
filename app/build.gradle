@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
 }
-
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -35,6 +35,10 @@ dependencies {
     //Permission Dexter
     implementation 'com.karumi:dexter:6.2.2'
 
+    //Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-analytics'
+
     //Material-time-picker
     implementation 'com.akexorcist:snap-time-picker:1.0.0'
 
@@ -58,6 +62,7 @@ dependencies {
 //    implementation 'com.github.mahimrocky:EventCalender:v1.0.0'
 //    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.google.firebase:firebase-dynamic-links:19.1.1'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'

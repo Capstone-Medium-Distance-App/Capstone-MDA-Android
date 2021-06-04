@@ -6,10 +6,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.capstonedesign.mainFeature.LocationActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -17,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ScheduleFragment fragmentSchedule = new ScheduleFragment();
     private CalendarFragment fragmentCalendar = new CalendarFragment();
     private SettingFragment fragmentSetting = new SettingFragment();
-
+    private static String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragmentLocationStart).commitAllowingStateLoss();
+        getDynamicLinkFromFireBase();
+        Log.i("LocationActivity",id);
 
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if(id.equals("test")) {
+            Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+            startActivity(intent);
+        }else{
+            transaction.replace(R.id.frameLayout, fragmentLocationStart).commitAllowingStateLoss();
+
+        }
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
@@ -60,5 +76,35 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
+    }
+
+    private void getDynamicLinkFromFireBase() {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+                        if (deepLink != null) {
+                            id =deepLink.getQueryParameter("id");
+                            Log.i("LocationActivity","Dnamic Link Success"+id);
+                            Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
+                        }
+
+
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("LocationActivity", "getDynamicLink:onFailure", e);
+                    }
+                });
     }
 }
