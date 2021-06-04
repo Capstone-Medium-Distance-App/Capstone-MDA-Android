@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface DataFlowService {
     //서버로부터 모든 사용자의 위치와 중간 위치를 받는 과정
-    @GET("/getMidAndPlace")
+    @GET("/midAndPlace")
     Call<midAndPlace> getMidAndPlace();
 
     @GET("infoList")

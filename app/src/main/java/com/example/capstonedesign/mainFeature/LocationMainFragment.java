@@ -98,6 +98,10 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //                    menuItem.setIcon(R.drawable.ic_cafe_24);
 //                    menuItem.setTitle("cafe");
                     transaction.replace(R.id.main_location_FrameLayout, fragmentView);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("1", "visible");
+
+                    fragmentView.setArguments(bundle);
                     transaction.commit();
                     break;
                 case R.id.vote:
@@ -114,50 +118,20 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
 
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottomNavi_main_location);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_location_FrameLayout, fragmentView);
-        transaction.commit();
+//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//        transaction.replace(R.id.main_location_FrameLayout, fragmentView);
+//        transaction.commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapView);
 
-        //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
-        //mainfragment가 생성시, 바로 LocationMainView가 불려서 infoList(추천장소리스트)가 먼저 나오게되는 문제가생김
-        //retrofit 순서 : infoList -> userEnter -> midAndPlace
-        //그래서 midAndPlace를 oncreate로 뺴고 실험해봄
-        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
-        cli_locCall.enqueue(new Callback<midAndPlace>(){
-            String TAG = "TAG";
-            @Override
-            public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
-                if(response.isSuccessful()){
-                    System.out.println("=========================================================");
-                    System.out.println("User123 lat,log /  DATA RECEIVED SUCCESS!!!");
-                    midAndPlace result = response.body();
-                    System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
-                    System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
-                    System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
-                    System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
-                    System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
-                    System.out.println("=========================================================");
-//                    latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
-//                    latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
-//                    latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
-//                    mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
-//                    //mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
-                }else{
-                    Log.d(TAG, "onRespones: 실패");
-                }
-            }
-            @Override
-            public void onFailure(Call<midAndPlace> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.getMessage());
-            }
-        });
-
         mapFragment.getMapAsync(this);
+
+
+
+
 
 
 //        mapView.getMapAsync(this);
@@ -340,6 +314,38 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
+        //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
+        //mainfragment가 생성시, 바로 LocationMainView가 불려서 infoList(추천장소리스트)가 먼저 나오게되는 문제가생김
+        //retrofit 순서 : infoList -> userEnter -> midAndPlace
+        //그래서 midAndPlace를 oncreate로 뺴고 실험해봄
+        Call<midAndPlace> cli_locCall = rc.dataFlowService.getMidAndPlace();
+        cli_locCall.enqueue(new Callback<midAndPlace>(){
+            String TAG = "TAG";
+            @Override
+            public void onResponse(Call<midAndPlace> call, Response<midAndPlace> response) {
+
+                System.out.println("=========================================================");
+                System.out.println("User123 lat,log /  DATA RECEIVED SUCCESS!!!");
+                midAndPlace result = response.body();
+                System.out.println("latitude 1,2,3 : "+result.getLatitude1()+" / "+result.getLatitude2()+" / "+result.getLatitude3());
+                System.out.println("longitude 1,2,3 : "+result.getLongitude1()+" / "+result.getLongitude2()+" / "+result.getLongitude3());
+                System.out.println("username 1,2,3 : "+result.getUserName1()+" / "+result.getUserName2()+" / "+result.getUserName3());
+                System.out.println("userid 1,2,3 : "+result.getUserId1()+" / "+result.getUserId2()+" / "+result.getUserId3());
+                System.out.println("midLat, Long : "+result.getMidLat()+" / "+result.getMidLong());
+                System.out.println("=========================================================");
+//                    latLng1 = new LatLng(result.getLatitude1(), result.getLongitude1());
+//                    latLng2 = new LatLng(result.getLatitude2(), result.getLongitude2());
+//                    latLng3 = new LatLng(result.getLatitude3(), result.getLongitude3());
+//                    mainlatLng = new LatLng(result.getMidLat(), result.getMidLong());
+//                    //mapFragment.getMapAsync(LocationMainFragment.this::onMapReady);
+
+
+            }
+            @Override
+            public void onFailure(Call<midAndPlace> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
 
     }
 

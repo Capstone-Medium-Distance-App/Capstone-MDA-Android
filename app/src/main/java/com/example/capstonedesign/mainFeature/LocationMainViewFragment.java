@@ -43,8 +43,13 @@ public class LocationMainViewFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView_main_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setVisibility(View.INVISIBLE);
 
-
+        String visible = "";
+        visible = getArguments().getString("1");
+        if(visible.equals("visible")){
+            recyclerView.setVisibility(View.VISIBLE);
+        }
 
         Call<infoList> call = rc.dataFlowService.infoList();
         call.enqueue(new Callback<infoList>() {
