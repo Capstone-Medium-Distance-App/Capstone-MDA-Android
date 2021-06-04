@@ -3,7 +3,9 @@ package com.example.capstonedesign.Retrofit;
 import com.example.capstonedesign.Retrofit.DTO.infoList;
 import com.example.capstonedesign.Retrofit.DTO.midAndPlace;
 import com.example.capstonedesign.Retrofit.DTO.schDT;
-import com.example.capstonedesign.Retrofit.DTO.userVote;
+import com.example.capstonedesign.Retrofit.DTO.voteStatus;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -22,11 +24,17 @@ public interface DataFlowService {
     @GET("userEnterCnt")
     Call<Integer> userEnterCnt();
 
+
+    @GET("voteUserList")
+    Call<ArrayList<voteStatus>> userVoteList();
+
     @FormUrlEncoded
     @POST("/userVote")
-    Call<userVote> userVote(
-            @Field("voteUserId")int voteUserId,
-            @Field("votePlaceName")int votePlaceName
+    Call<voteStatus> userVote(
+//            @Field("voteUserId")String voteUserId,
+            @Field("pVotedUserName")String pVotedUserName,
+            @Field("placePname")String placePname,
+            @Field("pId")String pId
     );
 
     @FormUrlEncoded

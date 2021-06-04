@@ -1,5 +1,7 @@
 package com.example.capstonedesign.mainFeature;
 
+import static com.example.capstonedesign.user.UserInfo.userName;
+import static com.example.capstonedesign.user.UserInfo.userId;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
-import com.example.capstonedesign.Retrofit.DTO.userVote;
+import com.example.capstonedesign.Retrofit.DTO.voteStatus;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
 
 import retrofit2.Call;
@@ -24,6 +26,7 @@ public class LocationDetailActivity extends AppCompatActivity {
     private PlaceDto curPlace;
     private RetrofitClient rc;
     private int curPlaceId=0;
+    private String curPlaceName="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,7 @@ public class LocationDetailActivity extends AppCompatActivity {
                 System.out.println(response);
                 curPlace = response.body();
                 curPlaceId = curPlace.getPlaceId();
+                curPlaceName = curPlace.getPlaceName();
                 System.out.println(curPlace.getPlaceArea());
                 System.out.println(curPlace.getPlaceCategory());
                 System.out.println(curPlace.getPlaceDescription());
@@ -74,21 +78,20 @@ public class LocationDetailActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //번들로 가져와야할듯? -> locationMain에서 id값을 정한 다음에 생각
-                int userid = 0;
-                Call<userVote> call2 = rc.dataFlowService.userVote(userid, curPlaceId);
-                call2.enqueue(new Callback<userVote>() {
+                //Call<voteStatus> call2 = rc.dataFlowService.userVote(Integer.toString(userId), curPlaceName, Integer.toString(curPlaceId));
+                Call<voteStatus> call2 = rc.dataFlowService.userVote(userName, curPlaceName, Integer.toString(curPlaceId));
+                call2.enqueue(new Callback<voteStatus>() {
                     @Override
-                    public void onResponse(Call<userVote> call2, Response<userVote> response) {
-                        final userVote sentData = response.body();
-                        System.out.println("uesrVote DATA SEND SUCCESS!!!");
+                    public void onResponse(Call<voteStatus> call2, Response<voteStatus> response) {
+                        voteStatus sentData = response.body();
+                        System.out.println("userVote DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
-//                        System.out.println(sentData.toString());
+                        System.out.println(sentData.toString());
                         System.out.println("=========================================================");
                     }
 
                     @Override
-                    public void onFailure(Call<userVote> call2, Throwable t) {
+                    public void onFailure(Call<voteStatus> call2, Throwable t) {
                         t.printStackTrace();
                         System.out.println("userEnter DATA SEND FAIL!!!");
                     }

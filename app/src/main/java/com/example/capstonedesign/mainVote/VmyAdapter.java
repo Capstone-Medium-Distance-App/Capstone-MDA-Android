@@ -36,7 +36,7 @@ public class VmyAdapter extends RecyclerView.Adapter<VmyHolder> {
     public void onBindViewHolder(@NonNull VmyHolder holder, int position) {
         holder.mPlace.setText(vModels.get(position).getVPlace());
         holder.mName.setText(vModels.get(position).getVName());
-        holder.mPlaceId.setText(vModels.get(position).getVPlaceId());
+        holder.mPlaceId.setText(Integer.toString(vModels.get(position).getVPlaceId()));
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

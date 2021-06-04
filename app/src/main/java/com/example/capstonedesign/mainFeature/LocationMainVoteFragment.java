@@ -43,16 +43,18 @@ public class LocationMainVoteFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerview_vote);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Call<ArrayList<voteStatus>> call = rc.mainFlowService.userVoteList();
+        Call<ArrayList<voteStatus>> call = rc.dataFlowService.userVoteList();
         call.enqueue(new Callback<ArrayList<voteStatus>>() {
             @Override
             public void onResponse(Call<ArrayList<voteStatus>> call, Response<ArrayList<voteStatus>> response) {
                 System.out.println("arrayList<voteStatus> DATA RECEIVE SUCCESS!!!");
                 System.out.println("=========================================================");
                 Log.d("TAG",response.code()+"");
-                Log.d("TAG",response.errorBody()+"");
                 System.out.println(response);
                 arr = response.body();
+                for (int i = 0; i < arr.size(); i++) {
+                    System.out.println(arr.get(i).getPlacePname() + " / "+arr.get(i).getPVotedUserName());
+                }
                 System.out.println("=========================================================");
             }
 
@@ -80,7 +82,7 @@ public class LocationMainVoteFragment extends Fragment {
         for(int i=0; i<arr.size(); i++){
             Vmodel m = new Vmodel();
             m.setVPlace(arr.get(i).getPlacePname());
-            m.setVName(arr.get(i).getPVotedUser());
+            m.setVName(arr.get(i).getPVotedUserName());
             vmodels.add(m);
         }
 

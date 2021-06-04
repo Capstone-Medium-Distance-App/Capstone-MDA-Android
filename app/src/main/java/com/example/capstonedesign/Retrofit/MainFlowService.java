@@ -61,8 +61,6 @@ public interface MainFlowService {
     @GET("getSchedule/{userId}")
     Call<ScheduleList> getScheduleList(@Path("userId") int userId);
 
-    @GET("voteStatusList")
-    Call<ArrayList<voteStatus>> userVoteList();
 
     //평점을 보내는 메소드
     @FormUrlEncoded
