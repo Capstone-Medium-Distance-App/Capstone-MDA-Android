@@ -37,16 +37,22 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        if(id.equals("test")) {
-            transaction.replace(R.id.frameLayout2, fragmentMainLocation).commitAllowingStateLoss();
-        }else{
-            transaction.replace(R.id.frameLayout2, fragmentSetting).commitAllowingStateLoss();
-
+        if(intent.getStringExtra("id")!=null) {
+            id = intent.getStringExtra("id");
         }
+            if (id.equals("test")) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout2, fragmentMainLocation).commitAllowingStateLoss();
+            }
+
+            else {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout2, fragmentSetting).commitAllowingStateLoss();
+
+            }
+
         //   FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //   fragmentTransaction.add(R.id.ContentLayout, StudyFragment.newInstance()).commit();
 
