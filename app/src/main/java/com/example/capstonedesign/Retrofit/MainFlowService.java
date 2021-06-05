@@ -38,7 +38,6 @@ public interface MainFlowService {
             @Field("schPlaceCate")String schCate
     );
 
-
     //서버로 사용자 자신의 위치를 보내는 메소드
     //데이터가 넘어갔는지 확인할려면 '메인주소/client_enter'으로 접속해보면 확인 가능
     @FormUrlEncoded
@@ -60,7 +59,6 @@ public interface MainFlowService {
     //약속했던 기록들을 한꺼번에 받는 메소드
     @GET("getSchedule/{userId}")
     Call<ScheduleList> getScheduleList(@Path("userId") int userId);
-
 
     //평점을 보내는 메소드
     @FormUrlEncoded

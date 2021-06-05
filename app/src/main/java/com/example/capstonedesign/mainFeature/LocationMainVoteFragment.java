@@ -83,6 +83,7 @@ public class LocationMainVoteFragment extends Fragment {
             Vmodel m = new Vmodel();
             m.setVPlace(arr.get(i).getPlacePname());
             m.setVName(arr.get(i).getPvotedUserName());
+            m.setVPlaceId(arr.get(i).getPid());
             vmodels.add(m);
         }
 

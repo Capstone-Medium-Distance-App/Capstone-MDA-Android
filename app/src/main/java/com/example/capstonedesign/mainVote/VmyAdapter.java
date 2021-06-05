@@ -43,7 +43,6 @@ public class VmyAdapter extends RecyclerView.Adapter<VmyHolder> {
                 String gPlace = vModels.get(position).getVPlace();
                 int gPlaceId = vModels.get(position).getVPlaceId();
 
-
                 Intent intent = new Intent(c, LocationFinalSelectActivity.class);
                 intent.putExtra("ID", Integer.toString(gPlaceId));
                 intent.putExtra("PLACE", gPlace);
