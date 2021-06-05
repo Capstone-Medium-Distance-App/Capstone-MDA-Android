@@ -18,6 +18,9 @@ import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.voteStatus;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,21 +82,24 @@ public class LocationDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Call<voteStatus> call2 = rc.dataFlowService.userVote(Integer.toString(userId), curPlaceName, Integer.toString(curPlaceId));
-                Call<voteStatus> call2 = rc.dataFlowService.userVote(userName, curPlaceName, Integer.toString(curPlaceId));
-                call2.enqueue(new Callback<voteStatus>() {
+                Call<ResponseBody> callvote = rc.dataFlowService.userVote(userName, curPlaceName, Integer.toString(curPlaceId));
+                callvote.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<voteStatus> call2, Response<voteStatus> response) {
-                        voteStatus sentData = response.body();
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        //voteStatus sentData = response.body();
                         System.out.println("userVote DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
-                        System.out.println(sentData.toString());
+                        try {
+                            System.out.println(response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("=========================================================");
                     }
 
                     @Override
-                    public void onFailure(Call<voteStatus> call2, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         t.printStackTrace();
-                        System.out.println("userEnter DATA SEND FAIL!!!");
                     }
                 });
                     finish();

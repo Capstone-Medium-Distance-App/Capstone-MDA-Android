@@ -15,5 +15,14 @@ public class schDT {
     String schTime;
 
     @SerializedName("placeId")
-    int placeId;
+    String placeId;
+
+    @Override
+    public String toString() {
+        return "schDT{" +
+                "schDate='" + schDate + '\'' +
+                ", schTime='" + schTime + '\'' +
+                ", placeId=" + placeId +
+                '}';
+    }
 }

@@ -48,6 +48,7 @@ public class LocationFinishActivity extends AppCompatActivity {
                 System.out.println("placeDetails DATA RECEIVE SUCCESS!!!");
                 System.out.println("=========================================================");
                 System.out.println(response.toString());
+                System.out.println(response.body().toString());
                 locFin recData = response.body();
                 System.out.println(recData.getSchName());
                 System.out.println(recData.getSchPlaceName());

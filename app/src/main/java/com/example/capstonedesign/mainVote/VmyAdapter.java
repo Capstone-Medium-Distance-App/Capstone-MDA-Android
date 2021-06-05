@@ -37,10 +37,9 @@ public class VmyAdapter extends RecyclerView.Adapter<VmyHolder> {
         holder.mPlace.setText(vModels.get(position).getVPlace());
         holder.mName.setText(vModels.get(position).getVName());
         holder.mPlaceId.setText(Integer.toString(vModels.get(position).getVPlaceId()));
-
-        holder.setItemClickListener(new ItemClickListener() {
+        holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClickListener(View v, int position) {
+            public void onClick(View view) {
                 String gPlace = vModels.get(position).getVPlace();
                 int gPlaceId = vModels.get(position).getVPlaceId();
 
@@ -48,11 +47,28 @@ public class VmyAdapter extends RecyclerView.Adapter<VmyHolder> {
                 Intent intent = new Intent(c, LocationFinalSelectActivity.class);
                 intent.putExtra("ID", Integer.toString(gPlaceId));
                 intent.putExtra("PLACE", gPlace);
+                System.out.println(Integer.toString(gPlaceId) + " / "+gPlace);
 
 //                intent.putExtra(" ")
                 c.startActivity(intent);
             }
         });
+
+//        holder.setItemClickListener(new ItemClickListener() {
+//            @Override
+//            public void onItemClickListener(View v, int position) {
+//                String gPlace = vModels.get(position).getVPlace();
+//                int gPlaceId = vModels.get(position).getVPlaceId();
+//
+//
+//                Intent intent = new Intent(c, LocationFinalSelectActivity.class);
+//                intent.putExtra("ID", Integer.toString(gPlaceId));
+//                intent.putExtra("PLACE", gPlace);
+//
+////                intent.putExtra(" ")
+//                c.startActivity(intent);
+//            }
+//        });
     }
 
     @Override

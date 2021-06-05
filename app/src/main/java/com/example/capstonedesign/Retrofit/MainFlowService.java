@@ -55,7 +55,7 @@ public interface MainFlowService {
 
     //서버에서 최종 약속에 대한 정보를 받는 메소드
     @GET("locationFin/{schId}")
-    Call<locFin> locFin(@Path("scheduleId")int schId);
+    Call<locFin> locFin(@Path("schId")int schId);
 
     //약속했던 기록들을 한꺼번에 받는 메소드
     @GET("getSchedule/{userId}")

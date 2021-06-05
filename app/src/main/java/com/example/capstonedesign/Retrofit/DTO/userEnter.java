@@ -11,4 +11,13 @@ public class userEnter {
 
     @SerializedName("userLongitude")
     private double userLongitude;
+
+    @Override
+    public String toString() {
+        return "userEnter{" +
+                "userId='" + userId + '\'' +
+                ", userLatitude=" + userLatitude +
+                ", userLongitude=" + userLongitude +
+                '}';
+    }
 }
