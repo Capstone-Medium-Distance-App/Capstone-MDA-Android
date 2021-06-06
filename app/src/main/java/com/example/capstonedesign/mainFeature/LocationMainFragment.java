@@ -4,11 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -61,6 +65,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.example.capstonedesign.mainFeature.FetchURL;
+import com.example.capstonedesign.mainFeature.TaskLoadedCallback;
+
 
 import static com.example.capstonedesign.user.UserInfo.userName;
 
@@ -127,15 +134,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
 
 
-
-
-
-//        mapView.getMapAsync(this);
-//        mapView = (MapView)rootView.findViewById(R.id.mapView);
-//        mapView.onCreate(savedInstanceState);
-//        mapView.onResume();
-//        mapView.getMapAsync(this);
-
         //서버로부터 중간값과 나머지 참가자들의 위치를 받는 코드 -kyu
 //        retrofit = new Retrofit.Builder()
 //                .baseUrl("http://localhost:8080/clientsLocation")
@@ -201,24 +199,6 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
-//        View viewToolbar = getActivity().getLayoutInflater().inflate(R.layout.fragment_location_main,null);
-//        Button btn = (Button)viewToolbar.findViewById(R.id.share);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        googleMap.addMarker(place2);
-//                        googleMap.addMarker(place3);
-//                        googleMap.addMarker(mainplace).showInfoWindow();
-//                    }
-//                },2000);
-//
-//
-//            }
-//        });
 
         return rootView;
     }
@@ -242,27 +222,22 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 //marker listener 사용하면 드래그한 위치의 좌표값을 가져올수있음
 
                 googleMap.clear();
-//                IconGenerator generator = new IconGenerator(getContext());
-//                generator.setBackground(getResources().getDrawable(R.drawable.ic_main_person_24));
-//                generator.setContentView(txt_ex2);
-//                Bitmap icon = generator.makeIcon();
+//
+//                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+//                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+//                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+//                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
 
-
-                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
-
-
-                googleMap.addMarker(place1);
-
-
-                if(userName.equals("kyu"))
-                {
-                    googleMap.addMarker(place2);
-                    googleMap.addMarker(place3);
-                    googleMap.addMarker(mainplace).showInfoWindow();
-                }
+//
+//                googleMap.addMarker(place1);
+//
+//
+//                if(userName.equals("kyu"))
+//                {
+//                    googleMap.addMarker(place2);
+//                    googleMap.addMarker(place3);
+//                    googleMap.addMarker(mainplace).showInfoWindow();
+//                }
 
 
 //                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
@@ -344,7 +319,11 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
         });
 
     }
-
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable",getActivity().getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
+    }
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId){
         Drawable vectorDrawble = ContextCompat.getDrawable(context,vectorResId);
         vectorDrawble.setBounds(0,0, vectorDrawble.getIntrinsicWidth(),vectorDrawble.getIntrinsicHeight());
@@ -389,35 +368,35 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 //                lat = lastLocation.getLatitude();
 //                log = lastLocation.getLongitude();
 
-                latLng1 = new LatLng(lat, log);
-                latLng2 = new LatLng(37.648984, 126.774089);
-                latLng3 = new LatLng(37.671873, 126.785645);
-                mainlatLng = new LatLng(37.659627, 126.773459);
+//                latLng1 = new LatLng(lat, log);
+//                latLng2 = new LatLng(37.648984, 126.774089);
+//                latLng3 = new LatLng(37.671873, 126.785645);
+//                mainlatLng = new LatLng(37.659627, 126.773459);
+//                latLng1 = new LatLng(lat, log);
+                latLng1 = new LatLng(37.618669, 126.924600);//은평구
+                latLng2 = new LatLng(37.605043, 127.140592);//구리시
+                latLng3 = new LatLng(37.486886, 127.048225);//서초구
+                mainlatLng = new LatLng(37.569997, 126.992131);//종로3가
 
 
                 googleMap.clear();
-//                IconGenerator generator = new IconGenerator(getContext());
-//                generator.setBackground(getResources().getDrawable(R.drawable.ic_main_person_24));
-//                generator.setContentView(txt_ex2);
-//                Bitmap icon = generator.makeIcon();
 
 
-                place1 =new MarkerOptions().position(latLng1).title("승원").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place2 =new MarkerOptions().position(latLng2).title("규도").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place3 =new MarkerOptions().position(latLng3).title("재석").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                mainplace =new MarkerOptions().position(mainlatLng).title("약속장소").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
-
+                place1 =new MarkerOptions().position(latLng1).title("seungwon").snippet("1h 20m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place2 =new MarkerOptions().position(latLng2).title("kyudo").snippet("1h 00m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place3 =new MarkerOptions().position(latLng3).title("jaeseok").snippet("1h 10m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                mainplace =new MarkerOptions().position(mainlatLng).title("<Meeting>").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
                 googleMap.addMarker(place1);
+
                 if(userName.equals("kyu"))
                 {
                     googleMap.addMarker(place2);
                     googleMap.addMarker(place3);
                     googleMap.addMarker(mainplace).showInfoWindow();
                 }
-//                String url = getUrl(place1.getPosition(), place2.getPosition(),"driving");
-//                new FetchURL(getActivity()).execute(url,"driving");
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
+
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng1));
                 googleMap.moveCamera(CameraUpdateFactory.zoomTo(14));
             }
 
@@ -452,8 +431,14 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                         googleMap.addMarker(place2);
                         googleMap.addMarker(place3);
                         googleMap.addMarker(mainplace).showInfoWindow();
+                        googleMap.addPolyline(new PolylineOptions().add(latLng1,mainlatLng).width(9).color(Color.GRAY));
+                        googleMap.addPolyline(new PolylineOptions().add(latLng2,mainlatLng).width(9).color(Color.GRAY));
+                        googleMap.addPolyline(new PolylineOptions().add(latLng3,mainlatLng).width(9).color(Color.GRAY));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(mainlatLng));
+                        googleMap.moveCamera(CameraUpdateFactory.zoomTo(11));
                     }
                 },2000);
+
                 Toast.makeText(getActivity(), "This is SHARE", Toast.LENGTH_SHORT).show();
                 break;
         }
