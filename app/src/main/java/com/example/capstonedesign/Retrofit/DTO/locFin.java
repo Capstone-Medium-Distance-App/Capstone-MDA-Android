@@ -13,4 +13,14 @@ public class locFin {
     private String schPlaceName;
     private String schPlaceArea;
     private String schWIthUserName;
+
+    @Override
+    public String toString() {
+        return "locFin{" +
+                "schName='" + schName + '\'' +
+                ", schPlaceName='" + schPlaceName + '\'' +
+                ", schPlaceArea='" + schPlaceArea + '\'' +
+                ", schWIthUserName='" + schWIthUserName + '\'' +
+                '}';
+    }
 }

@@ -11,21 +11,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class voteStatus {
-    @SerializedName("pVotedUserName")
-    private String pVotedUserName;
+    @SerializedName("pvotedUserName")
+    private String pvotedUserName;
 
     @SerializedName("placePname")
     private String placePname;
 
-    @SerializedName("pId")
-    private String pId;
+    @SerializedName("pid")
+    private int pid;
 
     @Override
     public String toString() {
         return "voteStatus{" +
-                "pVotedUserName='" + pVotedUserName + '\'' +
+                "pVotedUserName='" + pvotedUserName + '\'' +
                 ", placePname='" + placePname + '\'' +
-                ", pId='" + pId + '\'' +
+                ", pId='" + pid + '\'' +
                 '}';
     }
 }

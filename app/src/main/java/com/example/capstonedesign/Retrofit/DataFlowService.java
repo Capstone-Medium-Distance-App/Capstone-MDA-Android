@@ -1,4 +1,4 @@
-package com.example.capstonedesign.Retrofit;
+ package com.example.capstonedesign.Retrofit;
 
 import com.example.capstonedesign.Retrofit.DTO.infoList;
 import com.example.capstonedesign.Retrofit.DTO.midAndPlace;
@@ -6,7 +6,9 @@ import com.example.capstonedesign.Retrofit.DTO.schDT;
 import com.example.capstonedesign.Retrofit.DTO.voteStatus;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -21,16 +23,13 @@ public interface DataFlowService {
     @GET("infoList")
     Call<infoList> infoList();
 
-    @GET("userEnterCnt")
-    Call<Integer> userEnterCnt();
-
-
     @GET("voteUserList")
+    //Call<List<voteStatus>> userVoteList();
     Call<ArrayList<voteStatus>> userVoteList();
 
     @FormUrlEncoded
-    @POST("/userVote")
-    Call<voteStatus> userVote(
+    @POST("userVote")
+    Call<ResponseBody> userVote(
 //            @Field("voteUserId")String voteUserId,
             @Field("pVotedUserName")String pVotedUserName,
             @Field("placePname")String placePname,
@@ -38,11 +37,11 @@ public interface DataFlowService {
     );
 
     @FormUrlEncoded
-    @POST("/schDT")
-    Call<schDT> schDT(
-            @Field("schDate")String schDate,
-            @Field("schTime")String schTime,
-            @Field("placeId")int placeId
+    @POST("schDT")
+    Call<schDT> saveSchDT(
+            @Field("schDate") String schDate,
+            @Field("schTime") String schTime,
+            @Field("placeId") int placeId
     );
 
 

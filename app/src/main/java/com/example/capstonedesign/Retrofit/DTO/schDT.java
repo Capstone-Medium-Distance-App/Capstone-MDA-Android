@@ -16,4 +16,13 @@ public class schDT {
 
     @SerializedName("placeId")
     int placeId;
+
+    @Override
+    public String toString() {
+        return "schDT{" +
+                "schDate='" + schDate + '\'' +
+                ", schTime='" + schTime + '\'' +
+                ", placeId=" + placeId +
+                '}';
+    }
 }

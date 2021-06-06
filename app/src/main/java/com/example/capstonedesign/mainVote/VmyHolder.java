@@ -1,6 +1,7 @@
 package com.example.capstonedesign.mainVote;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,13 @@ public class VmyHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
     ItemClickListener itemClickListener;
     TextView mPlace,mName,mPlaceId;
+    Button btn;
     public VmyHolder(@NonNull View itemView) {
         super(itemView);
         this.mName = itemView.findViewById(R.id.txtname_row_vote);
         this.mPlace = itemView.findViewById(R.id.txtpalce_row_vote);
         this.mPlaceId = itemView.findViewById(R.id.txt_placeId_vote);
+        this.btn = itemView.findViewById(R.id.btn_row_vote);
         itemView.setOnClickListener(this);
     }
 

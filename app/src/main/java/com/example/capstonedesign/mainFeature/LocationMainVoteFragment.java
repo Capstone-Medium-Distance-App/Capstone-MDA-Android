@@ -19,8 +19,11 @@ import com.example.capstonedesign.Retrofit.RetrofitClient;
 import com.example.capstonedesign.mainVote.Vmodel;
 import com.example.capstonedesign.mainVote.VmyAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,15 +50,15 @@ public class LocationMainVoteFragment extends Fragment {
         call.enqueue(new Callback<ArrayList<voteStatus>>() {
             @Override
             public void onResponse(Call<ArrayList<voteStatus>> call, Response<ArrayList<voteStatus>> response) {
-                System.out.println("arrayList<voteStatus> DATA RECEIVE SUCCESS!!!");
                 System.out.println("=========================================================");
-                Log.d("TAG",response.code()+"");
-                System.out.println(response);
+                System.out.println("arrayList<voteStatus> DATA RECEIVE SUCCESS!");
                 arr = response.body();
-                for (int i = 0; i < arr.size(); i++) {
-                    System.out.println(arr.get(i).getPlacePname() + " / "+arr.get(i).getPVotedUserName());
+                for(int i=0; i<arr.size(); i++){
+                    System.out.println(arr.get(i).getPvotedUserName()+" vote "+arr.get(i).getPlacePname()+"("+arr.get(i).getPid()+")");
                 }
                 System.out.println("=========================================================");
+                vmyAdapter = new VmyAdapter(getActivity(),getMyList());
+                recyclerView.setAdapter(vmyAdapter);
             }
 
             @Override
@@ -63,9 +66,6 @@ public class LocationMainVoteFragment extends Fragment {
 
             }
         });
-
-        vmyAdapter = new VmyAdapter(getActivity(),getMyList());
-        recyclerView.setAdapter(vmyAdapter);
 
 //        button1 = rootView.findViewById(R.id.btn_vote1);
 //        button2 = rootView.findViewById(R.id.btn_vote2);
@@ -82,7 +82,8 @@ public class LocationMainVoteFragment extends Fragment {
         for(int i=0; i<arr.size(); i++){
             Vmodel m = new Vmodel();
             m.setVPlace(arr.get(i).getPlacePname());
-            m.setVName(arr.get(i).getPVotedUserName());
+            m.setVName(arr.get(i).getPvotedUserName());
+            m.setVPlaceId(arr.get(i).getPid());
             vmodels.add(m);
         }
 

@@ -52,7 +52,8 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         int placeId = Integer.parseInt(intent.getStringExtra("ID"));
-        String place =  intent.getStringExtra("PLACE");
+        System.out.println("THIS IS PLACEID : "+placeId);
+//        String place =  intent.getStringExtra("PLACE");
 
         //달력 -> 테스트하기 위해서 LocationSettingFragment에서 일부러 바꾼코드
         //LocationSettingFragment 만들고,
@@ -61,7 +62,7 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //처음 다이얼로그가 뜨면 기본으로 잡혀있는 날짜
-                DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(), callbackMethod, 2021, 5, 23);
+                DatePickerDialog dialog = new DatePickerDialog(LocationFinalSelectActivity.this, callbackMethod, 2021, 5, 23);
 //                Date date = new Date();
 //                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, date.getYear(), date.getMonth(), date.getDay());
                 dialog.show();
@@ -83,7 +84,7 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int hour = c.get(Calendar.HOUR_OF_DAY);
                 int minute = c.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker = new TimePickerDialog(getApplicationContext(), new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog mTimePicker = new TimePickerDialog(LocationFinalSelectActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
 //                        String state = "AM";
@@ -107,36 +108,34 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
         btn_locationfinal_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //android material design time picker 나 날짜를 활용하거나
                 //드롭다운 방식을 사용해서 값을 받아오쟈
                 //time
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
-
-                Call<schDT> call = rc.dataFlowService.schDT(schDate, schTime, placeid);
+                Call<schDT> call = rc.dataFlowService.saveSchDT(schDate, schTime, placeId);
                 call.enqueue(new Callback<schDT>() {
                     @Override
                     public void onResponse(Call<schDT> call, Response<schDT> response) {
-                        final schDT sentData = response.body();
+                        schDT sentData = response.body();
                         System.out.println("schDT DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
                         System.out.println(sentData.toString());
                         //response에서 넘어오는 placeId자리에 schId가 있으니까 getPlaceId로 받고, locationFinishFragment으로 넘기자
                         placeid = sentData.getPlaceId();
-
                         System.out.println("=========================================================");
+                        Intent intent = new Intent(getApplicationContext(), LocationFinishActivity.class);
+                        intent.putExtra("schId", placeid);
+                        startActivity(intent);
                     }
                     @Override
                     public void onFailure(Call<schDT> call, Throwable t) {
-                        t.printStackTrace();
                         System.out.println("schDT DATA SEND FAIL!!!");
+                        t.printStackTrace();
                     }
                 });
 
-                Intent intent = new Intent(getApplicationContext(), LocationFinishActivity.class);
-                intent.putExtra("schId", placeid);
-                startActivity(intent);
+
             }
         });
 
