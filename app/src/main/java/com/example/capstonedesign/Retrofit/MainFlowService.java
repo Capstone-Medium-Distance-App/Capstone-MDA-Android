@@ -8,9 +8,6 @@ import com.example.capstonedesign.Retrofit.DTO.LocInitSet;
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.rating;
 import com.example.capstonedesign.Retrofit.DTO.userEnter;
-import com.example.capstonedesign.Retrofit.DTO.voteStatus;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -47,6 +44,10 @@ public interface MainFlowService {
             @Field("userLatitude")double userLatitude,
             @Field("userLongitude")double userLongitude
     );
+
+    @FormUrlEncoded
+    @POST("userLogin")
+    Call<String> userLogin(@Field("userName") String userName);
 
     //서버에서 사용자가 선택한 장소에 대한 정보를 받는 메소드
     @GET("/placeDetail/{placeId}")

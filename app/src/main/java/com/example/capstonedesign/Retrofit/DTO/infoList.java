@@ -44,4 +44,22 @@ public class infoList {
 
     @SerializedName("placeType3")
     private String placeType3;
+
+    @Override
+    public String toString() {
+        return "infoList{" +
+                "placeId1=" + placeId1 +
+                ", placeId2=" + placeId2 +
+                ", placeId3=" + placeId3 +
+                ", placeName1='" + placeName1 + '\'' +
+                ", placeName2='" + placeName2 + '\'' +
+                ", placeName3='" + placeName3 + '\'' +
+                ", placeArea1='" + placeArea1 + '\'' +
+                ", placeArea2='" + placeArea2 + '\'' +
+                ", placeArea3='" + placeArea3 + '\'' +
+                ", placeType1='" + placeType1 + '\'' +
+                ", placeType2='" + placeType2 + '\'' +
+                ", placeType3='" + placeType3 + '\'' +
+                '}';
+    }
 }

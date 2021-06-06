@@ -76,6 +76,7 @@ public class LocationMainViewFragment extends Fragment {
         m.setViewTag(info.getPlaceType1());
         m.setView(R.color.orangeC);
         m.setPlaceId(info.getPlaceId1());
+
         models.add(m);
 
         m =new ViewModel();
