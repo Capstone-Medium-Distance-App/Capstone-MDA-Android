@@ -60,6 +60,7 @@ public class ScheduleFragment extends Fragment {
                 System.out.println(receivedData.getUserId());
                 for (int i = 0; i < arr.size(); i++) {
                     System.out.println(arr.get(i).getScheduleName());
+                    System.out.println(arr.get(i).getScheduleId());
                 }
                 System.out.println("=========================================================");
                 myAdapter = new MyAdapter(getActivity(), getMyList());

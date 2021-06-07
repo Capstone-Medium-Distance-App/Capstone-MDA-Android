@@ -71,6 +71,6 @@ public interface MainFlowService {
     );
 
     //schId를 보내면 서버에서 해당 스케쥴을 리턴해줌
-    @GET("schDetail")
+    @GET("schDetail/{schId}")
     Call<ScheduleDto> schDetail(@Path("schId")int schId);
 }

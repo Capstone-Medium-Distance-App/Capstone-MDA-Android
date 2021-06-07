@@ -45,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         holder.imageView.setImageResource(models.get(position).getImg());
         //schId전용
         holder.mSchId.setText(Integer.toString(models.get(position).getSchId()));
+        System.out.println("This is Adapter's schId : "+models.get(position).getSchId());
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

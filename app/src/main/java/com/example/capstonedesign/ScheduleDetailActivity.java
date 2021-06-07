@@ -43,6 +43,7 @@ public class ScheduleDetailActivity extends AppCompatActivity {
         //schedule.MyAdapter에서 보내주는 클릭된 schId값을 전달 받음
         Intent intent = getIntent();
         int schId = intent.getExtras().getInt("schId");
+        System.out.println("This is detail's schId : "+schId);
 
         Call<ScheduleDto> call = rc.mainFlowService.schDetail(schId);
         call.enqueue(new Callback<ScheduleDto>() {
