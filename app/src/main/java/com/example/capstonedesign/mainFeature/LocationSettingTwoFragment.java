@@ -67,7 +67,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                 String schAge = getArguments().getString("txt_age");
                 String schGender = getArguments().getString("txt_gender");
 
-                bundle.putString(schType,"btn_txt");
+                bundle.putString("btn_txt",schType);
 
                 RetrofitClient rc = new RetrofitClient();
                 String schPlaceCate = txt_categ;

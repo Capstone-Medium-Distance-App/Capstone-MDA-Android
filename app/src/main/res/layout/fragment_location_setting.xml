@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="Cafe" />
+            android:text="cafe" />
 
         <Button
             android:layout_marginTop="50dp"
@@ -40,11 +40,11 @@
             android:text="restaurant" />
 
         <Button
-            android:layout_marginTop="50dp"
             android:id="@+id/btn_setting_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Activity" />
+            android:layout_marginTop="50dp"
+            android:text="activity" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

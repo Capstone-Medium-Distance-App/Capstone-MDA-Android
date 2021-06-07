@@ -87,7 +87,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     MarkerOptions place1, place2, place3, mainplace;
     Polyline currentPolyline;
     TextView txt_ex2;
-
+    private String category;
     public LocationMainFragment() { }
 
     public static LocationMainFragment newInstance() {
@@ -102,8 +102,17 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
             switch(menuItem.getItemId())
             {
                 case R.id.cafe:
-//                    menuItem.setIcon(R.drawable.ic_cafe_24);
-//                    menuItem.setTitle("cafe");
+                    Toast.makeText(getActivity(), category, Toast.LENGTH_LONG);
+                    if(category.equals("cafe")) {
+                        menuItem.setIcon(R.drawable.ic_cafe_24);
+                        menuItem.setTitle("cafe");
+                    }else if(category.equals("restaurant")) {
+                        menuItem.setIcon(R.drawable.ic_restaurant_24);
+                        menuItem.setTitle("restaurant");
+                    }else if(category.equals("activity")) {
+                        menuItem.setIcon(R.drawable.ic_act_24);
+                        menuItem.setTitle("activity");
+                    }
                     transaction.replace(R.id.main_location_FrameLayout, fragmentView);
                     transaction.commit();
                     break;
@@ -119,6 +128,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
+        category = getArguments().getString("btn_txt");
 
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottomNavi_main_location);
 //        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

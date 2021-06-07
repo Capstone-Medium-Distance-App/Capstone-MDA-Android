@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/cafe"
-        android:title="Cafe"
-        android:icon="@drawable/ic_cafe_24"
+        android:title="fun"
+        android:icon="@drawable/ic_baseline_emoji_emotions_24"
         />
     <item
         android:id="@+id/vote"
