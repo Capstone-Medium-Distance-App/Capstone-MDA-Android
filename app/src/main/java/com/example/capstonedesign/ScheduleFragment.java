@@ -114,7 +114,7 @@ public class ScheduleFragment extends Fragment {
         for (int i = 0; i < arr.size(); i++) {
              Model m = new Model();
              m.setTitle(arr.get(i).getScheduleName());
-             m.setPeople(arr.get(i).getSchedulePeopleNum());
+             m.setPeople("with "+arr.get(i).getSchedulePeopleNum()+" people");
              m.setPlace(arr.get(i).getSchedulePlaceArea());
              m.setSchId(arr.get(i).getScheduleId());
              String tmp[] = {"1", "1", "1"};
