@@ -207,16 +207,24 @@ public class CalendarFragment extends Fragment {
 
             String tmp[] = new String[3];
             tmp = arr.get(i).getScheduleDate().split("-");
+//            System.out.println("THIS IS SCHEDULE DATA");
+//            System.out.println(arr.get(i).getScheduleDate());
+//            System.out.println("THIS IS CALENDAR DATA");
+//            System.out.println(year+"-"+month+"-"+dayOfMonth);
+            String date = year+"-"+month+"-"+dayOfMonth;
+
             if(
-                    (year == Integer.parseInt(tmp[0]))
-                    &&(month == Integer.parseInt(tmp[1]))
-                    &&(dayOfMonth == Integer.parseInt(tmp[2]))
+                    date.equals(arr.get(i).getScheduleDate())
+//                    (year == Integer.parseInt(tmp[0]))
+//                    &&(month+1 == Integer.parseInt(tmp[1]))
+//                    &&(dayOfMonth == Integer.parseInt(tmp[2]))
             ){
 //                System.out.println(tmp[0]+"/"+tmp[1]+"/"+tmp[2]);
 //                System.out.println("CALENDERSUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 Cmodel c = new Cmodel();
                 c.setTime(arr.get(i).getScheduleTime());
                 c.setTitle(arr.get(i).getScheduleName());
+                cmodels.add(c);
             }
 
         }
