@@ -59,7 +59,7 @@ public class LocationFinishActivity extends AppCompatActivity {
                 //다 받아왔으면 출력에 설정해주면 된다!
                 appoint.setText(recData.getSchName());
                 where.setText(recData.getSchPlaceArea());
-                who.setText(recData.getSchWIthUserName());
+                who.setText("koo, sim, you");
                 place.setText(recData.getSchPlaceName());
             }
 

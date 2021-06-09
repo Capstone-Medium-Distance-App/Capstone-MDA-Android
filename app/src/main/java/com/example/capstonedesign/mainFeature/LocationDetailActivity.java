@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.capstonedesign.R;
@@ -37,6 +39,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         TextView tx = findViewById(R.id.txt_locationdetail_name);
 
+
         Intent intent = getIntent();
         String mTitle = intent.getStringExtra("title");
         int placeId = 0;
@@ -44,6 +47,8 @@ public class LocationDetailActivity extends AppCompatActivity {
 
 
         tx.setText(mTitle);
+        ImageView iv = findViewById(R.id.iv_locationdetail_main);
+        iv.setImageResource(R.drawable.place53);
 
         rc = new RetrofitClient();
         Call<PlaceDto> call = rc.mainFlowService.placeDetail(placeId);
@@ -57,6 +62,8 @@ public class LocationDetailActivity extends AppCompatActivity {
                 Log.d("TAG",response.errorBody()+"");
                 System.out.println(response);
                 curPlace = response.body();
+                TextView t1 = findViewById(R.id.txt_locationdetail_detail);
+                t1.setText(curPlace.getPlaceDescription());
                 curPlaceId = curPlace.getPlaceId();
                 curPlaceName = curPlace.getPlaceName();
                 System.out.println(curPlace.getPlaceArea());
@@ -69,6 +76,23 @@ public class LocationDetailActivity extends AppCompatActivity {
                 System.out.println("=========================================================");
 
                 tx.setText(curPlace.getPlaceName());
+
+                ImageView iv = findViewById(R.id.iv_locationdetail_main);
+                switch (curPlace.getPlaceName()){
+                    case "Cafe Mamas" :
+                        //((ViewGroup) iv.getParent()).removeView(iv);
+                        iv.setImageResource(R.drawable.place53);
+                        break;
+                    case "Tree" :
+                        //((ViewGroup) iv.getParent()).removeView(iv);
+                        iv.setImageResource(R.drawable.place54);
+                        break;
+                    case "Poem":
+                        //((ViewGroup) iv.getParent()).removeView(iv);
+                        iv.setImageResource(R.drawable.place55);
+                        break;
+                }
+                setContentView(iv);
             }
 
             @Override
