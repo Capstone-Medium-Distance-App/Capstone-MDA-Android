@@ -18,11 +18,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".mainFeature.LocationFinishActivity" />
         <activity android:name=".mainFeature.LocationFinalSelectActivity" />
@@ -30,6 +26,13 @@
         <activity android:name=".ScheduleReviewActivity" />
         <activity android:name=".ScheduleDetailActivity" />
         <activity android:name=".mainFeature.MapActivity" />
+        <activity android:name=".SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

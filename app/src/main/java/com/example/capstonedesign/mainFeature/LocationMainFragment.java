@@ -132,7 +132,8 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_location_main, container, false);
-        category = getArguments().getString("btn_txt");
+
+            category = getArguments().getString("btn_txt");
 
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottomNavi_main_location);
 //        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -396,13 +397,13 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 googleMap.clear();
 
 
-                place1 =new MarkerOptions().position(latLng1).title("seungwon").snippet("1h 20m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place2 =new MarkerOptions().position(latLng2).title("kyudo").snippet("1h 00m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place3 =new MarkerOptions().position(latLng3).title("jaeseok").snippet("1h 10m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                mainplace =new MarkerOptions().position(mainlatLng).title("<Meeting>").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
+                place1 =new MarkerOptions().position(latLng1).title("koo").snippet("1h 20m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place2 =new MarkerOptions().position(latLng2).title("sim").snippet("1h 00m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place3 =new MarkerOptions().position(latLng3).title("you").snippet("1h 10m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                mainplace =new MarkerOptions().position(mainlatLng).title("<Here!!>").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
                 googleMap.addMarker(place1);
 
-                if(userName.equals("kyu"))
+                if(userName.equals("sim"))
                 {
                     googleMap.addMarker(place2);
                     googleMap.addMarker(place3);
