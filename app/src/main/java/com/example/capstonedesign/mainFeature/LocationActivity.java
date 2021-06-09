@@ -39,19 +39,16 @@ public class LocationActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("id")!=null) {
-            id = intent.getStringExtra("id");
-        }
-            if (id.equals("test")) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frameLayout2, fragmentMainLocation).commitAllowingStateLoss();
-            }
+        id = intent.getStringExtra("idid");
 
-            else {
+//        if(intent.getStringExtra("idid")!=null) {
+//            id = intent.getStringExtra("idid");
+//        }
+
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.frameLayout2, fragmentSetting).commitAllowingStateLoss();
 
-            }
+            
 
         //   FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //   fragmentTransaction.add(R.id.ContentLayout, StudyFragment.newInstance()).commit();

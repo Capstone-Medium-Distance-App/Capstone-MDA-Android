@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                         userId = Integer.parseInt(response.body());
                         System.out.println("=====================================");
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
+                        startActivity(intent);}
+
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {

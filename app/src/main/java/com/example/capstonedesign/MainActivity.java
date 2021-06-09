@@ -39,13 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i("LocationActivity",id);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if(id.equals("test")) {
-            Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
-            startActivity(intent);
-        }else{
-            transaction.replace(R.id.frameLayout, fragmentLocationStart).commitAllowingStateLoss();
 
-        }
+        transaction.replace(R.id.frameLayout, fragmentLocationStart).commitAllowingStateLoss();
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
