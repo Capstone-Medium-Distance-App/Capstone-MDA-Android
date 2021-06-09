@@ -30,4 +30,15 @@ public class LocInitSet {
     @SerializedName("schPlaceCate")
     private String schPlaceCate;
 
+    @Override
+    public String toString() {
+        return "LocInitSet{" +
+                "schName='" + schName + '\'' +
+                ", schAge='" + schAge + '\'' +
+                ", schGender='" + schGender + '\'' +
+                ", schPeople='" + schPeople + '\'' +
+                ", schType='" + schType + '\'' +
+                ", schPlaceCate='" + schPlaceCate + '\'' +
+                '}';
+    }
 }

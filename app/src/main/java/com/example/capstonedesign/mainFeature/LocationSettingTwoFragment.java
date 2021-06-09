@@ -71,7 +71,10 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
 
                 RetrofitClient rc = new RetrofitClient();
                 String schPlaceCate = txt_categ;
+                LocInitSet loc = new LocInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+                System.out.println(loc.toString());
                 Call<LocInitSet> call = rc.mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+                //Call<LocInitSet> call = rc.mainFlowService.locationInitSet(loc);
                 call.enqueue(new Callback<LocInitSet>() {
                     @Override
                     public void onResponse(Call<LocInitSet> call, Response<LocInitSet> response) {
@@ -79,7 +82,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
                         System.out.println("=========================================================");
                         Log.d("TAG",response.code()+"");
                         Log.d("TAG",response.errorBody()+"");
-                        System.out.println(response);
+                        System.out.println(response.body());
                         System.out.println("=========================================================");
                         System.out.println("=========================================================");
 

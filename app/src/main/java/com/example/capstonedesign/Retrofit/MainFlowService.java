@@ -35,6 +35,10 @@ public interface MainFlowService {
             @Field("schPlaceCate")String schCate
     );
 
+//    @FormUrlEncoded
+//    @POST("locationInitSet")
+//    Call<LocInitSet> locationInitSet(@Field("loc")LocInitSet loc);
+
     //서버로 사용자 자신의 위치를 보내는 메소드
     //데이터가 넘어갔는지 확인할려면 '메인주소/client_enter'으로 접속해보면 확인 가능
     @FormUrlEncoded
