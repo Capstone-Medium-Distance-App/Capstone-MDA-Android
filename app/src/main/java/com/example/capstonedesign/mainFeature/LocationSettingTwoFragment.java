@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class LocationSettingTwoFragment extends Fragment implements  CompoundButton.OnCheckedChangeListener  {
    public LocationSettingTwoFragment() { }
     private CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7,cb8;
-    private TextView txt_category;
+    private TextView txt_category,category_name;
     Fragment locationMainFragment = new LocationMainFragment();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_location_setting_two, container, false);
         Button button = rootView.findViewById(R.id.btn_locationsettingtwo);
         txt_category = rootView.findViewById(R.id.txt_category);
+        category_name = rootView.findViewById(R.id.category_name);
 
         cb1 = rootView.findViewById(R.id.cb_1);
         cb2 = rootView.findViewById(R.id.cb_2);
@@ -64,6 +65,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         String schGender = getArguments().getString("txt_gender");
 
         if(schType.equals("cafe")){
+            category_name.setText("Cafe Category");
             cb1.setText("Pic_of_day");
             cb2.setText("Good_vibes");
             cb3.setText("Date");
@@ -73,6 +75,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
             cb7.setText("Meeting_room");
             cb8.setText("Franchise");
         } else if (schType.equals("restaurant")) {
+            category_name.setText("Restaurant Category");
             cb1.setText("Western_Food");
             cb2.setText("Korean_Food");
             cb3.setText("Japenese_Food");
@@ -82,6 +85,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
             cb7.setText("Franchise");
             cb8.setText("Family_meal");
         }else if(schType.equals("activity")){
+            category_name.setText("Activity Category");
             cb1.setText("Active");
             cb2.setText("Shopping");
             cb3.setText("Date");
