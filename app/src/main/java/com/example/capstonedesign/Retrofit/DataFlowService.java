@@ -38,10 +38,10 @@ public interface DataFlowService {
 
     @FormUrlEncoded
     @POST("schDT")
-    Call<schDT> saveSchDT(
+    Call<Integer> saveSchDT(
             @Field("schDate") String schDate,
             @Field("schTime") String schTime,
-            @Field("placeId") int placeId
+            @Field("placeId") String placeId
     );
 
 

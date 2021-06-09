@@ -113,23 +113,23 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
                 //time
                 // https://android-arsenal.com/details/1/7701
                 // https://androidexample365.com/material-time-picker-for-developer/
-                Call<schDT> call = rc.dataFlowService.saveSchDT(schDate, schTime, placeId);
-                call.enqueue(new Callback<schDT>() {
+                Call<Integer> call = rc.dataFlowService.saveSchDT(schDate, schTime, Integer.toString(placeId));
+                call.enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Call<schDT> call, Response<schDT> response) {
-                        schDT sentData = response.body();
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
                         System.out.println("schDT DATA SEND SUCCESS!!!");
                         System.out.println("=========================================================");
-                        System.out.println(sentData.toString());
+                        System.out.println(response.body().toString());
                         //response에서 넘어오는 placeId자리에 schId가 있으니까 getPlaceId로 받고, locationFinishFragment으로 넘기자
-                        placeid = sentData.getPlaceId();
+                        placeid = response.body();
                         System.out.println("=========================================================");
                         Intent intent = new Intent(getApplicationContext(), LocationFinishActivity.class);
                         intent.putExtra("schId", placeid);
                         startActivity(intent);
                     }
                     @Override
-                    public void onFailure(Call<schDT> call, Throwable t) {
+                    public void onFailure(Call<Integer> call, Throwable t) {
                         System.out.println("schDT DATA SEND FAIL!!!");
                         t.printStackTrace();
                     }

@@ -38,18 +38,20 @@ public class ScheduleReviewActivity extends AppCompatActivity {
         schId = intent.getExtras().getInt("schId");
 
 
-        Call<rating> call = rc.mainFlowService.userRate(userId, conditionEval, schId);
-        call.enqueue(new Callback<rating>() {
+        Call<String> call = rc.mainFlowService.userRate(userId, conditionEval, schId);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<rating> call, Response<rating> response) {
-                final rating sentData = response.body();
+            public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println("rating DATA SEND SUCCESS!!!");
                 System.out.println("=========================================================");
-                System.out.println(sentData.toString());
+                System.out.println(response.toString());
                 System.out.println("=========================================================");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
             }
             @Override
-            public void onFailure(Call<rating> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 t.printStackTrace();
                 System.out.println("rating DATA SEND FAIL!!!");
             }

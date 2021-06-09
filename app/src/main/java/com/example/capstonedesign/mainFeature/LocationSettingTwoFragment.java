@@ -56,7 +56,7 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         cb8.setOnCheckedChangeListener(this);
         Bundle bundle = new Bundle();
 
-        String txt_categ = txt_category.getText().toString();
+
 
         String schName = getArguments().getString("edit_name");
         String schPeople = getArguments().getString("edit_num");
@@ -98,14 +98,14 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String txt_categ = txt_category.getText().toString();
                 bundle.putString("btn_txt",schType);
 
                 RetrofitClient rc = new RetrofitClient();
                 String schPlaceCate = txt_categ;
                 LocInitSet loc = new LocInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
                 System.out.println(loc.toString());
-                Call<LocInitSet> call = rc.mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schType, schPlaceCate);
+                Call<LocInitSet> call = rc.mainFlowService.locationInitSet(schName, schAge, schGender, schPeople, schPlaceCate, schType);
                 //Call<LocInitSet> call = rc.mainFlowService.locationInitSet(loc);
                 call.enqueue(new Callback<LocInitSet>() {
                     @Override

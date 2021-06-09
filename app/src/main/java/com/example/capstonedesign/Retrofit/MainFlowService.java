@@ -68,7 +68,7 @@ public interface MainFlowService {
     //평점을 보내는 메소드
     @FormUrlEncoded
     @POST("rating")
-    Call<rating> userRate(
+    Call<String> userRate(
             @Field("userId") int userId,
             @Field("conditionEval") int conditionEval,
             @Field("schId") int schId
