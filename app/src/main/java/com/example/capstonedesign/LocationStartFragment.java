@@ -40,11 +40,11 @@ public class LocationStartFragment extends Fragment {
         });
 
         //Toolbar -> Nothing.version
-        Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((MainActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
+//        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+//        ActionBar actionBar = ((MainActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         return rootView;
 

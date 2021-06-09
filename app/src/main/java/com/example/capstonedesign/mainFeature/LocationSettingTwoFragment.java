@@ -53,19 +53,47 @@ public class LocationSettingTwoFragment extends Fragment implements  CompoundBut
         cb6.setOnCheckedChangeListener(this);
         cb7.setOnCheckedChangeListener(this);
         cb8.setOnCheckedChangeListener(this);
+        Bundle bundle = new Bundle();
 
+        String txt_categ = txt_category.getText().toString();
+
+        String schName = getArguments().getString("edit_name");
+        String schPeople = getArguments().getString("edit_num");
+        String schType = getArguments().getString("btn_txt");
+        String schAge = getArguments().getString("txt_age");
+        String schGender = getArguments().getString("txt_gender");
+
+        if(schType.equals("cafe")){
+            cb1.setText("Pic_of_day");
+            cb2.setText("Good_vibes");
+            cb3.setText("Date");
+            cb4.setText("Brunch");
+            cb5.setText("Studying");
+            cb6.setText("Dessert");
+            cb7.setText("Meeting_room");
+            cb8.setText("Franchise");
+        } else if (schType.equals("restaurant")) {
+            cb1.setText("Western_Food");
+            cb2.setText("Korean_Food");
+            cb3.setText("Japenese_Food");
+            cb4.setText("Date");
+            cb5.setText("Good_vibes");
+            cb6.setText("Anniversary");
+            cb7.setText("Franchise");
+            cb8.setText("Family_meal");
+        }else if(schType.equals("activity")){
+            cb1.setText("Active");
+            cb2.setText("Shopping");
+            cb3.setText("Date");
+            cb4.setText("Friend");
+            cb5.setText("healing");
+            cb6.setText("Kids");
+            cb7.setText("Anniversary");
+            cb8.setText("Pet");
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Bundle bundle = new Bundle();
-                String txt_categ = txt_category.getText().toString();
-
-                String schName = getArguments().getString("edit_name");
-                String schPeople = getArguments().getString("edit_num");
-                String schType = getArguments().getString("btn_txt");
-                String schAge = getArguments().getString("txt_age");
-                String schGender = getArguments().getString("txt_gender");
 
                 bundle.putString("btn_txt",schType);
 

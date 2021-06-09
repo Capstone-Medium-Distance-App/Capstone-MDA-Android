@@ -1,6 +1,8 @@
 package com.example.capstonedesign.mainFeature;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +72,7 @@ import com.example.capstonedesign.mainFeature.FetchURL;
 import com.example.capstonedesign.mainFeature.TaskLoadedCallback;
 
 
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static com.example.capstonedesign.user.UserInfo.userName;
 
 public class LocationMainFragment extends Fragment implements OnMapReadyCallback,TaskLoadedCallback,LocationListener {
@@ -434,10 +438,18 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                 Toast.makeText(getActivity(), "This is EDIT", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.share:
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", "https://capstonedesign.page.link/signIn");
+//                        Uri copyUri = Uri.parse("https://capstonedesign.page.link/signIn");
+//                        ClipData clip = ClipData.newUri(getActivity().getContentResolver(), "URI", copyUri);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getActivity(), "Copy : https://capstonedesign.page.link/signIn", Toast.LENGTH_SHORT).show();
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         googleMap.addMarker(place2);
                         googleMap.addMarker(place3);
                         googleMap.addMarker(mainplace).showInfoWindow();
@@ -449,7 +461,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
                     }
                 },2000);
 
-                Toast.makeText(getActivity(), "This is SHARE", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "This is SHARE", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
