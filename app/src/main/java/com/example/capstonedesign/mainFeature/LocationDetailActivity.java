@@ -21,6 +21,8 @@ import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
 import com.example.capstonedesign.Retrofit.DTO.voteStatus;
 import com.example.capstonedesign.Retrofit.RetrofitClient;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -39,6 +41,8 @@ public class LocationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_detail);
 
         TextView tx = findViewById(R.id.txt_locationdetail_name);
+        TextView tx1 = findViewById(R.id.txt_locationdetail_mood);
+        TextView tx2 = findViewById(R.id.txt_locationdetail_detail);
 
 
         Intent intent = getIntent();
@@ -120,7 +124,8 @@ public class LocationDetailActivity extends AppCompatActivity {
                 System.out.println("=========================================================");
 
                 tx.setText(curPlace.getPlaceName());
-
+                tx1.setText(curPlace.getPlaceType());
+                tx2.setText(curPlace.getPlaceDescription());
 //                setContentView(iv);
             }
 
