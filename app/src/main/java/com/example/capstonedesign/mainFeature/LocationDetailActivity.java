@@ -64,6 +64,34 @@ public class LocationDetailActivity extends AppCompatActivity {
                 //((ViewGroup) iv.getParent()).removeView(iv);
                 iv.setImageResource(R.drawable.place55);
                 break;
+            case "Woori billiard room":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place86);
+                break;
+            case "Amito accessory shop":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place87);
+                break;
+            case "Praha karaoke":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place89);
+                break;
+            case "Mokmyeonsanbang":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place32);
+                break;
+            case "Louis KitchenM":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place33);
+                break;
+            case "Myeongdong Kyoja Main Store":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place34);
+                break;
+            case "Gruka indian restaurant":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place35);
+                break;
         }
 
         rc = new RetrofitClient();
