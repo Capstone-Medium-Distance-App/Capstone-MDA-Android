@@ -75,7 +75,7 @@ public class LocationFinishActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(),"Appointment is completed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Schedule is ready !!",Toast.LENGTH_SHORT).show();
             }
         });
 

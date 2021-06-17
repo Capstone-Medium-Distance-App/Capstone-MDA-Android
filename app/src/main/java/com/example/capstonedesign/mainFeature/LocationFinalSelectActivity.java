@@ -50,6 +50,8 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
         TextView textView_Time = findViewById(R.id.txt_time_ing);
         TextView textView_Date = findViewById(R.id.txt_date_ing);
         Intent intent = getIntent();
+        String place = intent.getStringExtra("PLACE");
+        textView.setText(place);
 
         int placeId = Integer.parseInt(intent.getStringExtra("ID"));
         System.out.println("THIS IS PLACEID : "+placeId);
@@ -73,9 +75,10 @@ public class LocationFinalSelectActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
             {
-                textView_Date.setText(year + "." + monthOfYear + "." + dayOfMonth + "");
+                int monthhhh = monthOfYear+1;
+                textView_Date.setText(year + "." + monthhhh + "." + dayOfMonth + "");
                 //schDate라는 변수에 선택된 값을 받아서, 저장해뒀다가 나중에 전송
-                schDate = year + "-" + monthOfYear + "-" + dayOfMonth;
+                schDate = year + "-" + monthhhh + "-" + dayOfMonth;
             }
         };
 

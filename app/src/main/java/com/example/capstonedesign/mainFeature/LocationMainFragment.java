@@ -399,7 +399,7 @@ public class LocationMainFragment extends Fragment implements OnMapReadyCallback
 
                 place1 =new MarkerOptions().position(latLng1).title("koo").snippet("1h 20m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
                 place2 =new MarkerOptions().position(latLng2).title("sim").snippet("1h 00m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
-                place3 =new MarkerOptions().position(latLng3).title("you").snippet("1h 10m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_person_24));
+                place3 =new MarkerOptions().position(latLng3).title("you").snippet("1h 10m").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_baseline_person_pin_24));
                 mainplace =new MarkerOptions().position(mainlatLng).title("<Here!!>").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_main_meet_24)).draggable(true);
                 googleMap.addMarker(place1);
 

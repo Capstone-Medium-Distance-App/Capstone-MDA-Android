@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.capstonedesign.R;
 import com.example.capstonedesign.Retrofit.DTO.PlaceDto;
@@ -50,6 +51,21 @@ public class LocationDetailActivity extends AppCompatActivity {
         ImageView iv = findViewById(R.id.iv_locationdetail_main);
         iv.setImageResource(R.drawable.place53);
 
+        switch (mTitle){
+            case "Cafe Mamas" :
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place53);
+                break;
+            case "Tree" :
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place54);
+                break;
+            case "Poem":
+                //((ViewGroup) iv.getParent()).removeView(iv);
+                iv.setImageResource(R.drawable.place55);
+                break;
+        }
+
         rc = new RetrofitClient();
         Call<PlaceDto> call = rc.mainFlowService.placeDetail(placeId);
 
@@ -77,22 +93,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
                 tx.setText(curPlace.getPlaceName());
 
-                ImageView iv = findViewById(R.id.iv_locationdetail_main);
-                switch (curPlace.getPlaceName()){
-                    case "Cafe Mamas" :
-                        //((ViewGroup) iv.getParent()).removeView(iv);
-                        iv.setImageResource(R.drawable.place53);
-                        break;
-                    case "Tree" :
-                        //((ViewGroup) iv.getParent()).removeView(iv);
-                        iv.setImageResource(R.drawable.place54);
-                        break;
-                    case "Poem":
-                        //((ViewGroup) iv.getParent()).removeView(iv);
-                        iv.setImageResource(R.drawable.place55);
-                        break;
-                }
-                setContentView(iv);
+//                setContentView(iv);
             }
 
             @Override
@@ -126,6 +127,7 @@ public class LocationDetailActivity extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
+                Toast.makeText(getApplicationContext(),"Vote Complete!!",Toast.LENGTH_LONG);
                     finish();
 //                ((LocationActivity)getActivity()).replaceFragment(new LocationMainFragment());
             }

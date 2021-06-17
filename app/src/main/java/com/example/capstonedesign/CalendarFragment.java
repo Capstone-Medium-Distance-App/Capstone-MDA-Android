@@ -55,7 +55,7 @@ public class CalendarFragment extends Fragment {
     MaterialCalendarView materialCalendarView;
     CalendarView mCalendar;
     String[] dates;
-
+    private int year=2021,month=06,dayy=12;
     public CalendarFragment() { }
 
 //com.skyhope.eventcalenderlibrary.CalenderEvent로 검색해서 값들 어떻게 집어넣을껀지 확인
@@ -77,6 +77,7 @@ public class CalendarFragment extends Fragment {
                 new SundayDecorator(),
                 new SaturdayDecorator(),
                 oneDayDecorator);
+
 
         //retrofit
         rc = new RetrofitClient();
@@ -272,9 +273,16 @@ public class CalendarFragment extends Fragment {
             for(int i = 0 ; i < Time_Result.length ; i ++){
                 CalendarDay day = CalendarDay.from(calendar);
                 String[] time = Time_Result[i].split("-");
-                int year = Integer.parseInt(time[0]);
-                int month = Integer.parseInt(time[1]);
-                int dayy = Integer.parseInt(time[2]);
+                int[] arr = new int[time.length];
+                for(int j=0; j<time.length;j++){
+                    arr[j] = Integer.parseInt(time[j]);
+                }
+                year = arr[0];
+                month = arr[1];
+                dayy = arr[2];
+//                 year = Integer.parseInt(time[0]);
+//                 month = Integer.parseInt(time[1]);
+//                 dayy = Integer.parseInt(time[2]);
 
                 dates.add(day);
                 calendar.set(year,month-1,dayy);

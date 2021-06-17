@@ -119,10 +119,13 @@ public class ScheduleFragment extends Fragment {
              m.setPlace(arr.get(i).getSchedulePlaceArea());
              m.setSchId(arr.get(i).getScheduleId());
              String tmp[] = {"1", "1", "1"};
-             tmp = arr.get(i).getScheduleDate().split("");
+             tmp = arr.get(i).getScheduleDate().split("-");
 //             if(month > Integer.parseInt(tmp[1]) && day > Integer.parseInt(tmp[2]))
-//                 m.setImg(R.drawable.ic_planned_sch_24);
-//             else
+
+//            System.out.println(Integer.parseInt(tmp[1])+"============="+Integer.parseInt(tmp[2]));
+            if(Integer.parseInt(tmp[1]) >= 6 && Integer.parseInt(tmp[2]) >= 12)
+                 m.setImg(R.drawable.ic_planned_sch_24);
+            else
                  m.setImg(R.drawable.ic_passed_sch_24);
              models.add(m);
 
